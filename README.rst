@@ -16,7 +16,8 @@ Thank you,
 
 Development
 -----------
-This web site is a Pyramid framework based web application.
+This web site is a Pyramid framework based web application. 
+We aims to follow `PEP8 <http://www.python.org/dev/peps/pep-0008/>`_ as style guide for Python Code. 
 
 Join Us
 -------
