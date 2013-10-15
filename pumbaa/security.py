@@ -7,7 +7,7 @@ from pumbaa import models
 
 def group_finder(userid, request):
 
-    user = models.User.objects(id = userid).first()
+    user = models.User.objects(id=userid).first()
     
     if user:
         return ["r:%s"%role.name for role in user.roles]
@@ -21,7 +21,7 @@ class RequestWithUserAttribute(Request):
     def user(self):
         userid = unauthenticated_userid(self)
         if userid is not None:
-            user = models.User.objects(id = userid).first()
+            user = models.User.objects(id=userid).first()
             return user
         
     @reify
