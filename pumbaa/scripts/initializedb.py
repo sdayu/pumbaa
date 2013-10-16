@@ -28,7 +28,7 @@ def main(argv=sys.argv):
 
     models.initial(settings)
     
-    role_names = ['admin', 'member', 'staff', 'lecturer']
+    role_names = ['admin', 'lecturer', 'staff', 'member', 'anonymous']
     
     for rname in role_names:
         role = models.Role.objects(name=rname).first()
@@ -46,6 +46,7 @@ def main(argv=sys.argv):
         admin = models.User(username=adminuser)
         admin.first_name = 'Administrator'
         admin.last_name = 'CoE'
+        admin.status = 'activate'
         admin.email = 'admin@pumbaa.coe.psu.ac.th'
         admin.password = sm.get_hash_password(adminpass)
         admin.roles.append(models.Role.objects(name='admin').first())

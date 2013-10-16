@@ -12,6 +12,7 @@ requires = [
     'pyramid',
     'pyramid_mako',
     'pyramid_debugtoolbar',
+    'pyramid_beaker',
     'waitress',
     'mongoengine',
     'velruse',
