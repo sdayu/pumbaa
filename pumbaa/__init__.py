@@ -8,7 +8,7 @@ from pyramid_beaker import session_factory_from_settings
 
 from pumbaa import models
 from pumbaa.routes import add_routes
-from pumbaa.security import group_finder
+from pumbaa.acl import group_finder
 
 def main(global_config, **settings):
     authn_policy = AuthTktAuthenticationPolicy(settings.get('pumbaa.secret'), callback=group_finder)
@@ -29,7 +29,7 @@ def main(global_config, **settings):
     add_routes(config)
     config.scan('pumbaa.views')
     
-    from .security import RequestWithUserAttribute
+    from .request_factory import RequestWithUserAttribute
     config.set_request_factory(RequestWithUserAttribute)
 
     return config.make_wsgi_app()

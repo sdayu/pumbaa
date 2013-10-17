@@ -28,7 +28,7 @@ def main(argv=sys.argv):
 
     models.initial(settings)
     
-    role_names = ['admin', 'lecturer', 'staff', 'member', 'anonymous']
+    role_names = ['admin', 'lecturer', 'staff', 'moderator', 'member', 'anonymous']
     
     for rname in role_names:
         role = models.Role.objects(name=rname).first()

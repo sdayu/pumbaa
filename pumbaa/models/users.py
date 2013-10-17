@@ -41,7 +41,7 @@ class User(me.Document):
     default_profile = me.StringField(default='pumbaa.coe.psu.ac.th')
     online_profiles = me.ListField(me.EmbeddedDocumentField(Profile))
     
-    status = me.StringField(max_length=100, required=True, default="wait for approval")
+    status = me.StringField(max_length=100, required=True, default='wait for approval')
     
     registration_date = me.DateTimeField(required=True, default=datetime.datetime.now)
     updated_date = me.DateTimeField(required=True, default=datetime.datetime.now)
@@ -61,6 +61,11 @@ class User(me.Document):
         for profile in self.online_profiles:
             if profile.domain == domain:
                 return profile
+    
+    def get_role(self, name):
+        for role in self.roles:
+            if role.name == name:
+                return role
         
 class Role(me.Document):
     meta = {'collection' : 'roles'}

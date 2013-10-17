@@ -29,6 +29,12 @@ def validate_username(form, field):
     if user is not None:
         raise validators.ValidationError(
             'This user: %s is available on system'% field.data)
+    
+    if field.data.lower() in ['admin', 'administrator', 'lecturer', 'staff', 
+                      'moderator', 'member', 'anonymous', 'pumbaa', 
+                      'master', 'student', 'user', 'manager', 'coe']:
+        raise validators.ValidationError(
+            'This username: %s is not allowed'% field.data)
         
 class Login(Form): 
     username = fields.TextField('Username or Email', validators=[validators.InputRequired()])

@@ -70,7 +70,9 @@
 		  </%doc>
 		  ${form.came_from}
 		  <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+		  <p><a href="${request.route_path('register')}">register</a></p>
 		</form>
+		
 	</div>
 	<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 		<form id="facebook" action="${login_url(request, 'facebook')}" method="post">

@@ -8,13 +8,26 @@ from pyramid.security import Everyone
 from pyramid.security import Authenticated
 from pyramid.security import ALL_PERMISSIONS
 
+from pumbaa import models
+
+def group_finder(userid, request):
+
+    user = models.User.objects(id=userid).first()
+    
+    if user:
+        return ["role:%s"%role.name for role in user.roles]
+    
 class RootFactory(object):
 
     @property
     def __acl__(self):
         
         acls = [(Allow, Authenticated, 'login'),
-               (Allow, 'r:admin', ALL_PERMISSIONS) ]
+               (Allow, 'role:admin', ALL_PERMISSIONS)]
+        
+        roles = models.Role.objects.all()
+        for role in roles:
+            acls.append((Allow, 'role:'+role.name, role.name))
 
         return acls
 
