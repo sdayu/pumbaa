@@ -32,7 +32,7 @@ class Topic(me.Document):
     published_date = me.DateTimeField(required=True, default=datetime.datetime.now)
     ip_address  = me.StringField(max_length=100, required=True, default='0.0.0.0')
 
-    author = me.ReferenceField("User", required=True)
+    author = me.ReferenceField("User", dbref=True, required=True)
     comments = me.ListField(me.EmbeddedDocumentField(Comment))
     tags = me.ListField(me.ReferenceField(Tag, dbref=True))
             
