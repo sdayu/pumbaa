@@ -28,7 +28,17 @@
 				</ul>
 			</nav>
 		</div>
-		<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">${next.body()}</div>
+		<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+			## whare am i bar
+			<nav>
+				<ol class="breadcrumb">
+				  <li><a href="${request.route_path('home')}">Home</a></li>
+				  <%block name="whare_am_i"></%block>
+				</ol>
+			</nav>
+			
+			${next.body()}
+		</div>
 	</div>
 </div>
 

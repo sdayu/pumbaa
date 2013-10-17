@@ -1,5 +1,9 @@
-<%inherit file="/base/base_home.mako"/>
-
+<%inherit file="/manager/base/base.mako"/>
+<%block name="whare_am_i">
+	${parent.whare_am_i()}
+	<li><a href="${request.current_route_path()}">Approve user list</a></li>
+</%block>
+<%block name="panel_title">Approve user list</%block>
 <ul>
 	% for user in users:
 	<li>${user.username} 

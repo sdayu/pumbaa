@@ -19,6 +19,7 @@ def add_routes(config):
     config.add_route('accounts.change_username', '/accounts/change_username')
 
     # add manager route
+    config.add_route('manager.index', '/manager')
     config.include(manager_include, route_prefix='/manager')
     
     config.add_static_view('public', 'public', cache_max_age=3600)
