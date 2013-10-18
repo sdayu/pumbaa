@@ -8,13 +8,14 @@ Created on Jan 28, 2013
 
 @author: boatkrap
 '''
+from wtforms import Form
 from wtforms import fields
 from wtforms import validators
 from wtforms.fields import html5
 
 from pumbaa import models
 
-from wtforms.form import Form
+
 
 def validate_email(form, field):
     user = models.User.objects(email=field.data).first()

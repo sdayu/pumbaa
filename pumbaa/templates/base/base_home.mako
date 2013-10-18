@@ -16,19 +16,19 @@
 <div style="padding: 30px;"></div>
 <div class="container">
 	<div class="row">
-		<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+		<div class="col-xs-4 col-sm-4 col-md-3 col-lg-3">
 			<nav>
 				<ul class="nav bs-sidenav">
 					<li class="active">
 						<a href="${request.route_path('manager.users.approve')}">Approve user</a>
 					</li>
 					<li>
-						<a href="#">Topic</a>
+						<a href="${request.route_path('forums.topics.index')}">Topic</a>
 					</li>
 				</ul>
 			</nav>
 		</div>
-		<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+		<div class="col-xs-8 col-sm-8 col-md-9 col-lg-9">
 			## whare am i bar
 			<nav>
 				<ol class="breadcrumb">
