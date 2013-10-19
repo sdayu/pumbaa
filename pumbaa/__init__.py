@@ -1,3 +1,5 @@
+__version__ = '0.0.0'
+
 from pyramid.config import Configurator
 
 from pyramid.authentication import AuthTktAuthenticationPolicy

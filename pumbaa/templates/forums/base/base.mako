@@ -1,8 +1,12 @@
-<%inherit file="/base/base_home.mako"/>
+<%inherit file="/base/default.mako"/>
 <%block name="title">Forums</%block>
-<%block name="whare_am_i"><li><a href="${request.route_path('forums.index')}">Forums</a></li></%block>
 
-<div class="panel panel-default">
+<ol class="breadcrumb">
+<li><a href="${request.route_path('forums.index')}">Forums</a></li>
+<%block name="whare_am_i"></%block>
+</ol>
+
+<div class="panel panel-info">
   <div class="panel-heading">
   	<h1 class="panel-title"><%block name="panel_title">Forums</%block></h1>
   </div>
@@ -11,4 +15,7 @@
 ${next.body()}
 
   </div>
+  <%block name="panel_footer"></%block>
 </div>
+
+<%block name="more_body"></%block>

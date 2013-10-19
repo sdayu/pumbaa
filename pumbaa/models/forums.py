@@ -18,8 +18,8 @@ class Comment(me.EmbeddedDocument):
     created_date = me.DateTimeField(required=True, default=datetime.datetime.now)
     updated_date = me.DateTimeField(required=True, default=datetime.datetime.now)
     published_date = me.DateTimeField(required=True, default=datetime.datetime.now)
-    status = me.StringField(required=True, default='compose')
-    """ status: compose, publish, delete """
+    status = me.StringField(required=True, default='draft')
+    """ status: draft, publish, delete """
     
     ip_address  = me.StringField(max_length=100, required=True, default='0.0.0.0')
     
@@ -35,8 +35,8 @@ class Topic(me.Document):
     updated_date = me.DateTimeField(required=True, default=datetime.datetime.now)
     published_date = me.DateTimeField()
     
-    status = me.StringField(required=True, default='compose')
-    """ status: compose, publish, delete """
+    status = me.StringField(required=True, default='draft')
+    """ status: draft, publish, delete """
     
     ip_address  = me.StringField(max_length=100, required=True, default='0.0.0.0')
 

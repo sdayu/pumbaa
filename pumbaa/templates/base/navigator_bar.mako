@@ -1,3 +1,4 @@
+<%! import pumbaa %>
 	<div class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -22,12 +23,9 @@
               <ul class="dropdown-menu">
               	<li><a href="#about">About</a></li>
             	<li><a href="#contact">Contact</a></li>
-            	<%doc>
                 <li class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-                </%doc>
+                <%doc><li class="dropdown-header">Nav header</li></%doc>
+                <li><a href="#">Pumbaa version ${pumbaa.__version__}</a></li>
               </ul>
             </li>
             

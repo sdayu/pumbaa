@@ -5,13 +5,17 @@ Created on Oct 18, 2013
 '''
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
+from pyramid.response import Response
+
 from pumbaa import models, forms
 
 @view_config(route_name='forums.topics.index', 
-             permission='member',
              renderer='/forums/topics/index.mako')
 def index(request):
-    return dict()
+    topics = models.Topic.objects(status__ne='delete').all()
+    return dict(
+                topics=topics
+                )
 
 @view_config(route_name='forums.topics.compose', 
              permission='member',
@@ -38,3 +42,17 @@ def compose(request):
     
     
     return HTTPFound(location=request.route_path('forums.topics.index'))
+
+@view_config(route_name='forums.topics.view', 
+             renderer='/forums/topics/view.mako')
+def view(request):
+    topic_id = request.matchdict.get('topic_id')
+    title = request.matchdict.get('title')
+    try:
+        topic = models.Topic.objects.with_id(topic_id)
+    except:
+        return Response('Not Found, topic title:%s'%title, status='404 Not Found')
+        
+    return dict(
+                topic=topic
+                )
