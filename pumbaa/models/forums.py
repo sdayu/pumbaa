@@ -47,10 +47,10 @@ class Topic(me.Document):
 class Forum(me.Document):
     meta = {'collection' : 'forums'}
     
-    name = me.StringField(required=True)
+    name = me.StringField(required=True, unique=True)
     description = me.StringField()
     tags = me.ListField(me.StringField(required=True), required=True)
-    status = me.StringField(required=True)
+    status = me.StringField(required=True, default="publish")
     """ status: publish, delete """
     
     created_date = me.DateTimeField(required=True, default=datetime.datetime.now)
@@ -58,4 +58,9 @@ class Forum(me.Document):
     
     author = me.ReferenceField("User", dbref=True, required=True)
     
-            
+    def get_topics(self, limit=None):
+        topics = Topic.objects(tags__in=self.tags)
+        if limit:
+            topics = topics.limit(limit)
+        
+        return topics

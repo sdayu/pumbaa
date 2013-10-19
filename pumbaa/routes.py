@@ -3,10 +3,15 @@ Created on Oct 11, 2013
 
 @author: boatkrap
 '''
+def admin_include(config):
+    config.add_route('admin.forums.index', '/forums')
+    config.add_route('admin.forums.create', '/forums/create')
 
 def manager_include(config):
     config.add_route('manager.users.approve', '/users/approve')
     config.add_route('manager.users.do_approve', '/users/approve/{user_id}')
+    
+    config.add_route('manager.topics.index', '/topics')
 
 def forums_include(config):
     
@@ -19,6 +24,8 @@ def forums_include(config):
     config.add_route('forums.comments.replies', '/topics/{topic_id}/comment/${comment_id}')
     config.add_route('forums.topics.view', '/topics/{topic_id}/{title}')
 
+    config.add_route('forums.view', '/{name}')
+    
 def add_routes(config):
     config.add_route('index', '/')
     
@@ -29,6 +36,10 @@ def add_routes(config):
     config.add_route('logout', '/logout')
     config.add_route('accounts.change_username', '/accounts/change_username')
 
+    # add admin route
+    config.add_route('admin.index', '/admin')
+    config.include(admin_include, route_prefix='/admin')
+    
     # add manager route
     config.add_route('manager.index', '/manager')
     config.include(manager_include, route_prefix='/manager')

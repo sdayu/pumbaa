@@ -1,4 +1,5 @@
 <%inherit file="/base/base.mako"/>
+<%! from pyramid.security import has_permission %>
 <%block name="addition_header">
 <style type="text/css">
 .bs-sidenav {
@@ -23,8 +24,13 @@
 						<a href="${request.route_path('manager.users.approve')}">Approve user</a>
 					</li>
 					<li>
-						<a href="${request.route_path('forums.topics.index')}">Topic</a>
+						<a href="${request.route_path('manager.topics.index')}">Topic</a>
 					</li>
+					% if has_permission('admin', request.context, request):
+					<li>
+						<a href="${request.route_path('admin.index')}">admin</a>
+					</li>
+					% endif
 				</ul>
 			</nav>
 		</div>
@@ -32,8 +38,9 @@
 			## whare am i bar
 			<nav>
 				<ol class="breadcrumb">
+				  <%block name="whare_am_i">
 				  <li><a href="${request.route_path('home')}">Home</a></li>
-				  <%block name="whare_am_i"></%block>
+				  </%block>
 				</ol>
 			</nav>
 			

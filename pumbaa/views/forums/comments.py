@@ -17,12 +17,11 @@ def comment(request):
     title = request.matchdict.get('title')
     topic_id = request.matchdict.get('topic_id')
     form = forms.topics.Comment(request.POST)
-    print('test', request.POST)
+
     if len(request.POST) > 0 and form.validate():
         message = form.data.get('message')
         
     else:
-        print("validate fail", len(request.POST), form.validate())
         return HTTPFound(location=request.route_path('forums.topics.view', topic_id=topic_id, title=title))
     
     topic = models.Topic.objects.with_id(topic_id)
@@ -30,7 +29,7 @@ def comment(request):
                              author=request.user, 
                              status='publish',
                              ip_address=request.environ.get('REMOTE_ADDR'))
-    print("comment", comment.__dict__)
+
     topic.comments.append(comment)
     topic.save()
     

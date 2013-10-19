@@ -24,8 +24,8 @@
               	<li><a href="#about">About</a></li>
             	<li><a href="#contact">Contact</a></li>
                 <li class="divider"></li>
-                <%doc><li class="dropdown-header">Nav header</li></%doc>
-                <li><a href="#">Pumbaa version ${pumbaa.__version__}</a></li>
+                <li class="dropdown-header">Pumbaa</li>
+                <li><a href="#">Version ${pumbaa.__version__}</a></li>
               </ul>
             </li>
             
