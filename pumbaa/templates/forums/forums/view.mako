@@ -12,7 +12,8 @@
 </%block>
 
 <div class="well">
-${forum.description}
+<p>${forum.description}</p>
+<p><b>process tags</b>: ", ".join([tag for tag in forum.tags])</p>
 </div>
 
 <ul class="list-group">

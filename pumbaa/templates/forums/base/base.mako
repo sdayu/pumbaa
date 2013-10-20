@@ -2,8 +2,9 @@
 <%block name="title">Forums</%block>
 
 <ol class="breadcrumb">
-<li><a href="${request.route_path('forums.index')}">Forums</a></li>
-<%block name="whare_am_i"></%block>
+<%block name="whare_am_i">
+	<li><a href="${request.route_path('forums.index')}">Forums</a></li>
+</%block>
 </ol>
 
 <div class="panel panel-info">

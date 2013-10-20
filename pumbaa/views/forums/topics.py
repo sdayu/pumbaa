@@ -39,18 +39,19 @@ def compose(request):
     topic.ip_address = request.environ.get('REMOTE_ADDR', '0.0.0.0')
     
     topic.save()
+    topic.reload()
     
-    
-    return HTTPFound(location=request.route_path('forums.topics.index'))
+    return HTTPFound(location=request.route_path('forums.view', title=title, topic_id=topic.id))
 
 @view_config(route_name='forums.topics.view', 
              renderer='/forums/topics/view.mako')
 def view(request):
     topic_id = request.matchdict.get('topic_id')
     title = request.matchdict.get('title')
-    try:
-        topic = models.Topic.objects.with_id(topic_id)
-    except:
+    
+    topic = models.Topic.objects(id=topic_id, status='publish').first()
+    
+    if topic is None:
         return Response('Not Found, topic title:%s'%title, status='404 Not Found')
         
     return dict(

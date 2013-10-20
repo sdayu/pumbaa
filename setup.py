@@ -17,7 +17,8 @@ requires = [
     'mongoengine',
     'velruse',
     'pycrypto',
-    'wtforms'
+    'wtforms',
+    'markdown'
     ]
 
 from pumbaa import __version__

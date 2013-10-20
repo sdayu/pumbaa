@@ -15,6 +15,10 @@ def manager_include(config):
     config.add_route('manager.users.do_approve', '/users/approve/{user_id}')
     
     config.add_route('manager.topics.index', '/topics')
+    
+    config.add_route('manager.pages.index', '/pages')
+    config.add_route('manager.pages.edit', '/pages/edit/{topic_id}')
+    config.add_route('manager.pages.compose', '/pages/new_page')
 
 def forums_include(config):
     
@@ -50,6 +54,10 @@ def add_routes(config):
     # add forums
     config.add_route('forums.index', '/forums')
     config.include(forums_include, route_prefix='/forums')
+    
+    # pages
+    config.add_route('pages.index', '/pages')
+    config.add_route('pages.view', '/pages/{title}')
     
     # feed
     config.add_route('feeds', '/feeds.xml')

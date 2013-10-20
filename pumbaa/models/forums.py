@@ -44,6 +44,9 @@ class Topic(me.Document):
     comments = me.ListField(me.EmbeddedDocumentField(Comment))
     tags = me.ListField(me.StringField(required=True), required=True)
     
+    page = me.BooleanField(default=False, required=True)
+    comments_disabled = me.BooleanField(default=False, required=True)
+    
 class Forum(me.Document):
     meta = {'collection' : 'forums'}
     

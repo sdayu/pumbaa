@@ -2,8 +2,8 @@
 <%! import markdown %>
 <%block name="title">${topic.title}</%block>
 <%block name="whare_am_i">
-	${parent.whare_am_i()}
-	<li><a href="${request.route_path('forums.topics.index')}">Topics</a></li>
+	<li><a href="${request.route_path('pages.index')}">Pages</a></li>
+	<li><a href="${request.current_route_path()}">${topic.title}</a></li>
 </%block>
 <%block name="panel_title">${topic.title}</%block>
    
@@ -16,10 +16,10 @@
 	 		% endfor
 	 		</ul>
 	  	</div>
-</%block>
-	  	
+</%block>	  	
+
 <section title="topic description">
-${markdown.markdown(topic.description, extensions=['codehilite(linenums=True)']) | n}
+${markdown.markdown(topic.description) | n}
 </section>
 
 <%block name="more_body">
@@ -46,7 +46,7 @@ ${markdown.markdown(topic.description, extensions=['codehilite(linenums=True)'])
 	<g:plusone></g:plusone>
 </span>
 </section>
-
+% if topic.comments_disabled == False:
 <section title="do-comments">
 	<form action="${request.route_path('forums.comments.comment', topic_id=topic.id)}" method="post">
 		<div class="form-group">
@@ -56,7 +56,7 @@ ${markdown.markdown(topic.description, extensions=['codehilite(linenums=True)'])
 		<button type="submit">Submit</button>
 	</form>
 </section>
-
+% endif
 <section title="comments" style="margin-top: 10px;">
 % for comment in topic.comments:
 	<div class="well">

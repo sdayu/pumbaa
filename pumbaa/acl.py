@@ -28,6 +28,10 @@ class RootFactory(object):
         roles = models.Role.objects.all()
         for role in roles:
             acls.append((Allow, 'role:'+role.name, role.name))
+            
+            if role.name in ['admin', 'lecturer', 'staff', 'moderator']:
+                acls.append((Allow, 'role:'+role.name, 'page'))
+        
 
         return acls
 

@@ -32,8 +32,8 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Addition <b class="caret"></b></a>
               <ul class="dropdown-menu">
-              	<li><a href="#about">About</a></li>
-            	<li><a href="#contact">Contact</a></li>
+              	<li><a href="${request.route_path('pages.view', title='About')}">About</a></li>
+            	<li><a href="${request.route_path('pages.view', title='Contact')}">Contact</a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">Pumbaa</li>
                 <li><a href="#">Version ${pumbaa.__version__}</a></li>

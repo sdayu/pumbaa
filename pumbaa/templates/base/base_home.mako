@@ -26,6 +26,11 @@
 					<li>
 						<a href="${request.route_path('manager.topics.index')}">Topic</a>
 					</li>
+					% if has_permission('page', request.context, request):
+					<li>
+						<a href="${request.route_path('manager.pages.index')}">Pages</a>
+					</li>
+					% endif
 					% if has_permission('admin', request.context, request):
 					<li>
 						<a href="${request.route_path('admin.index')}">admin</a>
