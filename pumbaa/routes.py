@@ -6,6 +6,9 @@ Created on Oct 11, 2013
 def admin_include(config):
     config.add_route('admin.forums.index', '/forums')
     config.add_route('admin.forums.create', '/forums/create')
+    
+    config.add_route('admin.users.index', '/users')
+    config.add_route('admin.users.add_role', '/users/{user_id}/roles/{role_id}')
 
 def manager_include(config):
     config.add_route('manager.users.approve', '/users/approve')

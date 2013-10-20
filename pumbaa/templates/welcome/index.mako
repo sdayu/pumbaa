@@ -15,7 +15,7 @@
 		<section>
 		<ul class="list-inline">
 		% for forum in forums:
-		<li><button type="button" class="btn btn-default navbar-btn""><a href="${request.route_path('forums.view', name=forum.name)}">${forum.name}</a></button></li>
+		<li><a class="btn btn-primary" href="${request.route_path('forums.view', name=forum.name)}">${forum.name}</a></li>
 		% endfor
 		</ul>
 		</section>
