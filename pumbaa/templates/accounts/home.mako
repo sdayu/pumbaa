@@ -12,4 +12,6 @@ if (window.location.hash && window.location.hash === "#_=_") {
 % if request.user.status == 'wait for approval':
 This user wait for approval.
 % endif
-This is dummy page for User
+<ul class="list-unstyled">
+<li><b>Roles</b>: ${", ".join([role.name for role in request.user.roles])}</li>
+</ul>
