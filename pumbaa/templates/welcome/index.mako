@@ -12,9 +12,16 @@
 		</div>
 	</div>
 	<div class="col-md-6 col-lg-6">
+		<section>
+		<ul class="list-inline">
+		% for forum in forums:
+		<li><button type="button" class="btn btn-default navbar-btn""><a href="${request.route_path('forums.view', name=forum.name)}">${forum.name}</a></button></li>
+		% endfor
+		</ul>
+		</section>
 		<div class="panel panel-info">
 		  <div class="panel-heading">
-		    <h3 class="panel-title">Recent Topics</h3>
+		    <h3 class="panel-title">Recent Topics <a href="${request.route_path('feeds')}"><img alt="Atom feed" src="/public/images/feed-icon.svg" width=15px/></a></h3>
 		  </div>
 		  <div class="panel-body">
 		  	<ul class="list-unstyled">

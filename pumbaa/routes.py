@@ -48,5 +48,9 @@ def add_routes(config):
     config.add_route('forums.index', '/forums')
     config.include(forums_include, route_prefix='/forums')
     
+    # feed
+    config.add_route('feeds', '/feeds.xml')
+    config.add_route('feeds.forums', '/feeds/{forum_name}.xml')
+    
     config.add_static_view('public', 'public', cache_max_age=3600)
     

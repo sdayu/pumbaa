@@ -11,7 +11,18 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="${request.route_path('home')}">Home</a></li>
+          	<% is_active = False %>
+          	% for check_str in ['home', 'manager', 'admin']:
+	            % if check_str in request.current_route_path():
+	            <li class="active">
+	             <% is_active = True %>
+	            % endif
+            % endfor
+            % if not is_active:
+            <li>
+            % endif
+            	<a href="${request.route_path('home')}">Home</a>
+            </li>
             % if request.user:
             <li><a href="${request.route_path('logout')}">Logout</a></li>
             % else:
@@ -28,7 +39,6 @@
                 <li><a href="#">Version ${pumbaa.__version__}</a></li>
               </ul>
             </li>
-            
           </ul>
         </div><!--/.nav-collapse -->
       </div>

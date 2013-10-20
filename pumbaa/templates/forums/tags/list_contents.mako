@@ -1,12 +1,11 @@
-<%inherit file="/base/default.mako"/>
+<%inherit file="/forums/base/base.mako"/>
 <%block name="title">List contents by tag: ${tag}</%block>
+<%block name="whare_am_i">
+${parent.whare_am_i()}
+<li><a href="${request.route_path('forums.tags.list_tags')}">Tags</a></li>
+</%block>
+<%block name="panel_title">Tag: ${tag}</%block>
 
-<section title="topic">
-	<div class="panel panel-info">
-	  <div class="panel-heading">
-	    <h1 class="panel-title">Tag: ${tag}</h1>
-	  </div>
-	  <div class="panel-body">
 		<ul class="list-group">
 			% for topic in topics:
 		    <li class="list-group-item">
@@ -14,5 +13,3 @@
 		    </li>
 		    % endfor
 		</ul>
-	</div>
-</section>
