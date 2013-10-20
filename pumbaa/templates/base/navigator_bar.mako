@@ -1,3 +1,4 @@
+<%! import pumbaa %>
 	<div class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -10,7 +11,18 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="${request.route_path('home')}">Home</a></li>
+          	<% is_active = False %>
+          	% for check_str in ['home', 'manager', 'admin']:
+	            % if check_str in request.current_route_path():
+	            <li class="active">
+	             <% is_active = True %>
+	            % endif
+            % endfor
+            % if not is_active:
+            <li>
+            % endif
+            	<a href="${request.route_path('home')}">Home</a>
+            </li>
             % if request.user:
             <li><a href="${request.route_path('logout')}">Logout</a></li>
             % else:
@@ -22,15 +34,11 @@
               <ul class="dropdown-menu">
               	<li><a href="#about">About</a></li>
             	<li><a href="#contact">Contact</a></li>
-            	<%doc>
                 <li class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-                </%doc>
+                <li class="dropdown-header">Pumbaa</li>
+                <li><a href="#">Version ${pumbaa.__version__}</a></li>
               </ul>
             </li>
-            
           </ul>
         </div><!--/.nav-collapse -->
       </div>
