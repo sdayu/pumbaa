@@ -20,8 +20,10 @@ requires = [
     'wtforms'
     ]
 
+from pumbaa import __version__
+
 setup(name='pumbaa',
-      version='0.0.0',
+      version=__version__,
       description='pumbaa community site',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[

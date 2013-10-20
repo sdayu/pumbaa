@@ -9,6 +9,7 @@
 	<script src="/public/libs/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="alternate" type="application/atom+xml" title="Pumbaa Atom" href="${request.route_url('feeds')}">
     <%block name="addition_header"></%block>
 </head>
 
