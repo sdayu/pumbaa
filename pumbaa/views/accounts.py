@@ -60,7 +60,7 @@ def login(request):
         hash_password = request.secret_manager.get_hash_password(password)
         user = models.User.objects((me.Q(username=username) | me.Q(email=username))\
                                     & me.Q(password=hash_password)\
-                                    & me.Q(status='activate')).first()
+                                    & me.Q(status__ne='delete')).first()
 
         if user:
             headers = remember(request, str(user.id))

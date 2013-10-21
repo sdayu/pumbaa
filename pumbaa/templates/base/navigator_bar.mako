@@ -36,7 +36,7 @@
             	<li><a href="${request.route_path('pages.view', title='Contact')}">Contact</a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">Pumbaa</li>
-                <li><a href="#">Version ${pumbaa.__version__}</a></li>
+                <li><a href="https://github.com/sdayu/pumbaa">Version ${pumbaa.__version__}</a></li>
               </ul>
             </li>
           </ul>

@@ -15,6 +15,10 @@
 	<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
 		<form action="${request.current_route_path()}" method="post" role="form" class="form-register">
 			% for field in form:
+				<% print(field.type) %>
+				% if field.type == 'BooleanField':
+				<% continue %>
+				% endif
 				<% css_class = 'form-group' %>
 		    	% if field.errors:
 		    	<% css_class += ' has-error' %>
@@ -29,6 +33,9 @@
 		    	${field(class_='form-control', placeholder='Enter '+field.label.text.lower())}
 		  	</div>
 			% endfor
+			<label class="checkbox">
+		    	${form.agree_term} You agree to our terms
+		  	</label>
 			<button type="submit" class="btn btn-primary">ลงทะเบียน</button>
 		</form>
 	</div>

@@ -13,7 +13,7 @@
 
 <div class="well">
 <p>${forum.description}</p>
-<p><b>process tags</b>: ", ".join([tag for tag in forum.tags])</p>
+<p><b>process tags</b>: ${", ".join([tag for tag in forum.tags])}</p>
 </div>
 
 <ul class="list-group">

@@ -1,6 +1,10 @@
 <%inherit file="/forums/base/base.mako"/>
 <%block name="addition_header">
-${parrent.addition_header()}
+	<link rel="stylesheet" type="text/css" href="/public/libs/markdown/pagedown/demo.css" />
+        
+	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Converter.js"></script>
+	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Sanitizer.js"></script>
+	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Editor.js"></script>
 </%block>
 <%block name="title">New Topic</%block>
 <%block name="whare_am_i">
@@ -17,16 +21,42 @@ ${parrent.addition_header()}
 		% endif
 	    ${form.title(class_='form-control', placeholder='Enter title')}
 	</div>
-	<div class="form-group${' has-error' if form.description.errors else ''}">
-	    <label for="description" class="control-label${' has-error' if form.description.errors else ''}">Description</label>
-	    ${form.description(class_='form-control', placeholder='Enter description', rows='5')}
-	    <p>
-	     เขียน description ด้วย <a target="_blank" href="http://en.wikipedia.org/wiki/Markdown">MarkDown</a>
-	    </p>
+	<div class="row">
+		<div class="col-md-6 col-lg-6">
+			<div id="wmd-button-bar"></div>
+			<div class="form-group${' has-error' if form.description.errors else ''}">
+			    <label for="description" class="control-label${' has-error' if form.description.errors else ''}">Description</label>
+			    ${form.description(class_='form-control', placeholder='Enter description', rows='10', id="wmd-input")}
+			    <p style="margin-top: 10px;">
+			     เขียน description ด้วย <a target="_blank" href="http://en.wikipedia.org/wiki/Markdown">MarkDown</a>
+			    </p>
+			</div>
+		</div>
+		<div class="col-md-6 col-lg-6">
+			<b>Preview</b>
+			<div id="wmd-preview" class="well well-sm">ทดสอบ</div>
+		</div>
 	</div>
-	<div class="form-group${' has-error' if form.description.errors else ''}">
+	<div class="form-group${' has-error' if form.tags.errors else ''}">
 	    <label for="tags" class="control-label${' has-error' if form.tags.errors else ''}">Tags</label>
 	     ${form.tags(class_='form-control', placeholder='Enter tags: pumbaa, CoE, tag')}
 	</div>
 	<button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+## markdown script
+<script type="text/javascript">
+    (function () {
+        var converter1 = Markdown.getSanitizingConverter();
+        
+        converter1.hooks.chain("preBlockGamut", function (text, rbg) {
+            return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
+                return "<blockquote>" + rbg(inner) + "</blockquote>\n";
+            });
+        });
+        
+        var editor1 = new Markdown.Editor(converter1);
+        
+        editor1.run();
+    })();
+</script>

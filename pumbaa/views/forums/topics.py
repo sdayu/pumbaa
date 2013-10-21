@@ -41,7 +41,7 @@ def compose(request):
     topic.save()
     topic.reload()
     
-    return HTTPFound(location=request.route_path('forums.view', title=title, topic_id=topic.id))
+    return HTTPFound(location=request.route_path('forums.topics.view', title=title, topic_id=topic.id))
 
 @view_config(route_name='forums.topics.view', 
              renderer='/forums/topics/view.mako')
