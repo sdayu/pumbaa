@@ -17,6 +17,8 @@
 		% for forum in forums:
 		<li><a class="btn btn-primary" href="${request.route_path('forums.view', name=forum.name)}">${forum.name}</a></li>
 		% endfor
+		<li><a class="btn btn-primary" href="${request.route_path('forums.topics.index')}">All topics</a></li></li>
+		<li><a class="btn btn-primary" href="${request.route_path('forums.topics.compose')}">New topics</a></li></li>
 		</ul>
 		</section>
 		<div class="panel panel-info">

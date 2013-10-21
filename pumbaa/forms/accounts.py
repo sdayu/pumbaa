@@ -49,4 +49,4 @@ class Register(Form):
     password_conf = fields.PasswordField('Password Confirm', validators=[validators.InputRequired()])
     first_name = fields.TextField('First name', validators=[validators.InputRequired()])
     last_name = fields.TextField('Last name', validators=[validators.InputRequired()])
-    
+    agree_term = fields.BooleanField('Agree term', validators=[validators.InputRequired()])

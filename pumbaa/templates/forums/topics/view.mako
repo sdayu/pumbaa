@@ -1,5 +1,12 @@
 <%inherit file="/forums/base/base.mako"/>
 <%! import markdown %>
+<%block name="addition_header">
+	<link rel="stylesheet" type="text/css" href="/public/libs/markdown/pagedown/demo.css" />
+        
+	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Converter.js"></script>
+	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Sanitizer.js"></script>
+	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Editor.js"></script>
+</%block>
 <%block name="title">${topic.title}</%block>
 <%block name="whare_am_i">
 	${parent.whare_am_i()}
@@ -49,13 +56,39 @@ ${markdown.markdown(topic.description, extensions=['codehilite(linenums=True)'])
 
 <section title="do-comments">
 	<form action="${request.route_path('forums.comments.comment', topic_id=topic.id)}" method="post">
-		<div class="form-group">
-		    <label for="comment">Comment</label>
-		    <textarea name="message" rows="5" class="form-control" placeholder="Put your comment"></textarea>
+	<div class="row">
+		<div class="col-md-6 col-lg-6">
+			<div id="wmd-button-bar"></div>
+			<div class="form-group">
+			    <label for="comment">Comment</label>
+			    <textarea id="wmd-input" name="message" rows="5" class="form-control" placeholder="Put your comment"></textarea>
+			</div>
 		</div>
+		<div class="col-md-6 col-lg-6">
+			<b>Preview</b>
+			<div id="wmd-preview" class="well well-sm"></div>
+		</div>
+	</div>
 		<button type="submit">Submit</button>
 	</form>
 </section>
+
+## markdown script
+<script type="text/javascript">
+    (function () {
+        var converter1 = Markdown.getSanitizingConverter();
+        
+        converter1.hooks.chain("preBlockGamut", function (text, rbg) {
+            return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
+                return "<blockquote>" + rbg(inner) + "</blockquote>\n";
+            });
+        });
+        
+        var editor1 = new Markdown.Editor(converter1);
+        
+        editor1.run();
+    })();
+</script>
 
 <section title="comments" style="margin-top: 10px;">
 % for comment in topic.comments:
