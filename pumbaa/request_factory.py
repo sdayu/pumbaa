@@ -9,7 +9,7 @@ from pyramid.decorator import reify
 from pyramid.request import Request
 from pyramid.security import unauthenticated_userid, authenticated_userid
 
-from . import cryto
+from . import crypto
 
 class RequestWithUserAttribute(Request):
     @reify
@@ -28,4 +28,4 @@ class RequestWithUserAttribute(Request):
         from pyramid.threadlocal import get_current_registry
         settings = get_current_registry().settings
         
-        return cryto.SecretManager(settings.get('pumbaa.secret', None))
+        return crypto.SecretManager(settings.get('pumbaa.secret', None))

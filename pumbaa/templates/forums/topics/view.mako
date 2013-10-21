@@ -17,10 +17,10 @@
 	 		</ul>
 	  	</div>
 </%block>
-	  	
-<section title="topic description">
+
+<article title="topic description">
 ${markdown.markdown(topic.description, extensions=['codehilite(linenums=True)']) | n}
-</section>
+</article>
 
 <%block name="more_body">
 <section>
@@ -60,8 +60,10 @@ ${markdown.markdown(topic.description, extensions=['codehilite(linenums=True)'])
 <section title="comments" style="margin-top: 10px;">
 % for comment in topic.comments:
 	<div class="well">
-		<p>${comment.message}</p>
+		<section title="comment">
+		${markdown.markdown(comment.message, extensions=['codehilite(linenums=True)']) | n}
 		<p><b>${comment.author.username}</b> | ${comment.published_date}</p>
+		</section>
 	</div>
 % endfor
 </section>

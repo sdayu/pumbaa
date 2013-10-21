@@ -1,4 +1,7 @@
 <%inherit file="/forums/base/base.mako"/>
+<%block name="addition_header">
+${parrent.addition_header()}
+</%block>
 <%block name="title">New Topic</%block>
 <%block name="whare_am_i">
 	${parent.whare_am_i()}

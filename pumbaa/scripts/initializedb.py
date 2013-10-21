@@ -9,7 +9,7 @@ from pyramid.paster import (
 from pyramid.scripts.common import parse_vars
 
 from pumbaa import models
-from pumbaa import security
+from pumbaa import crypto
 
 def usage(argv):
     cmd = os.path.basename(argv[0])
@@ -41,7 +41,7 @@ def main(argv=sys.argv):
     adminpass = 'adminadmin'
     
     admin = models.User.objects(username=adminuser).first()
-    sm = security.SecretManager(settings.get('pumbaa.secret'))
+    sm = crypto.SecretManager(settings.get('pumbaa.secret'))
     if admin is None:
         admin = models.User(username=adminuser)
         admin.first_name = 'Administrator'

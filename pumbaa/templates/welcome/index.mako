@@ -1,6 +1,6 @@
 <%inherit file="/base/default.mako"/>
 <div class="row">
-	<div class="col-md-6 col-lg-6">
+	<div class="col-sm-6 col-md-6 col-lg-6">
 		<div style="font-size: larger;" class="well">
 			<p>
 				ยินดีต้อนรับสู่สังคมพุมบ้า พวกเราต้องการที่จะนำชุมชนของเรากลับคืนมา หากคุณยังจดจำคืนวันอันแสนงดงามและต้องการมีส่วนร่วมในการพัฒนาสังคมแห่งนี้,กรุณาแจ้งความจำนงมาที่ <a href="mailto:burawich@gmail.com?Subject=Pumbaa%20Volunteer">Burawich Pamornnak</a> (CoE18).
@@ -11,7 +11,7 @@
 			</p>
 		</div>
 	</div>
-	<div class="col-md-6 col-lg-6">
+	<div class="col-sm-6 col-md-6 col-lg-6">
 		<section>
 		<ul class="list-inline">
 		% for forum in forums:
