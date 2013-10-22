@@ -8,7 +8,7 @@
   		<div class="panel-heading">
     		<h1 class="panel-title">
     			<a href="${request.route_path('forums.view', name=forum.name)}">${forum.name}</a>
-    			<a href="${request.route_path('feeds.forums', forum_name=forum.name)}"><img alt="Atom feed" src="/public/images/feed-icon.svg" width=15px/></a>
+    			<a href="${request.route_path('forums.feeds.forums', forum_name=forum.name)}"><img alt="Atom feed" src="/public/images/feed-icon.svg" width=15px/></a>
     		</h1>
   		</div>
   		<div class="panel-body">

@@ -66,6 +66,15 @@ class User(me.Document):
         for role in self.roles:
             if role.name == name:
                 return role
+            
+    def get_profile_picture(self):
+        if self.default_profile == 'pumbaa.coe.psu.ac.th':
+            return None
+        profile = self.get_profile(self.default_profile)
+        if profile.domain == 'facebook.com':
+            return '<img src="https://graph.facebook.com/%s/picture">'%profile.username
+        
+        return None
         
 class Role(me.Document):
     meta = {'collection' : 'roles'}

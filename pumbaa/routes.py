@@ -22,16 +22,23 @@ def manager_include(config):
 
 def forums_include(config):
     
-    config.add_route('forums.tags.list_tags', '/topics/tags')
+    config.add_route('forums.tags.index', '/topics/tags')
     config.add_route('forums.tags.list_contents', '/topics/tags/{name}')
+
+    config.add_route('forums.comments.comment', '/topics/{topic_id}/comment')
+    config.add_route('forums.comments.replies', '/topics/{topic_id}/comment/${comment_id}')
     
     config.add_route('forums.topics.index', '/topics')
     config.add_route('forums.topics.compose', '/topics/compose')
-    config.add_route('forums.comments.comment', '/topics/{topic_id}/comment')
-    config.add_route('forums.comments.replies', '/topics/{topic_id}/comment/${comment_id}')
     config.add_route('forums.topics.view', '/topics/{topic_id}/{title}')
 
+    # feed
+    config.add_route('forums.feeds', '/feeds.xml')
+    config.add_route('forums.feeds.forums', '/feeds/{forum_name}.xml')
+    
     config.add_route('forums.view', '/{name}')
+    
+    
     
 def add_routes(config):
     config.add_route('index', '/')
@@ -59,9 +66,6 @@ def add_routes(config):
     config.add_route('pages.index', '/pages')
     config.add_route('pages.view', '/pages/{title}')
     
-    # feed
-    config.add_route('feeds', '/feeds.xml')
-    config.add_route('feeds.forums', '/feeds/{forum_name}.xml')
     
     config.add_static_view('public', 'public', cache_max_age=3600)
     

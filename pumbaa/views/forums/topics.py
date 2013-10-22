@@ -12,7 +12,7 @@ from pumbaa import models, forms
 @view_config(route_name='forums.topics.index', 
              renderer='/forums/topics/index.mako')
 def index(request):
-    topics = models.Topic.objects(status__ne='delete').all()
+    topics = models.Topic.objects(status__ne='delete').order_by('-published_date').all()
     return dict(
                 topics=topics
                 )

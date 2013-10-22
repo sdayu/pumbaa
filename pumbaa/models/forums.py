@@ -62,7 +62,7 @@ class Forum(me.Document):
     author = me.ReferenceField("User", dbref=True, required=True)
     
     def get_topics(self, limit=None):
-        topics = Topic.objects(tags__in=self.tags)
+        topics = Topic.objects(tags__in=self.tags, status='publish').order_by('-published_date')
         if limit:
             topics = topics.limit(limit)
         

@@ -2,7 +2,7 @@
 <%block name="title">List contents by tag: ${tag}</%block>
 <%block name="whare_am_i">
 ${parent.whare_am_i()}
-<li><a href="${request.route_path('forums.tags.list_tags')}">Tags</a></li>
+<li><a href="${request.route_path('forums.tags.index')}">Tags</a></li>
 </%block>
 <%block name="panel_title">Tag: ${tag}</%block>
 

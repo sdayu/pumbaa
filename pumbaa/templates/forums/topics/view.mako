@@ -92,10 +92,11 @@ ${markdown.markdown(topic.description, extensions=['codehilite(linenums=True)'])
 
 <section title="comments" style="margin-top: 10px;">
 % for comment in topic.comments:
-	<div class="well">
+	<div class="well well-sm">
 		<section title="comment">
 		${markdown.markdown(comment.message, extensions=['codehilite(linenums=True)']) | n}
-		<p><b>${comment.author.username}</b> | ${comment.published_date}</p>
+		<p>${'' if comment.author.get_profile_picture() is None else comment.author.get_profile_picture() | n}
+		<b>${comment.author.username}</b> | ${comment.published_date}</p>
 		</section>
 	</div>
 % endfor

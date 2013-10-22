@@ -8,8 +8,8 @@ from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from pumbaa import models
 
-@view_config(route_name='forums.tags.list_tags', renderer="/forums/tags/list_tags.mako")
-def list_tags(request):
+@view_config(route_name='forums.tags.index', renderer="/forums/tags/index.mako")
+def index(request):
     tags = models.Topic.objects.distinct('tags')
     return dict(
                 tags=tags
