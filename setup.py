@@ -18,7 +18,6 @@ requires = [
     'velruse',
     'pycrypto',
     'wtforms',
-    'markdown'
     ]
 
 from pumbaa import __version__

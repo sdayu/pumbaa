@@ -5,13 +5,17 @@
 	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Converter.js"></script>
 	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Sanitizer.js"></script>
 	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Editor.js"></script>
+	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Extra.js"></script>
+	
+	<script type="text/javascript" src="/public/libs/google-code-prettify/prettify.js"></script> 
+	<link rel="stylesheet" type="text/css" href="/public/libs/google-code-prettify/prettify.css" />
 	
 	<link rel="stylesheet" type="text/css" href="/public/libs/select2/3.4.2/select2.css" />
 	<script type="text/javascript" src="/public/libs/select2/3.4.2/select2.js"></script>
 </%block>
 <%block name="title">New Pages</%block>
-<%block name="whare_am_i">
-	${parent.whare_am_i()}
+<%block name="where_am_i">
+	${parent.where_am_i()}
 	<li><a href="${request.route_path('manager.pages.index')}">Pages</a></li>
 	<li><a href="${request.current_route_path()}">New page</a></li>
 </%block>
@@ -59,26 +63,33 @@
 	% endfor
 	</div>
 	<div class="form-group">
-		<button type="submit" class="btn btn-primary">Submit</button>
+		<button type="submit" class="btn btn-primary">Create page</button>
 	</div>
 </form>
 
 ## markdown script
 <script type="text/javascript">
-    (function () {
-        var converter1 = Markdown.getSanitizingConverter();
-        
-        converter1.hooks.chain("preBlockGamut", function (text, rbg) {
-            return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
-                return "<blockquote>" + rbg(inner) + "</blockquote>\n";
-            });
+(function () {
+
+    var converter = Markdown.getSanitizingConverter();
+    
+    converter.hooks.chain("preBlockGamut", function (text, rbg) {
+        return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
+            return "<blockquote>" + rbg(inner) + "</blockquote>\n";
         });
-        
-        var editor1 = new Markdown.Editor(converter1);
-        
-        editor1.run();
-    })();
+    });
+    
+    Markdown.Extra.init(converter, {
+      extensions: "all",
+      highlighter: "prettify"
+    });
+
+    var editor1 = new Markdown.Editor(converter);
+    editor1.hooks.chain("onPreviewRefresh", prettyPrint); // google code prettify
+    editor1.run();
+})();
 </script>
+
 
 ## select2
 <script type="text/javascript">
@@ -87,5 +98,12 @@ $("#tags").select2({
     placeholder: "Enter tags: pumbaa, CoE, tag",
     tokenSeparators: [","],
     maximumInputLength: 30
+});
+</script>
+
+## google-code-prettify
+<script type='text/javascript'>
+document.addEventListener('DOMContentLoaded',function() {
+    prettyPrint();
 });
 </script>
