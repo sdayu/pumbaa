@@ -10,8 +10,8 @@
 	<script type="text/javascript" src="/public/libs/select2/3.4.2/select2.js"></script>
 </%block>
 <%block name="title">New Topic</%block>
-<%block name="whare_am_i">
-	${parent.whare_am_i()}
+<%block name="where_am_i">
+	${parent.where_am_i()}
 	<li><a href="${request.route_path('forums.topics.index')}">Topics</a></li>
 </%block>
 

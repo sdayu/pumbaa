@@ -48,6 +48,7 @@ def add_routes(config):
     config.add_route('home', '/home')
     config.add_route('login', '/login')
     config.add_route('logout', '/logout')
+    config.add_route('accounts.change_password', '/accounts/change_password')
     config.add_route('accounts.change_username', '/accounts/change_username')
 
     # add admin route

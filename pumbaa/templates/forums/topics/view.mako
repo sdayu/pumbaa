@@ -8,8 +8,8 @@
 	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Editor.js"></script>
 </%block>
 <%block name="title">${topic.title}</%block>
-<%block name="whare_am_i">
-	${parent.whare_am_i()}
+<%block name="where_am_i">
+	${parent.where_am_i()}
 	<li><a href="${request.route_path('forums.topics.index')}">Topics</a></li>
 </%block>
 <%block name="panel_title">${topic.title}</%block>

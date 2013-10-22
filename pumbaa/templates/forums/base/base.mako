@@ -2,7 +2,7 @@
 <%block name="title">Forums</%block>
 
 <ol class="breadcrumb">
-<%block name="whare_am_i">
+<%block name="where_am_i">
 	<li><a href="${request.route_path('forums.index')}">Forums</a></li>
 </%block>
 </ol>

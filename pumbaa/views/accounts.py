@@ -101,7 +101,6 @@ def online_login_complete(request):
     domain = context.profile["accounts"][0]['domain']
     user_id  = context.profile["accounts"][0]['userid']
 
-    print("profile_type:", domain, "userid:", user_id)
     
     user = None
     user = models.User.objects(online_profiles__domain='facebook.com',\
@@ -110,6 +109,11 @@ def online_login_complete(request):
     new_user = False
     if not user:
         new_user = True
+        
+        user = models.User.objects(email=context.profile['verifiedEmail']).first()
+        if user:
+            return Response('This Email is available on system, please contact administrator for registration')
+        
         user = models.User()
         profile = models.Profile()
         profile.user_id = user_id
@@ -169,3 +173,33 @@ def login_denied_view(request):
     return Response({
         'result': 'denied',
     })
+
+@view_config(route_name='accounts.change_password', 
+             renderer='/accounts/change_password.mako')
+def change_password(request):
+    form = forms.accounts.Password(request.POST)
+    if len(request.POST) == 0 or not form.validate():
+        return dict(
+                    form=form
+                    )
+    
+    user = request.user
+    user.set_password(form.data.get('password'))
+    
+    user.save()
+    return HTTPFound(location=request.route_path('home'))
+
+@view_config(route_name='accounts.change_username', 
+             renderer='/accounts/change_username.mako')
+def change_username(request):
+    form = forms.accounts.Username(request.POST)
+    if len(request.POST) == 0 or not form.validate():
+        return dict(
+                    form=form
+                    )
+    
+    user = request.user
+    user.username = form.data.get('username')
+    
+    user.save()
+    return HTTPFound(location=request.route_path('home'))

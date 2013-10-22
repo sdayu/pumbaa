@@ -1,6 +1,6 @@
 <%inherit file="/admin/base/base.mako"/>
-<%block name="whare_am_i">
-	${parent.whare_am_i()}
+<%block name="where_am_i">
+	${parent.where_am_i()}
 	<li><a href="${request.current_route_path()}">Forums</a></li>
 </%block>
 <%block name="panel_title">Forums</%block>

@@ -43,7 +43,7 @@
 			## whare am i bar
 			<nav>
 				<ol class="breadcrumb">
-				  <%block name="whare_am_i">
+				  <%block name="where_am_i">
 				  <li><a href="${request.route_path('home')}">Home</a></li>
 				  </%block>
 				</ol>

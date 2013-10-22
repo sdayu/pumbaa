@@ -1,7 +1,7 @@
 <%inherit file="/base/base_home.mako"/>
 <%block name="title">Manager</%block>
-<%block name="whare_am_i">
-	${parent.whare_am_i()}
+<%block name="where_am_i">
+	${parent.where_am_i()}
 	<li><a href="${request.route_path('manager.index')}">Manager</a></li>
 </%block>
 
