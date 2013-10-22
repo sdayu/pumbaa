@@ -12,4 +12,5 @@ Let's share your ideas and make it better. Thank you.</p>
       </div>
 
 ${next.body()}
-</div>
+<%include file="/base/footer.mako"/>
+	</div>

@@ -5,6 +5,9 @@
 	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Converter.js"></script>
 	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Sanitizer.js"></script>
 	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Editor.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="/public/libs/select2/3.4.2/select2.css" />
+	<script type="text/javascript" src="/public/libs/select2/3.4.2/select2.js"></script>
 </%block>
 <%block name="title">New Topic</%block>
 <%block name="whare_am_i">
@@ -34,12 +37,12 @@
 		</div>
 		<div class="col-md-6 col-lg-6">
 			<b>Preview</b>
-			<div id="wmd-preview" class="well well-sm">ทดสอบ</div>
+			<div id="wmd-preview" class="well well-sm"></div>
 		</div>
 	</div>
 	<div class="form-group${' has-error' if form.tags.errors else ''}">
 	    <label for="tags" class="control-label${' has-error' if form.tags.errors else ''}">Tags</label>
-	     ${form.tags(class_='form-control', placeholder='Enter tags: pumbaa, CoE, tag')}
+		${form.tags(style="width:100%")}
 	</div>
 	<button type="submit" class="btn btn-primary">Submit</button>
 </form>
@@ -59,4 +62,14 @@
         
         editor1.run();
     })();
+</script>
+
+## select2
+<script type="text/javascript">
+$("#tags").select2({
+    tags:${tags | n},
+    placeholder: "Enter tags: pumbaa, CoE, tag",
+    tokenSeparators: [","],
+    maximumInputLength: 30
+});
 </script>

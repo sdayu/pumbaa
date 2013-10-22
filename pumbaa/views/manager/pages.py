@@ -9,6 +9,9 @@ from pyramid.response import Response
 
 from pumbaa import models, forms
 
+import json
+import datetime
+
 @view_config(route_name='manager.pages.index', 
              renderer='/manager/pages/index.mako')
 def index(request):
@@ -31,22 +34,30 @@ def compose(request):
         title = form.data.get('title')
         description = form.data.get('description')
         tags = [tag.strip() for tag in form.data.get('tags').split(',')]
+        if '' in tags:
+            tags.remove('')
+        
         comments_disable = form.data.get('comments_disable', None)
+        print("comments_disable::::",comments_disable)
     else:
         form.data['comments_disable'] = 'disable'
         
+        form.comments_disable.data = 'disable'
         if topic_id is not None:
             topic = models.Topic.objects(id=topic_id).first()
             form.title.data = topic.title
             form.description.data = topic.description
             form.tags.data = ", ".join(topic.tags)
             form.comments_disable.data = 'disable' if topic.comments_disabled else 'enable'
+    
         return dict(
+                    tags = json.dumps(models.Topic.objects().distinct('tags')),
                     form = form
                     )
     
     if topic_id:
         topic = models.Topic.objects(id=topic_id).first()
+        topic.updated_date = datetime.datetime.now()
     else:
         topic = models.Topic()
         topic.author = request.user
@@ -59,12 +70,18 @@ def compose(request):
     
     topic.ip_address = request.environ.get('REMOTE_ADDR', '0.0.0.0')
     topic.page = True
-    if comments_disable:
+    if comments_disable is not None:
         if comments_disable == 'enable':
-            topic.comments_disabled = True
-        else:
             topic.comments_disabled = False
+        else:
+            topic.comments_disabled = True
     
+    history = models.TopicHistory(author=request.user, 
+                                  changed_date=topic.updated_date,
+                                  title=topic.title, 
+                                  description=topic.description,
+                                  tags=topic.tags)
+    topic.histories.append(history)
     topic.save()
     
     return HTTPFound(location=request.route_path('pages.view', title=title))

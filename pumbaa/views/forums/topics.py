@@ -8,11 +8,12 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.response import Response
 
 from pumbaa import models, forms
+import json
 
 @view_config(route_name='forums.topics.index', 
              renderer='/forums/topics/index.mako')
 def index(request):
-    topics = models.Topic.objects(status__ne='delete').all()
+    topics = models.Topic.objects(status__ne='delete').order_by('-published_date').all()
     return dict(
                 topics=topics
                 )
@@ -27,8 +28,12 @@ def compose(request):
         title = form.data.get('title')
         description = form.data.get('description')
         tags = [tag.strip() for tag in form.data.get('tags').split(',')]
+        if '' in tags:
+            tags.remove('')
+            
     else:
         return dict(
+                    tags = json.dumps(models.Topic.objects().distinct('tags')),
                     form = form
                     )
     
@@ -38,6 +43,12 @@ def compose(request):
     topic.status = 'publish'
     topic.ip_address = request.environ.get('REMOTE_ADDR', '0.0.0.0')
     
+    history = models.TopicHistory(author=request.user, 
+                                  changed_date=topic.updated_date,
+                                  title=topic.title, 
+                                  description=topic.description,
+                                  tags=topic.tags)
+    topic.histories.append(history)
     topic.save()
     topic.reload()
     

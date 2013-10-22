@@ -6,7 +6,7 @@
 </%block>
 <%block name="panel_title">
 	${forum.name} 
-	<a href="${request.route_path('feeds.forums', forum_name=forum.name)}">
+	<a href="${request.route_path('forums.feeds.forums', forum_name=forum.name)}">
 		<img alt="Atom feed" src="/public/images/feed-icon.svg" width=15px/>
 	</a>
 </%block>

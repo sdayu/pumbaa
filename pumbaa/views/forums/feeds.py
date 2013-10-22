@@ -11,8 +11,8 @@ from pumbaa import models
 
 import datetime
 
-@view_config(route_name="feeds")
-@view_config(route_name="feeds.forums")
+@view_config(route_name="forums.feeds")
+@view_config(route_name="forums.feeds.forums")
 def feed(request):
     
     forum_name = request.matchdict.get('forum_name', None)
