@@ -9,6 +9,8 @@ from pyramid.response import Response
 
 from pumbaa import models, forms
 
+import json
+
 @view_config(route_name='manager.pages.index', 
              renderer='/manager/pages/index.mako')
 def index(request):
@@ -31,17 +33,21 @@ def compose(request):
         title = form.data.get('title')
         description = form.data.get('description')
         tags = [tag.strip() for tag in form.data.get('tags').split(',')]
+        tags.remove('')
         comments_disable = form.data.get('comments_disable', None)
     else:
         form.data['comments_disable'] = 'disable'
         
+        form.comments_disable.data = 'disable'
         if topic_id is not None:
             topic = models.Topic.objects(id=topic_id).first()
             form.title.data = topic.title
             form.description.data = topic.description
             form.tags.data = ", ".join(topic.tags)
             form.comments_disable.data = 'disable' if topic.comments_disabled else 'enable'
+    
         return dict(
+                    tags = json.dumps(models.Topic.objects().distinct('tags')),
                     form = form
                     )
     

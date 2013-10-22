@@ -28,7 +28,8 @@ def available_page_title(form, field):
 class Topic(Form):
     title = fields.TextField('Title', validators=[validators.InputRequired()])
     description = fields.TextAreaField('Description', validators=[validators.InputRequired()])
-    tags = fields.TextField('Tags', validators=[validators.InputRequired()])
+    # tags = fields.TextField('Tags', validators=[validators.InputRequired()])
+    tags = fields.HiddenField('Tags', validators=[validators.InputRequired()])
 
 class Page(Topic):
     title = fields.TextField('Title', validators=[validators.InputRequired(), available_page_title])

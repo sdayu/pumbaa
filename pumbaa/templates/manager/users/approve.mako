@@ -5,6 +5,9 @@
 </%block>
 <%block name="panel_title">Approve user list</%block>
 <ul>
+	% if len(users) == 0:
+	There are no waiting user for approval.
+	% endif
 	% for user in users:
 	<li>${user.username} 
 		<ul>

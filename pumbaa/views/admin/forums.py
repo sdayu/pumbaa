@@ -7,6 +7,8 @@ from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from pumbaa import models, forms
 
+import json
+
 @view_config(route_name='admin.forums.index', 
              permission='admin', 
              renderer='/admin/forums/index.mako')
@@ -24,6 +26,7 @@ def create(request):
     
     if len(request.POST) == 0 or not form.validate():
         return dict(
+                tags = json.dumps(models.Topic.objects().distinct('tags')),
                 form=form
                 )
     else:

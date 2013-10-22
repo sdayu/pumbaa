@@ -8,6 +8,7 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.response import Response
 
 from pumbaa import models, forms
+import json
 
 @view_config(route_name='forums.topics.index', 
              renderer='/forums/topics/index.mako')
@@ -27,8 +28,10 @@ def compose(request):
         title = form.data.get('title')
         description = form.data.get('description')
         tags = [tag.strip() for tag in form.data.get('tags').split(',')]
+        tags.remove('')
     else:
         return dict(
+                    tags = json.dumps(models.Topic.objects().distinct('tags')),
                     form = form
                     )
     

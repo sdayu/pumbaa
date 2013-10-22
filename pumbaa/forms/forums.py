@@ -10,4 +10,4 @@ from wtforms import validators
 class Forum(Form):
     name = fields.TextField('Name', validators=[validators.InputRequired()])
     description = fields.TextAreaField('Description', validators=[validators.InputRequired()])
-    tags = fields.TextField('Process tags', validators=[validators.InputRequired()])
+    tags = fields.HiddenField('Process tags', validators=[validators.InputRequired()])
