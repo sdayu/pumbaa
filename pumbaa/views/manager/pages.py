@@ -38,6 +38,7 @@ def compose(request):
             tags.remove('')
         
         comments_disable = form.data.get('comments_disable', None)
+        print("comments_disable::::",comments_disable)
     else:
         form.data['comments_disable'] = 'disable'
         
@@ -69,11 +70,11 @@ def compose(request):
     
     topic.ip_address = request.environ.get('REMOTE_ADDR', '0.0.0.0')
     topic.page = True
-    if comments_disable:
+    if comments_disable is not None:
         if comments_disable == 'enable':
-            topic.comments_disabled = True
-        else:
             topic.comments_disabled = False
+        else:
+            topic.comments_disabled = True
     
     history = models.TopicHistory(author=request.user, 
                                   changed_date=topic.updated_date,

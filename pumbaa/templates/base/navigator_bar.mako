@@ -23,6 +23,9 @@
             % endif
             	<a href="${request.route_path('home')}">Home</a>
             </li>
+            <li>
+            	<a href="${request.route_path('forums.topics.compose')}">New Topic</a>
+            </li>
             % if request.user:
             <li><a href="${request.route_path('logout')}">Logout</a></li>
             % else:
