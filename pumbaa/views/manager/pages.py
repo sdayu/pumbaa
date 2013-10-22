@@ -10,6 +10,7 @@ from pyramid.response import Response
 from pumbaa import models, forms
 
 import json
+import datetime
 
 @view_config(route_name='manager.pages.index', 
              renderer='/manager/pages/index.mako')
@@ -33,7 +34,9 @@ def compose(request):
         title = form.data.get('title')
         description = form.data.get('description')
         tags = [tag.strip() for tag in form.data.get('tags').split(',')]
-        tags.remove('')
+        if '' in tags:
+            tags.remove('')
+        
         comments_disable = form.data.get('comments_disable', None)
     else:
         form.data['comments_disable'] = 'disable'
@@ -53,6 +56,7 @@ def compose(request):
     
     if topic_id:
         topic = models.Topic.objects(id=topic_id).first()
+        topic.updated_date = datetime.datetime.now()
     else:
         topic = models.Topic()
         topic.author = request.user
@@ -71,6 +75,12 @@ def compose(request):
         else:
             topic.comments_disabled = False
     
+    history = models.TopicHistory(author=request.user, 
+                                  changed_date=topic.updated_date,
+                                  title=topic.title, 
+                                  description=topic.description,
+                                  tags=topic.tags)
+    topic.histories.append(history)
     topic.save()
     
     return HTTPFound(location=request.route_path('pages.view', title=title))

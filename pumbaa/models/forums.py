@@ -25,7 +25,13 @@ class Comment(me.EmbeddedDocument):
     
     author = me.ReferenceField("User", dbref=True)
     
-    
+class TopicHistory(me.EmbeddedDocument):
+    author = me.ReferenceField("User", dbref=True, required=True)
+    changed_date = me.DateTimeField(required=True, default=datetime.datetime.now)
+    title = me.StringField(required=True)
+    description = me.StringField(required=True)
+    tags = me.ListField(me.StringField(required=True), required=True)
+
 class Topic(me.Document):
     meta = {'collection' : 'topics'}
     
@@ -41,11 +47,14 @@ class Topic(me.Document):
     ip_address  = me.StringField(max_length=100, required=True, default='0.0.0.0')
 
     author = me.ReferenceField("User", dbref=True, required=True)
+
     comments = me.ListField(me.EmbeddedDocumentField(Comment))
     tags = me.ListField(me.StringField(required=True), required=True)
     
     page = me.BooleanField(default=False, required=True)
     comments_disabled = me.BooleanField(default=False, required=True)
+    
+    histories = me.ListField(me.EmbeddedDocumentField(TopicHistory))
     
 class Forum(me.Document):
     meta = {'collection' : 'forums'}

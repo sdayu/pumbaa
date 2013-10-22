@@ -16,6 +16,8 @@
 		  <li><a href="${request.route_path('pages.view', title='about')}">เกี่ยวกับ Pumbaa</a></li>
 		  <li><a href="${request.route_path('pages.view', title='history')}">ประวัติ Pumbaa</a></li>
 		  <li><a href="${request.route_path('pages.view', title='contact')}">ติดต่อเรา</a></li>
+		  <li><a href="${request.route_path('pages.view', title='writing guideline')}">แนะนำการเขียน</a></li>
+		  <li><a href="${request.route_path('pages.view', title='become member')}">จะมาเป็นสมาชิกได้อย่างไร</a></li>
 		</ul>
 		</section>
 	</div>

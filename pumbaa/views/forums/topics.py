@@ -28,7 +28,9 @@ def compose(request):
         title = form.data.get('title')
         description = form.data.get('description')
         tags = [tag.strip() for tag in form.data.get('tags').split(',')]
-        tags.remove('')
+        if '' in tags:
+            tags.remove('')
+            
     else:
         return dict(
                     tags = json.dumps(models.Topic.objects().distinct('tags')),
@@ -41,6 +43,12 @@ def compose(request):
     topic.status = 'publish'
     topic.ip_address = request.environ.get('REMOTE_ADDR', '0.0.0.0')
     
+    history = models.TopicHistory(author=request.user, 
+                                  changed_date=topic.updated_date,
+                                  title=topic.title, 
+                                  description=topic.description,
+                                  tags=topic.tags)
+    topic.histories.append(history)
     topic.save()
     topic.reload()
     
