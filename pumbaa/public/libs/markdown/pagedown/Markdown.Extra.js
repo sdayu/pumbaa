@@ -571,7 +571,7 @@
       var language = m1, codeblock = m2;
 
       // adhere to specified options
-      var preclass = self.googleCodePrettify ? ' class="prettyprint linenums"' : '';
+      var preclass = self.googleCodePrettify ? ' class="prettyprint"' : '';
       var codeclass = '';
       if (language) {
         if (self.googleCodePrettify || self.highlightJs) {
