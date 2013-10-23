@@ -67,16 +67,16 @@ class User(me.Document):
             if role.name == name:
                 return role
             
-    def get_profile_picture(self):
+    def get_profile_picture(self, width=50):
         if self.default_profile == 'pumbaa.coe.psu.ac.th':
             return None
         profile = self.get_profile(self.default_profile)
         if profile.domain == 'facebook.com':
-            return '<img src="https://graph.facebook.com/%s/picture"/>'%profile.username
+            return '<img src="https://graph.facebook.com/%s/picture" width="%d"/>'%(profile.username, width)
         if profile.domain == 'twitter.com':
-            return '<img src="%s"/>'%profile.profile_source['photos'][0]['value']
+            return '<img src="%s" width="%d"/>'%(profile.profile_source['photos'][0]['value'], width)
         if profile.domain == 'accounts.google.com':
-            return '<img src="%s" width="50px"/>'%profile.profile_source['photos'][0]['value']
+            return '<img src="%s" width="%d"/>'%(profile.profile_source['photos'][0]['value'], width)
         return None
         
 class Role(me.Document):

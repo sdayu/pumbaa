@@ -54,7 +54,9 @@ document.addEventListener('DOMContentLoaded',function() {
 <%block name="panel_title">${topic.title}
 % if has_permission('topic', request.context, request):
 <span class="pull-right">
-	<a href="${request.route_path('manager.topics.change_status', topic_id=topic.id, status='suspend')}" class="btn btn-primary btn-xs"> X </a>
+	<a href="${request.route_path('manager.topics.change_status', topic_id=topic.id, status='suspend')}" class="btn btn-primary btn-xs">
+	<span class="glyphicon glyphicon-stop" title="คุณมีสิทธิ์หยุดเผยแพร่กระทู้"></span>
+	</a>
 </span>
 % endif
 </%block>

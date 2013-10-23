@@ -21,7 +21,7 @@
 			<nav>
 				<ul class="nav bs-sidenav">
 					<li class="active">
-						<a href="${request.route_path('manager.users.approve')}">Approve user</a>
+						<a href="${request.route_path('manager.users.approve')}">Approve users</a>
 					</li>
 					<li>
 						<a href="${request.route_path('manager.topics.index')}">Topic</a>
