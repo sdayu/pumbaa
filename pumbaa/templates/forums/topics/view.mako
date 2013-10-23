@@ -1,5 +1,8 @@
 <%inherit file="/forums/base/base.mako"/>
-<%! import json %>
+<%! 
+	import json
+	from pyramid.security import has_permission
+ %>
 <%block name="keywords">${", ".join(topic.tags)}</%block>
 <%block name="description">${topic.description[:200]}</%block>
 
@@ -48,7 +51,13 @@ document.addEventListener('DOMContentLoaded',function() {
 	${parent.where_am_i()}
 	<li><a href="${request.route_path('forums.topics.index')}">Topics</a></li>
 </%block>
-<%block name="panel_title">${topic.title}</%block>
+<%block name="panel_title">${topic.title}
+% if has_permission('topic', request.context, request):
+<span class="pull-right">
+	<a href="${request.route_path('manager.topics.change_status', topic_id=topic.id, status='suspend')}" class="btn btn-primary btn-xs"> X </a>
+</span>
+% endif
+</%block>
    
 <%block name="panel_footer">
 	  <div class="panel-footer">

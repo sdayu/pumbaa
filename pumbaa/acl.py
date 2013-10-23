@@ -31,6 +31,7 @@ class RootFactory(object):
             
             if role.name in ['admin', 'lecturer', 'staff', 'moderator']:
                 acls.append((Allow, 'role:'+role.name, 'page'))
+                acls.append((Allow, 'role:'+role.name, 'topic'))
         
 
         return acls

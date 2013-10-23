@@ -15,6 +15,8 @@ def manager_include(config):
     config.add_route('manager.users.do_approve', '/users/approve/{user_id}')
     
     config.add_route('manager.topics.index', '/topics')
+    config.add_route('manager.topics.change_status', '/topics/{topic_id}/status/{status}')
+    config.add_route('manager.topics.problem', '/topics/problem')
     
     config.add_route('manager.pages.index', '/pages')
     config.add_route('manager.pages.edit', '/pages/edit/{topic_id}')
