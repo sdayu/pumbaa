@@ -1,4 +1,8 @@
 <%inherit file="/forums/base/base.mako"/>
+
+<%block name="keywords">${", ".join(set([", ".join(topic.tags) for topic in topics[:10]]))}</%block>
+<%block name="description">${"There are many topics as follow: " + ", ".join(topic.title for topic in topics[:10])}</%block>
+
 <%block name="title">Topics</%block>
 <%block name="where_am_i">
 	${parent.where_am_i()}

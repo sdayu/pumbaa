@@ -1,5 +1,8 @@
 <%inherit file="/forums/base/base.mako"/>
 <%! import json %>
+<%block name="keywords">${", ".join(topic.tags)}</%block>
+<%block name="description">${topic.description[:200]}</%block>
+
 <%block name="addition_header">
 	<link rel="stylesheet" type="text/css" href="/public/libs/markdown/pagedown/demo.css" />
         
@@ -96,7 +99,8 @@ $( document ).ready(function() {
 			<div id="wmd-preview" class="well well-sm"></div>
 		</div>
 	</div>
-		<button type="submit">Share comment</button>
+		<button type="submit">Share comment</button> 
+		แนะนำวิธีการเขียน <a href="${request.route_path('pages.view', title='writing guideline')}">Markdown</a>
 	</form>
 </section>
 % endif

@@ -1,4 +1,7 @@
 <%inherit file="/forums/base/base.mako"/>
+<%block name="keywords">${", ".join(forum.name for forum in forums)}</%block>
+<%block name="description">${", ".join(forum.name for forum in forums)}</%block>
+
 <%block name="title">Forum</%block>
 
 <%block name="panel_title">Forums</%block>
