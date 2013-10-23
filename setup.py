@@ -18,7 +18,7 @@ requires = [
     'velruse',
     'pycrypto',
     'wtforms',
-    'markdown'
+    'google-api-python-client'
     ]
 
 from pumbaa import __version__

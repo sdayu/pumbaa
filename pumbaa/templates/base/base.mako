@@ -2,6 +2,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="keywords" content="<%block name='keywords'></%block>" />
+	<meta name="description" content="<%block name='description'></%block>" />
     <title><%block name="title">Welcome to Pumbaa community</%block></title>
     <script src="/public/libs/jquery/jquery-2.0.3.js"></script>
     <link rel="stylesheet" href="/public/libs/bootstrap/3.0.0/css/bootstrap.min.css">

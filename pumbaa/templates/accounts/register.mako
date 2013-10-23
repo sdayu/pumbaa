@@ -8,6 +8,11 @@
   max-width: 500px;
   margin: 0 auto;
 }
+.slogo{	
+        text-decoration:none;
+		padding: 4px;}
+	.slogo:hover { background:#0099FF;}
+	.slogo:hover img{ visibility:hidden;}
 </style>
 </%block>
 <h1>ลงทะเบียน</h1>
@@ -39,8 +44,11 @@
 		</form>
 	</div>
 	<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-		<form id="facebook" action="${login_url(request, 'facebook')}" method="post">
-		    <button type="submit">Login with Facebook</button>
-		</form>
+		<h3>Register with</h3>
+		<ul class="list-inline">
+			<li><a href="${login_url(request, 'facebook')}"><img src="/public/images/f.png" width="70px" class="slogo"/></a></li>
+			<li><a href="${login_url(request, 'google')}"><img src="/public/images/g.png" width="70px" class="slogo"/></a></li>
+			<li><a href="${login_url(request, 'twitter')}"><img src="/public/images/t.png" width="70px" class="slogo"/></a></li>
+		</ul>
 	</div>
 </div>

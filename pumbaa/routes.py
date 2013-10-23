@@ -15,6 +15,8 @@ def manager_include(config):
     config.add_route('manager.users.do_approve', '/users/approve/{user_id}')
     
     config.add_route('manager.topics.index', '/topics')
+    config.add_route('manager.topics.change_status', '/topics/{topic_id}/status/{status}')
+    config.add_route('manager.topics.problem', '/topics/problem')
     
     config.add_route('manager.pages.index', '/pages')
     config.add_route('manager.pages.edit', '/pages/edit/{topic_id}')
@@ -48,6 +50,7 @@ def add_routes(config):
     config.add_route('home', '/home')
     config.add_route('login', '/login')
     config.add_route('logout', '/logout')
+    config.add_route('accounts.change_password', '/accounts/change_password')
     config.add_route('accounts.change_username', '/accounts/change_username')
 
     # add admin route

@@ -26,6 +26,11 @@
 					<li>
 						<a href="${request.route_path('manager.topics.index')}">Topic</a>
 					</li>
+					% if has_permission('topic', request.context, request):
+					<li>
+						<a href="${request.route_path('manager.topics.problem')}">Topic Problem</a>
+					</li>
+					% endif
 					% if has_permission('page', request.context, request):
 					<li>
 						<a href="${request.route_path('manager.pages.index')}">Pages</a>
@@ -43,7 +48,7 @@
 			## whare am i bar
 			<nav>
 				<ol class="breadcrumb">
-				  <%block name="whare_am_i">
+				  <%block name="where_am_i">
 				  <li><a href="${request.route_path('home')}">Home</a></li>
 				  </%block>
 				</ol>

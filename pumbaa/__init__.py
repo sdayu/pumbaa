@@ -27,6 +27,10 @@ def main(global_config, **settings):
     
     config.include('velruse.providers.facebook')
     config.add_facebook_login_from_settings(prefix='velruse.facebook.')
+    config.include('velruse.providers.google_oauth2')
+    config.add_google_oauth2_login_from_settings(prefix='velruse.google.')
+    config.include('velruse.providers.twitter')
+    config.add_twitter_login_from_settings(prefix='velruse.twitter.')
     
     add_routes(config)
     config.scan('pumbaa.views')

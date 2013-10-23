@@ -1,7 +1,11 @@
 <%inherit file="/forums/base/base.mako"/>
+
+<%block name="keywords">${", ".join(set([", ".join(topic.tags) for topic in topics[:10]]))}</%block>
+<%block name="description">${"There are many topics as follow: " + ", ".join(topic.title for topic in topics[:10])}</%block>
+
 <%block name="title">Topics</%block>
-<%block name="whare_am_i">
-	${parent.whare_am_i()}
+<%block name="where_am_i">
+	${parent.where_am_i()}
 	<li><a href="${request.route_path('forums.topics.index')}">Topics</a></li>
 </%block>
 <%block name="panel_title">Topics</%block>

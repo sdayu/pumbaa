@@ -1,7 +1,7 @@
 <%inherit file="/admin/base/base.mako"/>
 <%! from pumbaa import models %>
-<%block name="whare_am_i">
-	${parent.whare_am_i()}
+<%block name="where_am_i">
+	${parent.where_am_i()}
 	<li><a href="${request.current_route_path()}">Users</a></li>
 </%block>
 <%block name="panel_title">Users</%block>

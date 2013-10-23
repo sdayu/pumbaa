@@ -13,7 +13,7 @@ import json
 @view_config(route_name='forums.topics.index', 
              renderer='/forums/topics/index.mako')
 def index(request):
-    topics = models.Topic.objects(status__ne='delete').order_by('-published_date').all()
+    topics = models.Topic.objects(status='publish').order_by('-published_date').all()
     return dict(
                 topics=topics
                 )

@@ -15,5 +15,8 @@ if (window.location.hash && window.location.hash === "#_=_") {
 <b>Your account wait for approval.</b>
 % endif
 <ul class="list-unstyled">
+<li><b>Profile</b>: ${request.user.default_profile}</li>
 <li><b>Roles</b>: ${", ".join([role.name for role in request.user.roles])}</li>
+<li><a href="${request.route_path('accounts.change_username')}">change username</a></li>
+<li><a href="${request.route_path('accounts.change_password')}">change password</a></li>
 </ul>

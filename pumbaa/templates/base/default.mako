@@ -1,4 +1,6 @@
 <%inherit file="/base/base.mako"/>
+<%block name="keywords">CoE, PSU, Computer Engineering, Prince of Songkla University, Community</%block>
+<%block name="description">This site is for people in CoE</%block>
 <%include file="/base/navigator_bar.mako"/>
     <div class="container">
       <div class="jumbotron">
