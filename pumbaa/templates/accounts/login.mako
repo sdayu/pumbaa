@@ -38,6 +38,13 @@
 	  border-top-left-radius: 0;
 	  border-top-right-radius: 0;
 	}
+	
+	.slogo{	
+        text-decoration:none;
+		padding: 4px;}
+	.slogo:hover { background:#0099FF;}
+	.slogo:hover img{ visibility:hidden;}
+}
 </style>
 </%block>
 
@@ -46,7 +53,7 @@
 <div class="row">
 	<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
 		<form class="form-signin" action="${request.route_path('login')}" method="post">
-		  <h2 class="form-signin-heading">Please sign in</h2>
+		  <h2 class="form-signin-heading">Please log in</h2>
 		  % if len(message) > 0 or form.username.errors or form.password.errors:
 		  <div class="alert alert-danger">
 		  	% if len(message) > 0:
@@ -75,8 +82,11 @@
 		
 	</div>
 	<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-		<form id="facebook" action="${login_url(request, 'facebook')}" method="post">
-		    <button type="submit">Login with Facebook</button>
-		</form>
+		<h3>Login with</h3>
+		<ul class="list-inline">
+			<li><a href="${login_url(request, 'facebook')}"><img src="/public/images/f.png" width="70px" class="slogo"/></a></li>
+			<li><a href="${login_url(request, 'google')}"><img src="/public/images/g.png" width="70px" class="slogo"/></a></li>
+			<li><a href="${login_url(request, 'twitter')}"><img src="/public/images/t.png" width="70px" class="slogo"/></a></li>
+		</ul>
 	</div>
 </div>

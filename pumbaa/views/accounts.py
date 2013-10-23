@@ -97,20 +97,36 @@ def home(request):
 )
 def online_login_complete(request):
     context = request.context
-
+    
     domain = context.profile["accounts"][0]['domain']
     user_id  = context.profile["accounts"][0]['userid']
 
     
     user = None
-    user = models.User.objects(online_profiles__domain='facebook.com',\
+    user = models.User.objects(online_profiles__domain=domain,\
                                 online_profiles__user_id=str(user_id)).first()
+    if 'verifiedEmail' in context.profile:
+        email = context.profile['verifiedEmail']
+    else:
+        email = context.profile['preferredUsername']+"@"+domain
+    
+    if 'name' in context.profile:
+        first_name   = context.profile['name'].get('givenName', None)
+        last_name    = context.profile['name'].get('familyName', None)
+        if first_name is None:
+            if 'formatted' in context.profile['name']:
+                first_name = context.profile['name']['formatted']
+                last_name = 'No Last Name'
+    else:
+        names = context.profile['displayName'].split(' ')
+        first_name   = names[0]
+        last_name    = names[-1]
     
     new_user = False
     if not user:
         new_user = True
         
-        user = models.User.objects(email=context.profile['verifiedEmail']).first()
+        user = models.User.objects(email=email).first()
         if user:
             return Response('This Email is available on system, please contact administrator for registration')
         
@@ -119,9 +135,10 @@ def online_login_complete(request):
         profile.user_id = user_id
         profile.domain = domain
         
-        user.first_name = context.profile['name']['givenName']
-        user.last_name = context.profile['name']['familyName']
-        user.email = context.profile['verifiedEmail']
+        
+        user.first_name   = first_name
+        user.last_name    = last_name
+        user.email = email
         user.online_profiles.append(profile)
         user.default_profile = domain
         user.roles.append(models.Role.objects(name="anonymous").first())
@@ -133,11 +150,13 @@ def online_login_complete(request):
             user.username = context.profile['displayName']+"_"
 
     profile = user.get_profile(domain)
-    profile.first_name   = context.profile['name']['givenName']
-    profile.last_name    = context.profile['name']['familyName']
+
+    profile.first_name   = first_name
+    profile.last_name    = last_name
+        
     profile.display_name = context.profile['displayName']
     profile.username     = context.profile['preferredUsername']
-    profile.email        = context.profile['verifiedEmail']
+    profile.email        = email
     
     profile.profile_source = context.profile
     

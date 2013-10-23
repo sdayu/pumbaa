@@ -10,7 +10,7 @@
 	  fjs.parentNode.insertBefore(js, fjs);
 	}(document, 'script', 'facebook-jssdk'));
 	</script>
-	<div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-width="450" data-height="26" data-colorscheme="light" data-layout="standard" data-action="like" data-show-faces="true" data-send="true"></div>
+	<div class="fb-like" data-href="${request.current_route_url()}" data-width="300" data-height="26" data-colorscheme="light" data-layout="standard" data-action="like" data-show-faces="true" data-send="true"></div>
 </span>
 ## twitter
 <span>

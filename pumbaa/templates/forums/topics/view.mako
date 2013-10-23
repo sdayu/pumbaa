@@ -49,22 +49,24 @@ document.addEventListener('DOMContentLoaded',function() {
    
 <%block name="panel_footer">
 	  <div class="panel-footer">
-	  		<ul class="list-inline">
-	  			<li>tags:</li>
-	 		% for tag in topic.tags:
-	 			<li><a href="${request.route_path('forums.tags.list_contents', name=tag)}">${tag}</a></li>
-	 		% endfor
-	 		</ul>
-	  	</div>
+
+		<p>${'' if topic.author.get_profile_picture() is None else topic.author.get_profile_picture() | n}
+		<b>${topic.author.username}</b> | ${topic.published_date}</p>
+
+	  </div>
 </%block>
 
 <section>
 	<article title="topic description" id="description">
 	${topic.description}
 	</article>
-	<div class='well well-sm'>
-	<p>${'' if topic.author.get_profile_picture() is None else topic.author.get_profile_picture() | n}
-	<b>${topic.author.username}</b> | ${topic.published_date}</p>
+	<div style="border-top: double #bce8f1; padding-top: 10px;">
+		<ul class="list-inline">
+			<li>tags:</li>
+		% for tag in topic.tags:
+			<li><a href="${request.route_path('forums.tags.list_contents', name=tag)}">${tag}</a></li>
+		% endfor
+		</ul>
 	</div>
 </section>
 
@@ -110,7 +112,7 @@ $( document ).ready(function() {
 
 <section title="comments" style="margin-top: 10px;">
 <script type="text/javascript">
-var comments = ${json.dumps([{'id':"#%s"%int(comment.published_date.timestamp()*1000), 'message':comment.message} for comment in topic.comments]) | n};
+var comments = ${json.dumps([{'id':"#%s"%comment.id, 'message':comment.message} for comment in topic.comments]) | n};
 $( document ).ready(function() {
 	comments.forEach(function(entry) {
     	$(entry.id).html(converter.makeHtml(entry.message));
@@ -122,7 +124,7 @@ $( document ).ready(function() {
 	<section title="comment">
 		<div class="panel panel-info">
 		  <div class="panel-body">
-			    <div id="${int(comment.published_date.timestamp()*1000)}">
+			    <div id="${comment.id}">
 					${comment.message}
 				</div>
 		  </div>
