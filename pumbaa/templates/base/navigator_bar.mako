@@ -91,9 +91,9 @@
           	</li>
           </ul>
           % else:
-          	<form class="navbar-form navbar-right">
+          	<form class="navbar-form navbar-right" action="${request.route_path('login')}">
             	<button type="submit" class="btn btn-primary">
-            		<a href="${request.route_path('login')}" style="color: #FFFFFF; font-weight: bold; text-decoration:none;">Login</a>
+            		<b>Login</b>
             	</button>
           	</form>
           % endif

@@ -1,4 +1,4 @@
-<section title="social" style="display: inline;">
+<section title="social" class="alert alert-info">
 ## facebook
 <span>
 	<div id="fb-root"></div>
