@@ -78,6 +78,18 @@ class User(me.Document):
         if profile.domain == 'accounts.google.com':
             return '<img src="%s" width="%d"/>'%(profile.profile_source['photos'][0]['value'], width)
         return None
+    
+    def get_profile_url(self):
+        if self.default_profile == 'pumbaa.coe.psu.ac.th':
+            return '#'
+        profile = self.get_profile(self.default_profile)
+        if profile.domain == 'facebook.com':
+            return 'https://www.facebook.com/%s'%profile.username
+        if profile.domain == 'twitter.com':
+            return 'https://twitter.com/%s'%profile.username
+        if profile.domain == 'accounts.google.com':
+            return 'https://plus.google.com/%s'%profile.user_id
+        return '#'
         
 class Role(me.Document):
     meta = {'collection' : 'roles'}

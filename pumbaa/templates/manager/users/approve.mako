@@ -9,8 +9,13 @@
 	There are no waiting user for approval.
 	% endif
 	% for user in users:
-	<li>${user.username} 
+	<li><a href="${user.get_profile_url()}">${user.username}</a>
 		<ul>
+			% if user.get_profile_picture():
+			<li style="list-style: none;">
+	      		<a href="${user.get_profile_url()}">${user.get_profile_picture() | n}</a>
+      		</li>
+      		% endif
 			<li>profile: ${user.default_profile}</li>
 			<li>name: ${user.first_name} ${user.last_name}</li>
 		% if len(user.approvers) > 0:
