@@ -18,13 +18,15 @@ requires = [
     'velruse',
     'pycrypto',
     'wtforms',
-    'feedformater'
+    'feedformatter'
     ]
 
-from pumbaa import __version__
+init = os.path.join(os.path.dirname(__file__), 'pumbaa', '__init__.py')
+version_line = list(filter(lambda l: l.startswith('__version__'), open(init)))[0]
+VERSION = version_line.split('=')[-1].replace('\'', '').strip()
 
 setup(name='pumbaa',
-      version=__version__,
+      version=VERSION,
       description='pumbaa community site',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
