@@ -12,15 +12,22 @@ requires = [
     'pyramid',
     'pyramid_mako',
     'pyramid_debugtoolbar',
+    'pyramid_beaker',
     'waitress',
     'mongoengine',
     'velruse',
-    'pycrypto'
+    'pycrypto',
+    'wtforms',
+    'feedformatter'
     ]
 
+init = os.path.join(os.path.dirname(__file__), 'pumbaa', '__init__.py')
+version_line = list(filter(lambda l: l.startswith('__version__'), open(init)))[0]
+VERSION = version_line.split('=')[-1].replace('\'', '').strip()
+
 setup(name='pumbaa',
-      version='0.0.0',
-      description='pumbaa',
+      version=VERSION,
+      description='pumbaa community site',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
         "Programming Language :: Python",
@@ -41,5 +48,8 @@ setup(name='pumbaa',
       entry_points="""\
       [paste.app_factory]
       main = pumbaa:main
+      [console_scripts]
+      initialize_pumbaa_db = pumbaa.scripts.initializedb:main
+
       """,
       )
