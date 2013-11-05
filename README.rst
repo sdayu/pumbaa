@@ -18,7 +18,7 @@ Development
 -----------
 This web site is a Pyramid framework based web application. 
 We aims to follow `PEP8 <http://www.python.org/dev/peps/pep-0008/>`_ as style guide for Python Code. 
-The Pumbaa project uses the `gitflow <http://nvie.com/posts/a-successful-git-branching-model/>`_ model for branching.
+The Pumbaa project uses the `gitflow <http://nvie.com/posts/a-successful-git-branching-model/>`_ model for branching. To setup Pumbaa.CoE for developing, read this `Install Pumbaa page <https://github.com/sdayu/pumbaa/wiki/Install%20Pumbaa>`_.
 
 Join Us
 -------
