@@ -18,7 +18,7 @@ def index(request):
 @view_config(route_name='forums.tags.list_contents', renderer="/forums/tags/list_contents.mako")
 def list_contents(request):
     name = request.matchdict.get('name')
-    topics = models.Topic.objects(tags=name).all()
+    topics = models.Topic.objects(tags=name, status='publish').all()
     return dict(
                 tag=name,
                 topics=topics
