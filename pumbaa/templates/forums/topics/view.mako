@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded',function() {
 <%block name="panel_footer">
 	  <div class="panel-footer">
 		<p>${'' if topic.author.get_profile_picture() is None else topic.author.get_profile_picture() | n}
-		<b>${topic.author.username}</b> | ${topic.published_date}</p>
+		<b>${topic.author.get_display_name()}</b> | ${topic.published_date}</p>
 	  </div>
 </%block>
 
