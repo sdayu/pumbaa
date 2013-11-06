@@ -32,8 +32,11 @@ def compose(request):
             tags.remove('')
             
     else:
+        tags = models.Topic.objects().distinct('tags')
+        tags.extend(models.Forum.objects().distinct('tags'))
+        
         return dict(
-                    tags = json.dumps(models.Topic.objects().distinct('tags')),
+                    tags = json.dumps(tags),
                     form = form
                     )
     
