@@ -24,7 +24,7 @@
 	<div class="form-group${' has-error' if form.title.errors else ''}">
 	    <label for="title" class="control-label${' has-error' if form.title.errors else ''}">Title</label>
 	    % if form.title.errors:
-			<span class="text-danger">${form.title.errors[0]}</span>
+			<span class="text-danger">: ${form.title.errors[0]}</span>
 		% endif
 	    ${form.title(class_='form-control', placeholder='Enter title')}
 	</div>
@@ -45,7 +45,10 @@
 		</div>
 	</div>
 	<div class="form-group${' has-error' if form.tags.errors else ''}">
-	    <label for="tags" class="control-label${' has-error' if form.tags.errors else ''}">Tags</label>
+	    <label for="tags" class="control-label${' has-error' if form.tags.errors else ''}">Tags</label> 
+	    % if form.tags.errors:
+			<span class="text-danger">: ${form.tags.errors[0]}</span>
+		% endif
 		${form.tags(style="width:100%")}
 	</div>
 	<button type="submit" class="btn btn-primary">Create topic</button>

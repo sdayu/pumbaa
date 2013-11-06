@@ -25,8 +25,11 @@ def create(request):
     form = forms.forums.Forum(request.POST)
     
     if len(request.POST) == 0 or not form.validate():
+        tags = models.Topic.objects().distinct('tags')
+        tags.extend(models.Forum.objects().distinct('tags'))
+        
         return dict(
-                tags = json.dumps(models.Topic.objects().distinct('tags')),
+                tags = json.dumps(tags),
                 form=form
                 )
     else:
