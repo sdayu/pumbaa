@@ -38,4 +38,7 @@ def change_status(request):
     topic.status = status
     topic.save()
     
+    if status == 'delete':
+        return HTTPFound(location=request.route_path('manager.topics.problem'))
+    
     return HTTPFound(location=request.route_path('forums.topics.index'))
