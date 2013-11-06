@@ -155,9 +155,13 @@ def online_login_complete(request):
     profile.last_name    = last_name
         
     profile.display_name = context.profile['displayName']
-    profile.username     = context.profile['preferredUsername']
+
+    if 'profile.php=' in context.profile['preferredUsername']:
+        profile.username = profile.username.split('=')[-1]
+    else:
+        profile.username     = context.profile['preferredUsername']
+        
     profile.email        = email
-    
     profile.profile_source = context.profile
     
     user.save()

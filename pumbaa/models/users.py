@@ -37,6 +37,7 @@ class User(me.Document):
     email = me.EmailField(required=True, unique=True)
     first_name = me.StringField(max_length=100, required=True)
     last_name = me.StringField(max_length=100, required=True)
+    display_name = me.StringField(max_length=250, required=True)
     
     default_profile = me.StringField(default='pumbaa.coe.psu.ac.th')
     online_profiles = me.ListField(me.EmbeddedDocumentField(Profile))
@@ -52,6 +53,12 @@ class User(me.Document):
     
     roles = me.ListField(me.ReferenceField('Role', dbref=True))
     
+    def get_display_name(self):
+        if self.display_name is not None:
+            return self.display_name
+        else:
+            return self.username
+        
     def set_password(self, password):
         from pyramid.threadlocal import get_current_request
         request = get_current_request()
@@ -72,7 +79,11 @@ class User(me.Document):
             return None
         profile = self.get_profile(self.default_profile)
         if profile.domain == 'facebook.com':
-            return '<img src="https://graph.facebook.com/%s/picture" width="%d"/>'%(profile.username, width)
+            if '=' in profile.username:
+                username = profile.username.split('=')[-1]
+            else:
+                username = profile.username
+            return '<img src="https://graph.facebook.com/%s/picture" width="%d"/>'%(username, width)
         if profile.domain == 'twitter.com':
             return '<img src="%s" width="%d"/>'%(profile.profile_source['photos'][0]['value'], width)
         if profile.domain == 'accounts.google.com':
