@@ -61,7 +61,7 @@
 			    s.parentNode.insertBefore(gcse, s);
 			  })();
 			</script>
-			<gcse:search></gcse:search>
+			<gcse:searchbox-only></gcse:searchbox-only>
 		</div>
 		<div class="panel panel-info">
 		  <div class="panel-heading">
