@@ -1,0 +1,93 @@
+###
+# app configuration
+# http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/environment.html
+###
+
+[app:main]
+use = egg:pumbaa
+
+pyramid.reload_templates = true
+pyramid.debug_authorization = false
+pyramid.debug_notfound = false
+pyramid.debug_routematch = false
+pyramid.default_locale_name = en
+pyramid.includes = 
+#    pyramid_debugtoolbar
+    pyramid_mako
+    pyramid_beaker
+
+# By default, the toolbar only appears for clients from IP addresses
+# '127.0.0.1' and '::1'.
+# debugtoolbar.hosts = 127.0.0.1 ::1
+
+pumbaa.secret = pumbaa-secret
+pumbaa.cache_dir = /tmp/pumbaa
+
+mako.directories = pumbaa:templates
+mako.module_directory = %(pumbaa.cache_dir)s/mako
+
+mongodb.host = mongodb://localhost/pumbaa
+mongodb.db_name = pumbaa
+
+session.type = file
+session.data_dir = %(pumbaa.cache_dir)s/data/sessions/data
+session.lock_dir = %(pumbaa.cache_dir)s/data/sessions/lock
+session.key = pumbaa_session
+session.secret = %(pumbaa.secret)s
+session.cookie_on_exception = true
+
+# facebook profile
+velruse.facebook.consumer_key = <facebook consumer key>
+velruse.facebook.consumer_secret = <facebook consumer secret>
+velruse.facebook.scope = email
+
+# google profile
+velruse.google.consumer_key = <google consumer key>
+velruse.google.consumer_secret = <facebook consumer secret>
+velruse.google.scope = https://www.googleapis.com/auth/plus.login email profile
+
+
+# twitter profile
+velruse.twitter.consumer_key = <twitter consumer key>
+velruse.twitter.consumer_secret = <twitter consumer secret>
+
+###
+# wsgi server configuration
+###
+
+[server:main]
+use = egg:waitress#main
+host = 0.0.0.0
+port = 6543
+
+###
+# logging configuration
+# http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/logging.html
+###
+
+[loggers]
+keys = root, pumbaa
+
+[handlers]
+keys = console
+
+[formatters]
+keys = generic
+
+[logger_root]
+level = INFO
+handlers = console
+
+[logger_pumbaa]
+level = DEBUG
+handlers =
+qualname = pumbaa
+
+[handler_console]
+class = StreamHandler
+args = (sys.stderr,)
+level = NOTSET
+formatter = generic
+
+[formatter_generic]
+format = %(asctime)s %(levelname)-5.5s [%(name)s][%(threadName)s] %(message)s
