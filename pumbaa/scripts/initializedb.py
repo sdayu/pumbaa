@@ -46,6 +46,7 @@ def main(argv=sys.argv):
         admin = models.User(username=adminuser)
         admin.first_name = 'Administrator'
         admin.last_name = 'CoE'
+        admin.display_name = 'Administrator'
         admin.status = 'activate'
         admin.email = 'admin@pumbaa.coe.psu.ac.th'
         admin.password = sm.get_hash_password(adminpass)
