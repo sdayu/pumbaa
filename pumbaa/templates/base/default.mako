@@ -10,7 +10,7 @@ We're going to bring our community back.
 If you remember our good old days and want to help, 
 please let us know at <a href="mailto:burawich@gmail.com?Subject=Pumbaa%20Volunteer">Burawich Pamornnak</a> (CoE18). 
 Let's share your ideas and make it better. Thank you.</p>
-        <p>Join us on <a href="https://github.com/sdayu/pumbaa"><img src="https://github.global.ssl.fastly.net/images/modules/logos_page/GitHub-Logo.png" width="60px;" /></a></p>
+        <p>Join us on <a href="https://github.com/sdayu/pumbaa">GitHub</a></p>
       </div>
 
 ${next.body()}

@@ -18,7 +18,8 @@ requires = [
     'velruse',
     'pycrypto',
     'wtforms',
-    'feedformatter'
+    'feedformatter',
+    'pillow'
     ]
 
 init = os.path.join(os.path.dirname(__file__), 'pumbaa', '__init__.py')
