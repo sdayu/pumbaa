@@ -23,6 +23,12 @@ def manager_include(config):
     config.add_route('manager.pages.index', '/pages')
     config.add_route('manager.pages.edit', '/pages/edit/{topic_id}')
     config.add_route('manager.pages.compose', '/pages/new_page')
+    
+    config.add_route('manager.photo_albums.index', '/photo_albums')
+    config.add_route('manager.photo_albums.create', '/photo_albums/create')
+    config.add_route('manager.photo_albums.edit', '/photo_albums/edit/{photo_album_id}')
+    config.add_route('manager.photo_albums.delete', '/photo_albums/delete/{photo_album_id}')
+    config.add_route('manager.photo_albums.add_photo', '/photo_albums/{photo_album_id}/add_photo')
 
 def forums_include(config):
     
@@ -71,6 +77,13 @@ def add_routes(config):
     config.add_route('pages.index', '/pages')
     config.add_route('pages.view', '/pages/{title}')
     
+    # photo albums
+    config.add_route('photos.photo_albums.index', '/photo_albums')
+    config.add_route('photos.photo_albums.view', '/photo_albums/{photo_album_id}')
+    
+    config.add_route('photos.thumbnail', '/photo_albums/{photo_album_id}/photos/thumbnail/{photo_id}')
+    config.add_route('photos.view', '/photo_albums/{photo_album_id}/photos/{photo_id}')
+
     
     config.add_static_view('public', 'public', cache_max_age=3600)
     
