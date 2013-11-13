@@ -29,6 +29,10 @@ var converter;
             return "<blockquote>" + rbg(inner) + "</blockquote>\n";
         });
     });
+
+    converter.hooks.chain("postConversion", function(text) {
+        return text.replace(/\s*:::(:)*python\s*\n/, "");
+    });
     
     Markdown.Extra.init(converter, {
       extensions: "all",
@@ -136,6 +140,9 @@ $( document ).ready(function() {
 (function () {
     var editor1 = new Markdown.Editor(converter);
     editor1.hooks.chain("onPreviewRefresh", prettyPrint); // google code prettify
+    editor1.hooks.chain("onPreviewRefresh", function() {
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    });
     editor1.run();
 })();
 </script>
