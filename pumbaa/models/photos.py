@@ -10,6 +10,16 @@ import bson
 
 from . import forums
 
+LICENSE = [
+         'COPYRIGHT',
+         'CC-BY-NC-ND',
+         'CC-BY-ND',
+         'CC-BY-NC',
+         'CC-BY-SA',
+         'CC-BY-NC-SA',
+         'CC-BY'
+         ]
+
 class Photo(me.EmbeddedDocument):
     id = me.ObjectIdField(required=True, default=bson.ObjectId)
     
@@ -23,6 +33,7 @@ class Photo(me.EmbeddedDocument):
                           thumbnail_size=(320, 240, True),
                           )
     comments = me.ListField(me.EmbeddedDocumentField(forums.Comment))
+    license = me.StringField(required=True, default='COPYRIGHT', choices=LICENSE)
     
     def get_album(self):
         album = PhotoAlbum.objects(photos__id = self.id).first()
