@@ -39,20 +39,28 @@ def create_edit(request):
              permission='member',
              renderer='/manager/photo_albums/add_photo.mako')
 def add_photo(request):
+    
     form = forms.photos.Photo(request.POST)
+    form.license.choices = [(license, license) for license in models.photos.LICENSE]
+    
     if len(request.POST) == 0 or not form.validate():
+        form.license.data = 'COPYRIGHT'
         return dict(
                     form=form
                     )
         
     photo_album  = models.PhotoAlbum.objects.with_id(request.matchdict.get('photo_album_id'))
-    photo = models.Photo()
-    image = form.data.get('image')
-
-    if image is not None and type(image) == cgi.FieldStorage:
-        photo.image.put(image.file, filename = image.filename)
-        photo_album.photos.append(photo)
-    photo_album.save()
+    
+    images = request.POST.getall('image')
+    license = form.data.get('license')
+    
+    if images is not None and type(images) == list:
+        for image in images:
+            photo = models.Photo()
+            photo.image.put(image.file, filename = image.filename)
+            photo.license = license
+            photo_album.photos.append(photo)
+        photo_album.save()
     return HTTPFound(location=request.route_path('photos.photo_albums.view', photo_album_id=photo_album.id))
 
 @view_config(route_name='manager.photo_albums.delete', 

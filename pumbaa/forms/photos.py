@@ -13,3 +13,4 @@ class PhotoAlbum(Form):
 
 class Photo(Form):
     image = fields.FileField('Image', )
+    license = fields.SelectField('License', validators=[validators.InputRequired()])

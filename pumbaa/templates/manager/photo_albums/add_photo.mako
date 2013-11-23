@@ -9,12 +9,19 @@
 
 <%block name="panel_title">New Photo</%block>
 <form action="${request.current_route_path()}" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+	<div class="form-group${' has-error' if form.license.errors else ''}">
+	    <label for="license" class="control-label${' has-error' if form.license.errors else ''}">Photo</label>
+		% if form.license.errors:
+			<span class="text-danger">${form.license.errors[0]}</span>
+		% endif
+		${form.license(class_='form-control')}
+	</div>	
 	<div class="form-group${' has-error' if form.image.errors else ''}">
-	    <label for="title" class="control-label${' has-error' if form.image.errors else ''}">Photo</label>
+	    <label for="photos" class="control-label${' has-error' if form.image.errors else ''}">Photo</label>
 	    % if form.image.errors:
 			<span class="text-danger">${form.image.errors[0]}</span>
 		% endif
-	    ${form.image(class_='form-control')}
+	    ${form.image(class_='form-control', multiple='')}
 	</div>
 	<div class="form-group">
 		<button type="submit" class="btn btn-primary">Add photo</button>

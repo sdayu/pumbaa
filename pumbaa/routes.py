@@ -48,8 +48,13 @@ def forums_include(config):
     
     config.add_route('forums.view', '/{name}')
     
+def photo_album_include(config):
+    config.add_route('photos.photo_albums.view', '/photo_albums/{photo_album_id}')
+    config.add_route('photos.photo_albums.photo_view', '/photo_albums/{photo_album_id}/photos/{photo_id}/view')
     
-    
+    config.add_route('photos.photo_albums.comment', '/photo_albums/{photo_album_id}/comment')
+    config.add_route('photos.photo_albums.photo_comment', '/photo_albums/{photo_album_id}/photos/{photo_id}/comment')
+
 def add_routes(config):
     config.add_route('index', '/')
     
@@ -79,7 +84,7 @@ def add_routes(config):
     
     # photo albums
     config.add_route('photos.photo_albums.index', '/photo_albums')
-    config.add_route('photos.photo_albums.view', '/photo_albums/{photo_album_id}')
+    config.include(photo_album_include, route_prefix='/photo_albums')
     
     config.add_route('photos.thumbnail', '/photo_albums/{photo_album_id}/photos/thumbnail/{photo_id}')
     config.add_route('photos.view', '/photo_albums/{photo_album_id}/photos/{photo_id}')
