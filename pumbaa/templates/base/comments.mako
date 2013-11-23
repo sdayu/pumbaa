@@ -48,10 +48,6 @@ document.addEventListener('DOMContentLoaded',function() {
 
 </%block>
 
-<%doc>
-<%include file="/base/social_integration.mako"/>
-</%doc>
-
 <%
     comments = item.comments
     comment_url = None
@@ -61,7 +57,14 @@ document.addEventListener('DOMContentLoaded',function() {
         comment_url = request.route_path('photos.photo_albums.comment', photo_album_id=item.id)
     else:
         comment_url = request.route_path('photos.photo_albums.photo_comment', photo_album_id=item.get_album().id, photo_id=item.id)
+
+    comments_disabled = False
+    if hasattr(item, 'comments_disabled'):
+        comments_disabled = item.comments_disabled
 %>
+
+## for disable comments
+% if not comments_disabled:
 
 <section title="Share your opinion" class="well">
 % if request.user:
@@ -70,7 +73,7 @@ document.addEventListener('DOMContentLoaded',function() {
     % else:
     <form action="${comment_url}" method="post">
         <div class="row">
-            <div class="col-sm-1 col-md-1 col-lg-1">
+            <div class="col-md-1 col-lg-1">
             <section title="who comment">
                 <p>
                     ${'' if request.user.get_profile_picture() is None else request.user.get_profile_picture() | n}
@@ -78,14 +81,14 @@ document.addEventListener('DOMContentLoaded',function() {
                 </p>
             </section>
             </div>
-            <div class="col-sm-7 col-md-6 col-lg-6">
+            <div class="col-md-6 col-lg-6">
                 <div id="wmd-button-bar"></div>
                 <div class="form-group">
                     <label for="comment">Comment</label>
                     <textarea id="wmd-input" name="message" rows="5" class="form-control" placeholder="Share your comment"></textarea>
                 </div>
             </div>
-            <div class="col-sm-4 col-md-5 col-lg-5">
+            <div class="col-md-5 col-lg-5">
                 <b>Preview</b>
                 <div id="wmd-preview" class="well well-sm"></div>
             </div>
@@ -98,6 +101,9 @@ document.addEventListener('DOMContentLoaded',function() {
     <a href="${request.route_path('login')}">Log in</a> ก่อนแสดงความคิดเห็น
 % endif
 </section>
+
+% endif
+## end disable comments
 
 ## markdown editor
 <script type="text/javascript">

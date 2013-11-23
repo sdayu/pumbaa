@@ -36,7 +36,8 @@
               <ul class="dropdown-menu">
               	<li><a href="${request.route_path('index')}">หน้าแรก</a></li>
               	<li><a href="${request.route_path('forums.topics.index')}">Topics</a></li>
-            	<li><a href="${request.route_path('forums.tags.index')}">Tags</a></li>
+              	<li><a href="${request.route_path('photos.photo_albums.index')}">Photo Albums</a></li>
+  				<li><a href="${request.route_path('forums.tags.index')}">Tags</a></li>
                 <li class="divider"></li>
            		<li><a href="${request.route_path('pages.view', title='About')}">About</a></li>
             	<li><a href="${request.route_path('pages.view', title='Contact')}">Contact</a></li>
