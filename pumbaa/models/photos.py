@@ -24,6 +24,10 @@ class Photo(me.EmbeddedDocument):
                           )
     comments = me.ListField(me.EmbeddedDocumentField(forums.Comment))
     
+    def get_album(self):
+        album = PhotoAlbum.objects(photos__id = self.id).first()
+        return album
+    
 class PhotoAlbum(me.Document):
     meta = {'collection' : 'photo_albums'}
     

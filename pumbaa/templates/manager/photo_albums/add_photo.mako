@@ -14,7 +14,7 @@
 	    % if form.image.errors:
 			<span class="text-danger">${form.image.errors[0]}</span>
 		% endif
-	    ${form.image(class_='form-control')}
+	    ${form.image(class_='form-control', multiple='')}
 	</div>
 	<div class="form-group">
 		<button type="submit" class="btn btn-primary">Add photo</button>

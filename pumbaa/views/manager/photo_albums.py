@@ -46,13 +46,14 @@ def add_photo(request):
                     )
         
     photo_album  = models.PhotoAlbum.objects.with_id(request.matchdict.get('photo_album_id'))
-    photo = models.Photo()
-    image = form.data.get('image')
-
-    if image is not None and type(image) == cgi.FieldStorage:
-        photo.image.put(image.file, filename = image.filename)
-        photo_album.photos.append(photo)
-    photo_album.save()
+    images = request.POST.getall('image')
+    
+    if images is not None and type(images) == list:
+        for image in images:
+            photo = models.Photo()
+            photo.image.put(image.file, filename = image.filename)
+            photo_album.photos.append(photo)
+        photo_album.save()
     return HTTPFound(location=request.route_path('photos.photo_albums.view', photo_album_id=photo_album.id))
 
 @view_config(route_name='manager.photo_albums.delete', 
