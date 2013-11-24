@@ -18,6 +18,8 @@ class Profile(me.EmbeddedDocument):
     display_name = me.StringField()
     
     profile_source = me.DictField()
+    
+    registration_date = me.DateTimeField(required=True, default=datetime.datetime.now)
 
 class Approver(me.EmbeddedDocument):
     user = me.ReferenceField("User", required=True)

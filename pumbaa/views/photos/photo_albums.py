@@ -31,10 +31,12 @@ def view(request):
 def photo_view(request):
     
     photo_album = models.PhotoAlbum.objects.with_id(request.matchdict.get('photo_album_id'))
-    photo = photo_album.get_photo(request.matchdict.get('photo_id'))
+    photo, pprevious, pnext = photo_album.get_photo_index(request.matchdict.get('photo_id'))
     return dict(
                 photo_album=photo_album,
-                photo=photo
+                photo=photo,
+                pprevious=pprevious,
+                pnext=pnext
                 )
 
 @view_config(route_name='photos.photo_albums.comment') 
