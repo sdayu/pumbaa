@@ -139,15 +139,16 @@ def online_login_complete(request):
         user.first_name   = first_name
         user.last_name    = last_name
         user.email = email
+        user.display_name = context.profile['displayName']
         user.online_profiles.append(profile)
         user.default_profile = domain
         user.roles.append(models.Role.objects(name="anonymous").first())
     
-        check_display_name = models.User.objects(username = context.profile['displayName']).first()
+        check_display_name = models.User.objects(username = context.profile['preferredUsername']).first()
         if not check_display_name:
-            user.username = context.profile['displayName']
+            user.username = context.profile['preferredUsername']
         else:
-            user.username = context.profile['displayName']+"_"
+            user.username = context.profile['preferredUsername']+"_"
 
     profile = user.get_profile(domain)
 
@@ -163,6 +164,10 @@ def online_login_complete(request):
         
     profile.email        = email
     profile.profile_source = context.profile
+    
+    # support old user accounts
+    if user.display_name is None:
+        user.display_name = user.username
     
     user.save()
     user.reload()
