@@ -217,17 +217,17 @@ def change_password(request):
     user.save()
     return HTTPFound(location=request.route_path('home'))
 
-@view_config(route_name='accounts.change_username', 
-             renderer='/accounts/change_username.mako')
+@view_config(route_name='accounts.change_display_name', 
+             renderer='/accounts/change_display_name.mako')
 def change_username(request):
-    form = forms.accounts.Username(request.POST)
+    form = forms.accounts.DisplayName(request.POST)
     if len(request.POST) == 0 or not form.validate():
         return dict(
                     form=form
                     )
     
     user = request.user
-    user.username = form.data.get('username')
+    user.display_name = form.data.get('display_name')
     
     user.save()
     return HTTPFound(location=request.route_path('home'))

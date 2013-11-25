@@ -10,6 +10,7 @@ ${parent.where_am_i()}
 </%block>
 <h1>Change Username</h1>
 
+Current display name: ${request.user.get_display_name()}
 <form action="${request.current_route_path()}" method="post">
 	% for field in form:
 		<% css_class = 'form-group' %>
@@ -26,5 +27,5 @@ ${parent.where_am_i()}
     	${field(class_='form-control', placeholder='Enter '+field.label.text.lower())}
   	</div>
 	% endfor
-	<button type="submit" class="btn btn-primary">Change username</button>
+	<button type="submit" class="btn btn-primary">Change Display Name</button>
 </form>

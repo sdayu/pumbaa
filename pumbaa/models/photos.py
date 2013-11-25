@@ -61,3 +61,23 @@ class PhotoAlbum(me.Document):
                 return photo
             if str(photo.id) == photo_id:
                 return photo
+    
+    def get_photo_index(self, photo_id):
+        this_photo = None
+        for i in range(0, len(self.photos)):
+            photo = self.photos[i]
+            if photo.image.filename == photo_id:
+                this_photo = photo
+            if str(photo.id) == photo_id:
+                this_photo = photo
+                
+            if this_photo is not None:
+                previous_ = None
+                next_ = None
+
+                if i-1 >= 0:
+                    previous_ = self.photos[i-1]
+                if i+1 < len(self.photos):
+                    next_ = self.photos[i+1]
+
+                return this_photo, previous_, next_
