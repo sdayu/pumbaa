@@ -23,7 +23,7 @@ LICENSE = [
 class Photo(me.EmbeddedDocument):
     id = me.ObjectIdField(required=True, default=bson.ObjectId)
     
-    caption = me.StringField()
+    caption = me.StringField(default='')
     
     created_date = me.DateTimeField(required=True, default=datetime.datetime.now)
     updated_date = me.DateTimeField(required=True, default=datetime.datetime.now)
@@ -43,7 +43,7 @@ class PhotoAlbum(me.Document):
     meta = {'collection' : 'photo_albums'}
     
     name = me.StringField(required=True)
-    description = me.StringField()
+    description = me.StringField(default='')
     photos = me.ListField(me.EmbeddedDocumentField(Photo))
     status = me.StringField(required=True, default='draft')
     """ status: draft, publish, delete """

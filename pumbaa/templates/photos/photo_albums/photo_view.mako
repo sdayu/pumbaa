@@ -1,6 +1,7 @@
 <%inherit file="/forums/base/base.mako"/>
 
-<%block name="title">${photo_album.name}</%block>
+<%block name="title">${photo_album.name + ": " + photo.image.filename}</%block>
+<%block name="description">${photo.caption if len(photo.caption) > 0 else photo.image.filename}</%block>
 <%block name="where_am_i">
 <li><a href="${request.route_path('photos.photo_albums.index')}">Photo Albums</a></li>
 <li><a href="${request.route_path('photos.photo_albums.view', photo_album_id=photo_album.id)}">${photo_album.name}</a></li>
