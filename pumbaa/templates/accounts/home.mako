@@ -14,12 +14,13 @@ if (window.location.hash && window.location.hash === "#_=_") {
 % if request.user.status == 'wait for approval':
 <b>Your account wait for approval.</b>
 % endif
+
 <ul class="list-unstyled">
-<li><b>Default Profile</b>: ${request.user.default_profile}</li>
-<li><b>Roles</b>: ${", ".join([role.name for role in request.user.roles])}</li>
-<li><a href="${request.route_path('accounts.change_display_name')}">change display name</a></li>
-<li><a href="${request.route_path('accounts.change_password')}">change password</a></li>
-<li><a href="${request.route_path('home')}">add new profile</a></li>
+	<li><b>Default Profile</b>: ${request.user.default_profile}</li>
+	<li><b>Roles</b>: ${", ".join([role.name for role in request.user.roles])}</li>
+	<li><a href="${request.route_path('accounts.change_display_name')}">change display name</a></li>
+	<li><a href="${request.route_path('accounts.change_password')}">change password</a></li>
+	<li><a href="${request.route_path('accounts.add_online_account')}">add new profile</a></li>
 </ul>
 
 % if len(request.user.online_profiles) > 0:
@@ -28,7 +29,7 @@ if (window.location.hash && window.location.hash === "#_=_") {
 % for profile in request.user.online_profiles:
 <li><b>Profile</b>: ${profile.domain}
 	<ul>
-		<li><b>Display Name:</b> profile.display_name</li>
+		<li><b>Display Name:</b> ${profile.display_name}</li>
 	</ul>
 </li>
 % endfor
