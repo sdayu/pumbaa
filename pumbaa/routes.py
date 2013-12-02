@@ -49,11 +49,11 @@ def forums_include(config):
     config.add_route('forums.view', '/{name}')
     
 def photo_album_include(config):
-    config.add_route('photos.photo_albums.view', '/photo_albums/{photo_album_id}')
-    config.add_route('photos.photo_albums.photo_view', '/photo_albums/{photo_album_id}/photos/{photo_id}/view')
+    config.add_route('photos.photo_albums.view', '/{photo_album_id}')
+    config.add_route('photos.photo_albums.photo_view', '/{photo_album_id}/photos/{photo_id}/view')
     
-    config.add_route('photos.photo_albums.comment', '/photo_albums/{photo_album_id}/comment')
-    config.add_route('photos.photo_albums.photo_comment', '/photo_albums/{photo_album_id}/photos/{photo_id}/comment')
+    config.add_route('photos.photo_albums.comment', '/{photo_album_id}/comment')
+    config.add_route('photos.photo_albums.photo_comment', '/{photo_album_id}/photos/{photo_id}/comment')
 
 def add_routes(config):
     config.add_route('index', '/')
