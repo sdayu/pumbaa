@@ -6,11 +6,14 @@
 </%block>
 <%block name="panel_title">Users</%block>
 
+total: ${len(users)} users
 <table class="table">
 	% for user in users:
     <tr>
     	<td>
-    		<b>${user.username}</b> role: ${', '.join([role.name for role in user.roles])}
+    		<b>${user.username}</b> <br/>
+    		<b>Role:</b> ${', '.join([role.name for role in user.roles])} <br/>
+			<b>Approver:</b> ${', '.join([approver.user.get_display_name() for approver in user.approvers])}
     	</td>
     	<td>
     		add role: 

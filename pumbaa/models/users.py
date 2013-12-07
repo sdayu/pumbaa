@@ -22,7 +22,7 @@ class Profile(me.EmbeddedDocument):
     registration_date = me.DateTimeField(required=True, default=datetime.datetime.now)
 
 class Approver(me.EmbeddedDocument):
-    user = me.ReferenceField("User", required=True)
+    user = me.ReferenceField("User", dbref=True, required=True)
     approved_date = me.DateTimeField(required=True, default=datetime.datetime.now)
     ip_address = me.StringField(max_length=100, required=True, default='0.0.0.0')
 
