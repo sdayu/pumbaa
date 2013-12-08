@@ -11,9 +11,14 @@ total: ${len(users)} users
 	% for user in users:
     <tr>
     	<td>
-    		<b>${user.username}</b> <br/>
-    		<b>Role:</b> ${', '.join([role.name for role in user.roles])} <br/>
-			<b>Approver:</b> ${', '.join([approver.user.get_display_name() for approver in user.approvers])}
+    		<div class="pull-left" style="margin-right: 3px;">
+				${user.get_profile_picture() if user.get_profile_picture() is not None else '' | n}
+			</div>
+			<div>
+	    		<b>${user.username}</b> <br/>
+	    		<b>Role:</b> ${', '.join([role.name for role in user.roles])} <br/>
+				<b>Approver:</b> ${', '.join([approver.user.get_display_name() for approver in user.approvers])}
+    		</div>
     	</td>
     	<td>
     		add role: 

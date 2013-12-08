@@ -25,14 +25,14 @@
   </li>
 </ul>
 <div class="row">
-	<div class="col-sm-8 col-md-8 col-lg-8">
+	<div class="col-sm-8 col-md-8 col-lg-9">
 		<img class="img-rounded" alt="${photo.caption}" src="${request.route_path('photos.view', photo_album_id=photo_album.id, photo_id=photo.image.filename)}" width="100%" />
 	</div>
-	<div class="col-sm-4 col-md-4 col-lg-4">
+	<div class="col-sm-4 col-md-4 col-lg-3">
 		<div class="well well-sm">
 			<div>
 				<div class="pull-left" style="margin-right: 3px;">
-					${photo.user.get_profile_picture() if photo.user.get_profile_picture() is not None else ''}
+					${photo.user.get_profile_picture() if photo.user.get_profile_picture() is not None else '' | n}
 				</div>
 				<div>
 					${photo.user.get_display_name()}<br />
