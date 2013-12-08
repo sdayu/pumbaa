@@ -35,6 +35,8 @@ class Photo(me.EmbeddedDocument):
     comments = me.ListField(me.EmbeddedDocumentField(forums.Comment))
     license = me.StringField(required=True, default='COPYRIGHT', choices=LICENSE)
     
+    user = me.ReferenceField("User", dbref=True, required=True)
+    
     def get_album(self):
         album = PhotoAlbum.objects(photos__id = self.id).first()
         return album
@@ -52,8 +54,9 @@ class PhotoAlbum(me.Document):
     published_date = me.DateTimeField(required=True, default=datetime.datetime.now)
     updated_date = me.DateTimeField(required=True, default=datetime.datetime.now)
     
-    
     comments = me.ListField(me.EmbeddedDocumentField(forums.Comment))
+
+    user = me.ReferenceField("User", dbref=True, required=True)
 
     def get_photo(self, photo_id):
         for photo in self.photos:
