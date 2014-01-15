@@ -60,8 +60,9 @@ def add_photo(request):
             photo = models.Photo()
             photo.image.put(image.file, filename = image.filename)
             photo.license = license
+            photo.user = request.user
             photo_album.photos.append(photo)
-        photo_album.save()
+            photo_album.save()
     return HTTPFound(location=request.route_path('photos.photo_albums.view', photo_album_id=photo_album.id))
 
 @view_config(route_name='manager.photo_albums.delete', 
