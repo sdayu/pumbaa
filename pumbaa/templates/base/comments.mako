@@ -137,35 +137,46 @@ document.addEventListener('DOMContentLoaded',function() {
               ความคิดเห็นที่ ${order}
           </div>
           <div class="panel-body">
+          	<div class="row">
+          		<div class="col-sm-2 col-md-2 col-lg-2">
+          			<p>${'' if comment.author.get_profile_picture() is None else comment.author.get_profile_picture() | n}</p>
+            		<p><b>${comment.author.username}</b></p>
+            		<p>
+            			${comment.published_date.ctime()}
+            		</p>
+          		</div>
+          		<div class="col-sm-10 col-md-10 col-lg-10">
                 <div id="${comment.id}">
                 % if comment.status == 'publish':
                     ${comment.message}
                 % endif
                 </div>
+                <p class="text-right">
+                % if order.count('-') < 2 and (not (type(item) == models.PhotoAlbum or type(item) == models.Photo)):
+            		<a href="" ng-click="reply_${comment.id} = !reply_${comment.id}">ตอบกลับ</a>
+            	% endif
+                </p>
+                </div>
+            </div>
           </div>
           <div class="panel-footer">
-              <p>${'' if comment.author.get_profile_picture() is None else comment.author.get_profile_picture() | n}
-            <b>${comment.author.username}</b> | ${comment.published_date}
             % if order.count('-') < 2 and (not (type(item) == models.PhotoAlbum or type(item) == models.Photo)):
-            <a href="" ng-click="reply_${comment.id} = !reply_${comment.id}">ตอบกลับ</a>
-            % endif
-            </p>
-          </div>
-        </div>
-        % if order.count('-') < 2 and (not (type(item) == models.PhotoAlbum or type(item) == models.Photo)):
-        <div ng-show="reply_${comment.id}">
-        	${self.do_comment(comment)}
-        </div>
-		<div ng-hide="reply_${comment.id}"></div>
-		% endif
-		% for i in range(0, len(comment.replies)):
+       	 		<div ng-show="reply_${comment.id}">
+        		${self.do_comment(comment)}
+        		</div>
+				<div ng-hide="reply_${comment.id}"></div>
+			% endif
+			% for i in range(0, len(comment.replies)):
     		<%
     			reply = comment.replies[i] 
     			reply.topic = topic    		
     		%>
     		${show_comment(reply, order+"-"+str(i+1))}
     		
-		% endfor
+			% endfor
+          </div>
+        </div>
+        
     </section>
 </%def>
 
