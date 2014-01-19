@@ -36,7 +36,7 @@ def forums_include(config):
     config.add_route('forums.tags.list_contents', '/topics/tags/{name}')
 
     config.add_route('forums.comments.comment', '/topics/{topic_id}/comment')
-    config.add_route('forums.comments.replies', '/topics/{topic_id}/comment/${comment_id}')
+    config.add_route('forums.comments.reply', '/topics/{topic_id}/comments/${comment_id}')
     
     config.add_route('forums.topics.index', '/topics')
     config.add_route('forums.topics.compose', '/topics/compose')

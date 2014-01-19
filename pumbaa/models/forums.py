@@ -25,6 +25,15 @@ class Comment(me.EmbeddedDocument):
     
     author = me.ReferenceField("User", dbref=True)
     
+    def get_topic(self):
+        topic = Topic.objects(comments__id = self.id).first()
+        if topic is None:
+            topic = Topic.objects(comments__replies__id = self.id).first()
+        if topic is None:
+            topic = Topic.objects(comments__replies__replies__id = self.id).first()
+        return topic
+        
+    
 class TopicHistory(me.EmbeddedDocument):
     author = me.ReferenceField("User", dbref=True, required=True)
     changed_date = me.DateTimeField(required=True, default=datetime.datetime.now)
@@ -55,6 +64,28 @@ class Topic(me.Document):
     comments_disabled = me.BooleanField(default=False, required=True)
     
     histories = me.ListField(me.EmbeddedDocumentField(TopicHistory))
+    
+    def get_comment(self, comment_id):
+        
+        def find_comment(comment_id, comments): 
+            print("comments", len(comments))
+            print("comment id:", comment_id) 
+            for comment in comments:
+                print("check id:", comment.id) 
+                if str(comment.id) == comment_id:
+                    print("found")
+                    return comment
+                else:
+                    if len(comment.replies) > 0:
+                        print("==>", len(comment.replies))
+                        comment = find_comment(comment_id, comment.replies)
+                        if comment:
+                            return comment
+                    print("check again")
+                    
+             
+        return find_comment(comment_id, self.comments)
+            
     
 class Forum(me.Document):
     meta = {'collection' : 'forums'}
