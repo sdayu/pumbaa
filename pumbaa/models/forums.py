@@ -68,8 +68,8 @@ class Topic(me.Document):
     def get_comment(self, comment_id):
         
         def find_comment(comment_id, comments): 
-            print("comments", len(comments))
-            print("comment id:", comment_id) 
+            # print("comments", len(comments))
+            # print("comment id:", comment_id) 
             for comment in comments:
                 print("check id:", comment.id) 
                 if str(comment.id) == comment_id:
@@ -77,11 +77,11 @@ class Topic(me.Document):
                     return comment
                 else:
                     if len(comment.replies) > 0:
-                        print("==>", len(comment.replies))
+                        # print("==>", len(comment.replies))
                         comment = find_comment(comment_id, comment.replies)
                         if comment:
                             return comment
-                    print("check again")
+                    # print("check again")
                     
              
         return find_comment(comment_id, self.comments)
@@ -101,9 +101,11 @@ class Forum(me.Document):
     
     author = me.ReferenceField("User", dbref=True, required=True)
     
-    def get_topics(self, limit=None):
+    def get_topics(self, limit=None, skip=None):
         topics = Topic.objects(tags__in=self.tags, status='publish').order_by('-published_date')
         if limit:
             topics = topics.limit(limit)
+        if skip:
+            topics = topics.skip(skip)
         
         return topics

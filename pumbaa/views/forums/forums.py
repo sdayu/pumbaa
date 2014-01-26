@@ -8,6 +8,7 @@ from pyramid.view import view_config
 from pyramid.response import Response
 from pyramid.httpexceptions import HTTPFound
 from pumbaa import models
+import math
 
 @view_config(route_name='forums.index', 
              renderer='/forums/forums/index.mako')
@@ -25,8 +26,22 @@ def view(request):
     if forum is None:
         return Response('Forum name: %s not found!'%name, status='404 Not Found')
     
-    topics = models.Topic.objects(tags__in=forum.tags, status='publish').order_by('-published_date').all()
+    
+    page = int(request.GET.get('page', 1))
+    topics_per_page = 15
+    
+    topic_count = models.Topic.objects(tags__in=forum.tags, status='publish').count()
+    pages = math.ceil(topic_count/topics_per_page)
+    
+    page = page if page > 0 else 1
+    page = page if page <= pages else pages
+    
+    topics = models.Topic.objects(tags__in=forum.tags, status='publish').order_by('-published_date').skip((page-1)*topics_per_page).limit(topics_per_page).all()
+    
+    
     return dict(
                 forum=forum,
-                topics=topics
+                topics=topics,
+                page=page,
+                pages=pages
                 )
