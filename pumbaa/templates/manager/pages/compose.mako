@@ -71,7 +71,8 @@
 <script type="text/javascript">
 (function () {
 
-    var converter = Markdown.getSanitizingConverter();
+    ## var converter = Markdown.getSanitizingConverter();
+    var converter = new Markdown.Converter();
     
     converter.hooks.chain("preBlockGamut", function (text, rbg) {
         return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {

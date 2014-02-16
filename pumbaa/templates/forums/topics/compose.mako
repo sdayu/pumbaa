@@ -59,7 +59,8 @@
 <script type="text/javascript">
 (function () {
 
-    var converter = Markdown.getSanitizingConverter();
+    ## var converter = Markdown.getSanitizingConverter();
+    var converter = new Markdown.Converter();
     
     converter.hooks.chain("preBlockGamut", function (text, rbg) {
         return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
@@ -70,18 +71,18 @@
     converter.hooks.chain("postConversion", function(text) {
         return text.replace(/\s*:::(:)*python\s*\n/, "");
     });
-
+    
     Markdown.Extra.init(converter, {
       extensions: "all",
       highlighter: "prettify"
     });
 
-    var editor1 = new Markdown.Editor(converter);
-    editor1.hooks.chain("onPreviewRefresh", prettyPrint); // google code prettify
-    editor1.hooks.chain("onPreviewRefresh", function() {
+    var editor = new Markdown.Editor(converter);
+    editor.hooks.chain("onPreviewRefresh", prettyPrint); // google code prettify
+    editor.hooks.chain("onPreviewRefresh", function() {
         MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
     });
-    editor1.run();
+    editor.run();
 })();
 </script>
 
