@@ -8,7 +8,10 @@ from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from pyramid.response import Response
 from pumbaa import models, forms
-import cgi
+
+import tempfile
+from PIL import Image
+from PIL.ExifTags import TAGS
 
 @view_config(route_name='manager.photo_albums.index', 
              permission='member',
@@ -59,18 +62,35 @@ def add_photo(request):
         for image in images:
             photo = models.Photo()
             
-            from PIL import Image
-            from PIL.ExifTags import TAGS
-            import datetime
             img = Image.open(image.file)
 
             image.file.seek(0)
+            img_format = img.format
+            
+            orientation = 0
+            for k, v in img._getexif().items():
+                if TAGS.get(k, k) == 'Orientation':
+                    orientation = v
+                    break
+            
+            if orientation == 8:
+                photo.orientation = 'vertical'
+            if orientation == 6:
+                photo.orientation = 'vertical'
+                img = img.transpose(Image.ROTATE_180)
+
+            
             if img.size[0] < img.size[1]:
                 photo.orientation = 'vertical'
-                photo.vimage.put(image.file, filename=image.filename)
-            else:
+                img = img.transpose(Image.ROTATE_270)
             
-                photo.image.put(image.file, filename=image.filename)
+            
+            tmp_img = tempfile.TemporaryFile()
+             
+            img.save(tmp_img, format=img_format)
+            tmp_img.seek(0)
+
+            photo.image.put(tmp_img, filename=image.filename, exif=img.info['exif'])
                 
             photo.license = license
             photo.user = request.user

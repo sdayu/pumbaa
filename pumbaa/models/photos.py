@@ -33,12 +33,6 @@ class Photo(me.EmbeddedDocument):
                           thumbnail_size=(320, 240, True),
                           )
     
-    vimage = me.ImageField(collection_name='images',
-                          size=(786, 1024, True),
-                          thumbnail_size=(240, 320, True),
-                          )
-    
-    
     comments = me.ListField(me.EmbeddedDocumentField(forums.Comment))
     license = me.StringField(required=True, default='COPYRIGHT', choices=LICENSE)
     
@@ -49,10 +43,7 @@ class Photo(me.EmbeddedDocument):
     def get_album(self):
         album = PhotoAlbum.objects(photos__id = self.id).first()
         return album
-    
-    def get_image(self):
-        return self.image if self.image.get() is not None else self.vimage
-    
+
 class PhotoAlbum(me.Document):
     meta = {'collection' : 'photo_albums'}
     
