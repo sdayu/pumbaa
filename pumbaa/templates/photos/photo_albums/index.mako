@@ -9,7 +9,7 @@
 
 <div class="row">
 % for photo_album in photo_albums:
-  <div class="col-sm-6 col-md-3 col-lg-3">
+  <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
     <div class="thumbnail">
       <a href="${request.route_path('photos.photo_albums.view', photo_album_id=photo_album.id)}">
       	<img src="${request.route_path('photos.thumbnail', photo_album_id=photo_album.id, photo_id=photo_album.photos[0].image.filename)}" alt="${photo_album.name}" width="100%">
