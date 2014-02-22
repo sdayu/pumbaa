@@ -16,7 +16,7 @@
 
 % for photo in photo_album.photos:
 	<a href="${request.route_path('photos.photo_albums.photo_view', photo_album_id=photo_album.id, photo_id=photo.id)}" >
-		<img class="img-thumbnail" width="200px" alt="${photo.caption}" src="${request.route_path('photos.thumbnail', photo_album_id=photo_album.id, photo_id=photo.image.filename)}" />
+		<img class="img-thumbnail" width="200px" alt="${photo.caption}" src="${request.route_path('photos.thumbnail', photo_album_id=photo_album.id, photo_id=photo.get_image().filename)}" />
 	</a>
 % endfor
 

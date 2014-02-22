@@ -22,7 +22,7 @@ def view(request):
     photo_id = matchdict['photo_id']
      
     photo_album = models.PhotoAlbum.objects.with_id(photo_album_id)
-    image = photo_album.get_photo(photo_id).image
+    image = photo_album.get_photo(photo_id).get_image()
     
     response = Response()
     extension = image.filename[image.filename.rfind('.')+1:]

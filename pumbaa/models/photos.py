@@ -32,14 +32,26 @@ class Photo(me.EmbeddedDocument):
                           size=(1024, 786, True),
                           thumbnail_size=(320, 240, True),
                           )
+    
+    vimage = me.ImageField(collection_name='images',
+                          size=(786, 1024, True),
+                          thumbnail_size=(240, 320, True),
+                          )
+    
+    
     comments = me.ListField(me.EmbeddedDocumentField(forums.Comment))
     license = me.StringField(required=True, default='COPYRIGHT', choices=LICENSE)
     
     user = me.ReferenceField("User", dbref=True, required=True)
     
+    orientation = me.StringField(required=True, default='horizontal', choices=['vertical', 'horizontal'])
+    
     def get_album(self):
         album = PhotoAlbum.objects(photos__id = self.id).first()
         return album
+    
+    def get_image(self):
+        return self.image if self.image.get() is not None else self.vimage
     
 class PhotoAlbum(me.Document):
     meta = {'collection' : 'photo_albums'}
@@ -58,10 +70,14 @@ class PhotoAlbum(me.Document):
 
     user = me.ReferenceField("User", dbref=True, required=True)
 
+        
     def get_photo(self, photo_id):
         for photo in self.photos:
-            if photo.image.filename == photo_id:
+            image = photo.image if photo.image.get() is not None else photo.vimage
+            
+            if image.filename == photo_id:
                 return photo
+                
             if str(photo.id) == photo_id:
                 return photo
     
@@ -69,8 +85,12 @@ class PhotoAlbum(me.Document):
         this_photo = None
         for i in range(0, len(self.photos)):
             photo = self.photos[i]
-            if photo.image.filename == photo_id:
-                this_photo = photo
+            image = photo.image if photo.image.get() is not None else photo.vimage
+            try:
+                if image.filename == photo_id:
+                    this_photo = photo
+            except:
+                pass
             if str(photo.id) == photo_id:
                 this_photo = photo
                 

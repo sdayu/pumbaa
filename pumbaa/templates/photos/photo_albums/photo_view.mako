@@ -1,7 +1,7 @@
 <%inherit file="/forums/base/base.mako"/>
 
-<%block name="title">${photo_album.name + ": " + photo.image.filename}</%block>
-<%block name="description">${photo.caption if len(photo.caption) > 0 else photo.image.filename}</%block>
+<%block name="title">${photo_album.name + ": " + photo.get_image().filename}</%block>
+<%block name="description">${photo.caption if len(photo.caption) > 0 else photo.get_image().filename}</%block>
 <%block name="where_am_i">
 <li><a href="${request.route_path('photos.photo_albums.index')}">Photo Albums</a></li>
 <li><a href="${request.route_path('photos.photo_albums.view', photo_album_id=photo_album.id)}">${photo_album.name}</a></li>
@@ -26,7 +26,7 @@
 </ul>
 <div class="row">
 	<div class="col-sm-8 col-md-8 col-lg-9">
-		<img class="img-rounded" alt="${photo.caption}" src="${request.route_path('photos.view', photo_album_id=photo_album.id, photo_id=photo.image.filename)}" width="100%" />
+		<img class="img-rounded" alt="${photo.caption}" src="${request.route_path('photos.view', photo_album_id=photo_album.id, photo_id=photo.get_image().filename)}" width="100%" />
 	</div>
 	<div class="col-sm-4 col-md-4 col-lg-3">
 		<div class="well well-sm">

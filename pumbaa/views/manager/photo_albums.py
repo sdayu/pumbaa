@@ -58,7 +58,23 @@ def add_photo(request):
     if images is not None and type(images) == list:
         for image in images:
             photo = models.Photo()
-            photo.image.put(image.file, filename = image.filename)
+            
+            from PIL import Image
+            from PIL.ExifTags import TAGS
+            import datetime
+            img = Image.open(image.file)
+            for (k,v) in img._getexif().items():
+                if 'Orientation' in TAGS.get(k):
+                    print ('%s = %s' % (TAGS.get(k), v))
+
+            image.file.seek(0)
+            if img.size[0] < img.size[1]:
+               
+                photo.vimage.put(image.file, filename=image.filename)
+            else:
+            
+                photo.image.put(image.file, filename=image.filename)
+                
             photo.license = license
             photo.user = request.user
             photo_album.photos.append(photo)
