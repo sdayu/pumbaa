@@ -63,13 +63,10 @@ def add_photo(request):
             from PIL.ExifTags import TAGS
             import datetime
             img = Image.open(image.file)
-            for (k,v) in img._getexif().items():
-                if 'Orientation' in TAGS.get(k):
-                    print ('%s = %s' % (TAGS.get(k), v))
 
             image.file.seek(0)
             if img.size[0] < img.size[1]:
-               
+                photo.orientation = 'vertical'
                 photo.vimage.put(image.file, filename=image.filename)
             else:
             
