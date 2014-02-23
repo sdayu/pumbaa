@@ -101,7 +101,7 @@ def add_photo(request):
             img.save(tmp_img, format=img_format)
             tmp_img.seek(0)
 
-            photo.image.put(tmp_img, filename=image.filename, exif=img.info['exif'])
+            photo.image.put(tmp_img, filename=image.filename, exif=img.info.get('exif', None))
                 
             photo.license = license
             photo.user = request.user
