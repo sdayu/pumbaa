@@ -12,13 +12,19 @@ from pumbaa import models, forms
 import tempfile
 from PIL import Image
 from PIL.ExifTags import TAGS
+from http.client import HTTPResponse
 
 @view_config(route_name='manager.photo_albums.index', 
              permission='member',
              renderer='/manager/photo_albums/index.mako')
 def index(request):
-    photo_albums = models.PhotoAlbum.objects(status__ne='delete').all()
-    return dict(photo_albums=photo_albums)
+    my_photo_albums = models.PhotoAlbum.objects(status__ne='delete', user=request.user).all()
+    share_photo_albums = models.PhotoAlbum.objects(status__ne='delete', shared="True", user__ne=request.user).all()
+    
+    return dict(
+                my_photo_albums=my_photo_albums,
+                share_photo_albums=share_photo_albums
+                )
 
 @view_config(route_name='manager.photo_albums.create', 
              permission='member',
@@ -35,6 +41,7 @@ def create_edit(request):
     photo_albums = models.PhotoAlbum(**form.data)
     photo_albums.status = 'publish'
     photo_albums.user = request.user
+
     photo_albums.save()
     
     return HTTPFound(location=request.route_path('manager.photo_albums.index'))
@@ -59,6 +66,9 @@ def add_photo(request):
     license = form.data.get('license')
     
     if images is not None and type(images) == list:
+        if len(images) > 0:
+            if type(images[0]) == bytes:
+                return HTTPFound(location=request.current_route_path())
         for image in images:
             photo = models.Photo()
             
@@ -101,4 +111,13 @@ def add_photo(request):
 @view_config(route_name='manager.photo_albums.delete', 
              permission='member')
 def delete(request):
-    return dict()
+    photo_album_id = request.matchdict.get('photo_album_id')
+    photo_album = models.PhotoAlbum.objects(id=photo_album_id, user=request.user).first()
+    
+    if photo_album is None:
+        return HTTPResponse("Permission Denied")
+    
+    photo_album.status = "delete"
+    photo_album.save()
+    
+    return HTTPFound(location=request.route_path('manager.photo_albums.index'))

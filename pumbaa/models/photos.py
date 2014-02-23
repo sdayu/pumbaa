@@ -49,6 +49,8 @@ class PhotoAlbum(me.Document):
     
     name = me.StringField(required=True)
     description = me.StringField(default='')
+    shared = me.BooleanField(required=True, default=False)
+    
     photos = me.ListField(me.EmbeddedDocumentField(Photo))
     status = me.StringField(required=True, default='draft')
     """ status: draft, publish, delete """
@@ -60,7 +62,6 @@ class PhotoAlbum(me.Document):
     comments = me.ListField(me.EmbeddedDocumentField(forums.Comment))
 
     user = me.ReferenceField("User", dbref=True, required=True)
-
         
     def get_photo(self, photo_id):
         for photo in self.photos:

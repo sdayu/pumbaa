@@ -10,18 +10,24 @@
 <%block name="panel_title">New Photo Albums</%block>
 <form action="${request.current_route_path()}" method="post">
 	<div class="form-group${' has-error' if form.name.errors else ''}">
-	    <label for="title" class="control-label${' has-error' if form.name.errors else ''}">Name</label>
+	    <label for="title" class="control-label">Name</label>
 	    % if form.name.errors:
 			<span class="text-danger">${form.name.errors[0]}</span>
 		% endif
 	    ${form.name(class_='form-control', placeholder='Enter photo album name')}
 	</div>
 	<div class="form-group${' has-error' if form.description.errors else ''}">
-	    <label for="title" class="control-label${' has-error' if form.description.errors else ''}">Description</label>
+	    <label for="desctiption" class="control-label">Description</label>
 	    % if form.description.errors:
 			<span class="text-danger">${form.description.errors[0]}</span>
 		% endif
 	    ${form.description(class_='form-control', placeholder='Enter photo album name')}
+	</div>
+	<div class="checkbox${' has-error' if form.shared.errors else ''}">
+	    % if form.shared.errors:
+			<span class="text-danger">${form.shared.errors[0]}</span>
+		% endif
+	    <label for="shared">${form.shared} Allow friends to add photo</label>
 	</div>
 	<div class="form-group">
 		<button type="submit" class="btn btn-primary">Create photo album</button>
