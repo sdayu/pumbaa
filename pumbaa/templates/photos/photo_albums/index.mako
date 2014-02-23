@@ -9,6 +9,7 @@
 
 <div class="row">
 % for photo_album in photo_albums:
+  % if len(photo_album.photos) > 0:
   <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
     <div class="thumbnail">
       <a href="${request.route_path('photos.photo_albums.view', photo_album_id=photo_album.id)}">
@@ -21,5 +22,6 @@
       </div>
      </div>
   </div>
+  % endif
 % endfor
 </div>
