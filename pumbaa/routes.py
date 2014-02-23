@@ -29,6 +29,7 @@ def manager_include(config):
     config.add_route('manager.photo_albums.edit', '/photo_albums/edit/{photo_album_id}')
     config.add_route('manager.photo_albums.delete', '/photo_albums/delete/{photo_album_id}')
     config.add_route('manager.photo_albums.add_photo', '/photo_albums/{photo_album_id}/add_photo')
+    config.add_route('manager.photo_albums.delete_photo', '/photo_albums/{photo_album_id}/delete_photo/{photo_id}')
 
 def forums_include(config):
     

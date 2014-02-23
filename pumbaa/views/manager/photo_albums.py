@@ -109,6 +109,20 @@ def add_photo(request):
             photo_album.save()
     return HTTPFound(location=request.route_path('photos.photo_albums.view', photo_album_id=photo_album.id))
 
+@view_config(route_name='manager.photo_albums.delete_photo', 
+             permission='member',)
+def delete_photo(request):
+    photo_album_id = request.matchdict.get('photo_album_id')
+    photo_id = request.matchdict.get('photo_id')
+    
+    photo_album = models.PhotoAlbum.objects.with_id(photo_album_id)
+    photo, p, n = photo_album.get_photo_index(photo_id)
+    photo_album.photos.remove(photo)
+    photo_album.save()
+    if n is None:
+        return HTTPFound(request.route_path('photos.photo_albums.view', phtoto_album_id=photo_album_id))
+    return HTTPFound(request.route_path('photos.photo_albums.photo_view', photo_album_id=photo_album_id, photo_id=n.id))
+
 @view_config(route_name='manager.photo_albums.delete', 
              permission='member')
 def delete(request):

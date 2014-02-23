@@ -43,6 +43,11 @@
 			% if photo.caption:
 			<p>${photo.caption}</p>
 			% endif
+			
+			% if request.user == photo.user:
+				<a class="btn btn-primary" href="${request.route_path('manager.photo_albums.delete_photo', photo_album_id=photo_album.id, photo_id=photo.id)}">Delete</a>
+			% endif
+			
 		</div>
 	</div>
 </div>
