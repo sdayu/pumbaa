@@ -41,7 +41,8 @@ def create_edit(request):
     photo_albums = models.PhotoAlbum(**form.data)
     photo_albums.status = 'publish'
     photo_albums.user = request.user
-
+    print("date:", photo_albums.event_date)
+    
     photo_albums.save()
     
     return HTTPFound(location=request.route_path('manager.photo_albums.index'))

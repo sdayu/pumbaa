@@ -23,6 +23,13 @@
 		% endif
 	    ${form.description(class_='form-control', placeholder='Enter photo album name')}
 	</div>
+	<div class="form-group${' has-error' if form.event_date.errors else ''}">
+	    <label for="event_date" class="control-label">When</label>
+	    % if form.event_date.errors:
+			<span class="text-danger">${form.event_date.errors[0]}</span>
+		% endif
+	    ${form.event_date(class_='form-control', placeholder='yyyy/mm/dd')}
+	</div>
 	<div class="checkbox${' has-error' if form.shared.errors else ''}">
 	    % if form.shared.errors:
 			<span class="text-danger">${form.shared.errors[0]}</span>

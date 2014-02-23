@@ -49,6 +49,7 @@ class PhotoAlbum(me.Document):
     
     name = me.StringField(required=True)
     description = me.StringField(default='')
+    event_date = me.DateTimeField()
     shared = me.BooleanField(required=True, default=False)
     
     photos = me.ListField(me.EmbeddedDocumentField(Photo))
