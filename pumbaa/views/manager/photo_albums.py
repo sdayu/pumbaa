@@ -33,17 +33,33 @@ def index(request):
              permission='member',
              renderer='/manager/photo_albums/create.mako')
 def create_edit(request):
+    photo_album_id = request.matchdict.get('photo_album_id', None)
     form = forms.photos.PhotoAlbum(request.POST)
+    photo_album = None
+    
+    if photo_album_id is not None:
+        photo_album = models.PhotoAlbum.objects.with_id(photo_album_id)
+        if photo_album.user != request.user:
+            return HTTPResponse("permission denied")
+        
     if len(request.POST) == 0 or not form.validate():
+        if photo_album_id is not None and len(request.POST) == 0:
+            form = forms.photos.PhotoAlbum(obj=photo_album)
         return dict(
                     form=form
                     )
-    photo_albums = models.PhotoAlbum(**form.data)
-    photo_albums.status = 'publish'
-    photo_albums.user = request.user
-    print("date:", photo_albums.event_date)
+    if photo_album is None:
+        photo_album = models.PhotoAlbum(**form.data)
+        photo_album.status = 'publish'
+        photo_album.user = request.user
+    else:
+        photo_album.name = form.data.get('name')
+        photo_album.description = form.data.get('description', None)
+        photo_album.event_date = form.data.get('event_date', None)
+        photo_album.shared = form.data.get('shared', False)
     
-    photo_albums.save()
+    
+    photo_album.save()
     
     return HTTPFound(location=request.route_path('manager.photo_albums.index'))
 

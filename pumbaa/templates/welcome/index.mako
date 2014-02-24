@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded',function() {
 		  <div class="panel-body">
 		  
 		  	<div class="row">
-		  	% for photo_album in photo_albums[:4]:
+		  	% for photo_album in photo_albums[:8]:
 			  <div class="col-sm-6 col-md-3 col-lg-3">
 			    <a class="thumbnail" href="${request.route_path('photos.photo_albums.view', photo_album_id=photo_album.id)}">
 			        <img src="${request.route_path('photos.thumbnail', photo_album_id=photo_album.id, photo_id=photo_album.photos[0].image.filename)}" alt="${photo_album.name}">

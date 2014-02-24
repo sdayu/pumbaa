@@ -28,7 +28,8 @@
 	    % if form.event_date.errors:
 			<span class="text-danger">${form.event_date.errors[0]}</span>
 		% endif
-	    ${form.event_date(class_='form-control', placeholder='yyyy/mm/dd')}
+	    ${form.event_date(class_='form-control', placeholder='yyyy-mm-dd')}
+	    <p>เป็น ค.ศ. 2014-03-01</p>  ${form.event_date.data}
 	</div>
 	<div class="checkbox${' has-error' if form.shared.errors else ''}">
 	    % if form.shared.errors:
