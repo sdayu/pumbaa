@@ -29,7 +29,7 @@ class Photo(me.EmbeddedDocument):
     updated_date = me.DateTimeField(required=True, default=datetime.datetime.now)
 
     image = me.ImageField(collection_name='images',
-                          size=(1024, 786, True),
+                          size=(1200, 800, True),
                           thumbnail_size=(320, 240, True),
                           )
     
