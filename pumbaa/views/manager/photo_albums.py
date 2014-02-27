@@ -19,7 +19,7 @@ from http.client import HTTPResponse
              renderer='/manager/photo_albums/index.mako')
 def index(request):
     my_photo_albums = models.PhotoAlbum.objects(status__ne='delete', user=request.user).all()
-    share_photo_albums = models.PhotoAlbum.objects(status__ne='delete', shared="True", user__ne=request.user).all()
+    share_photo_albums = models.PhotoAlbum.objects(status__ne='delete', shared=True, user__ne=request.user).all()
     
     return dict(
                 my_photo_albums=my_photo_albums,
@@ -39,7 +39,7 @@ def create_edit(request):
     
     if photo_album_id is not None:
         photo_album = models.PhotoAlbum.objects.with_id(photo_album_id)
-        if photo_album.user != request.user:
+        if photo_album is None or photo_album.user != request.user:
             return HTTPResponse("permission denied")
         
     if len(request.POST) == 0 or not form.validate():
@@ -56,8 +56,7 @@ def create_edit(request):
         photo_album.name = form.data.get('name')
         photo_album.description = form.data.get('description', None)
         photo_album.event_date = form.data.get('event_date', None)
-        photo_album.shared = form.data.get('shared', False)
-    
+        photo_album.shared = form.data.get('shared', False)    
     
     photo_album.save()
     

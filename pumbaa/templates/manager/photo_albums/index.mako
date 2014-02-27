@@ -1,4 +1,7 @@
 <%inherit file="/manager/base/base.mako"/>
+<%block name="title">
+Photo Album Manager
+</%block>
 <%block name="where_am_i">
 	${parent.where_am_i()}
 	<li><a href="${request.current_route_path()}">Photo Albums</a></li>
@@ -13,11 +16,14 @@
 <ul class="list-group">
 	% for photo_album in my_photo_albums:
     <li class="list-group-item">
-    	<a href="${request.route_path('photos.photo_albums.view', photo_album_id=photo_album.id)}">${photo_album.name}</a> :: 
+    	<a href="${request.route_path('photos.photo_albums.view', photo_album_id=photo_album.id)}">
+    		${photo_album.name} ${'<span class="glyphicon glyphicon-share"></span>' if photo_album.shared else '' | n}
+    	</a> 
+    		:: 
     	<a href="${request.route_path('manager.photo_albums.add_photo', photo_album_id=photo_album.id)}">add photo</a>
     	<div class="pull-right">
-    		<a href="${request.route_path('manager.photo_albums.edit', photo_album_id=photo_album.id)}">edit</a> : 
-    		<a href="${request.route_path('manager.photo_albums.delete', photo_album_id=photo_album.id)}">delete</a>
+    		<a href="${request.route_path('manager.photo_albums.edit', photo_album_id=photo_album.id)}" title="Edit photo album"><span class="glyphicon glyphicon-edit"></span></a> 
+    		<a href="${request.route_path('manager.photo_albums.delete', photo_album_id=photo_album.id)}" title="Delete photo album"><span class="glyphicon glyphicon-remove"></span></a>
     	</div>
     	
     </li>
