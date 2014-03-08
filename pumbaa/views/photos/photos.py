@@ -71,7 +71,7 @@ def thumbnail(request):
     
     img = Image.open(image)
     img_format = img.format
-
+    
     if photo.orientation == 'vertical':
         img = img.transpose(Image.ROTATE_90)
  

@@ -99,24 +99,22 @@ def add_photo(request):
                     if TAGS.get(k, k) == 'Orientation':
                         orientation = v
                         break
-            
             if orientation == 8:
                 photo.orientation = 'vertical'
             if orientation == 6:
                 photo.orientation = 'vertical'
-                img = img.transpose(Image.ROTATE_180)
+                img = img.transpose(Image.ROTATE_270)
 
             
             if img.size[0] < img.size[1]:
                 photo.orientation = 'vertical'
                 img = img.transpose(Image.ROTATE_270)
             
-            
             tmp_img = tempfile.TemporaryFile()
              
             img.save(tmp_img, format=img_format)
             tmp_img.seek(0)
-
+            
             photo.image.put(tmp_img, filename=image.filename, exif=img.info.get('exif', None))
                 
             photo.license = license

@@ -3,7 +3,7 @@
 <%block name="title">New Photo Albums</%block>
 <%block name="where_am_i">
 	${parent.where_am_i()}
-	<li><a href="${request.route_path('manager.pages.index')}">Photo Albums</a></li>
+	<li><a href="${request.route_path('manager.photo_albums.index')}">Photo Albums</a></li>
 	<li><a href="${request.current_route_path()}">New photo</a></li>
 </%block>
 
