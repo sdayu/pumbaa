@@ -94,7 +94,7 @@ def add_photo(request):
             img_format = img.format
             
             orientation = 0
-            if img._getexif() is not None:
+            if hasattr(img, '_getexif') and img._getexif() is not None:
                 for k, v in img._getexif().items():
                     if TAGS.get(k, k) == 'Orientation':
                         orientation = v
