@@ -11,11 +11,13 @@ from pumbaa import forms, models
 
 @view_config(route_name='forums.comments.comment', 
              permission='member')
-@view_config(route_name='forums.comments.replies',
+@view_config(route_name='forums.comments.reply',
              permission='member')
 def comment(request):
     title = request.matchdict.get('title')
     topic_id = request.matchdict.get('topic_id')
+    comment_id = request.matchdict.get('comment_id', None)
+    
     form = forms.topics.Comment(request.POST)
 
     if len(request.POST) > 0 and form.validate():
@@ -29,8 +31,11 @@ def comment(request):
                              author=request.user, 
                              status='publish',
                              ip_address=request.environ.get('REMOTE_ADDR'))
-
-    topic.comments.append(comment)
+    if comment_id is None:
+        topic.comments.append(comment)
+    else:
+        parrent_comment = topic.get_comment(comment_id)
+        parrent_comment.replies.append(comment)
     topic.save()
     
     return HTTPFound(location=request.route_path('forums.topics.view', topic_id=topic_id, title=title))

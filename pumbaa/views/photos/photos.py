@@ -1,14 +1,14 @@
 '''
-Created on Nov 10, 2013
-
-@author: boatkrap
-'''
-from pumbaa.views.photos import photo_albums
-'''
 Created on Jul 14, 2012
 
 @author: boatkrap
 '''
+
+from pumbaa.views.photos import photo_albums
+
+from PIL import Image
+import tempfile
+
 from pyramid.view import view_config
 from pyramid.response import Response
 from pyramid.httpexceptions import HTTPFound
@@ -22,17 +22,27 @@ def view(request):
     photo_id = matchdict['photo_id']
      
     photo_album = models.PhotoAlbum.objects.with_id(photo_album_id)
-    image = photo_album.get_photo(photo_id).image
+    photo = photo_album.get_photo(photo_id)
     
     response = Response()
-    extension = image.filename[image.filename.rfind('.')+1:]
+    extension = photo.image.filename[photo.image.filename.rfind('.')+1:]
 
     if extension.lower() in ['jpg', 'jpeg']:
         response.content_type='image/jpeg'
     elif extension.lower() in ['png']:
         response.content_type='image/png'
  
-    response.body_file = image
+    img = Image.open(photo.image)
+    img_format = img.format
+    if photo.orientation == 'vertical':
+        img = img.transpose(Image.ROTATE_90)
+ 
+    tmp_img = tempfile.TemporaryFile()
+             
+    img.save(tmp_img, format=img_format)
+    tmp_img.seek(0)
+    
+    response.body_file = tmp_img
     return response
  
  
@@ -44,12 +54,12 @@ def thumbnail(request):
     photo_id = matchdict['photo_id']
 
     photo_album = models.PhotoAlbum.objects.with_id(photo_album_id)
-    image = photo_album.get_photo(photo_id).image
+    photo = photo_album.get_photo(photo_id)
     
-    extension = image.filename[image.filename.rfind('.')+1:]
+    extension = photo.image.filename[photo.image.filename.rfind('.')+1:]
     
-    if image.thumbnail:
-        image = image.thumbnail
+    if photo.image.thumbnail:
+        image = photo.image.thumbnail
         
     response = Response()
 
@@ -58,5 +68,17 @@ def thumbnail(request):
     elif extension.lower() in ['png']:
         response.content_type='image/png'
  
-    response.body_file = image
+    
+    img = Image.open(image)
+    img_format = img.format
+    
+    if photo.orientation == 'vertical':
+        img = img.transpose(Image.ROTATE_90)
+ 
+    tmp_img = tempfile.TemporaryFile()
+             
+    img.save(tmp_img, format=img_format)
+    tmp_img.seek(0)
+ 
+    response.body_file = tmp_img
     return response

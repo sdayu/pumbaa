@@ -92,10 +92,72 @@ def logout(request):
 def home(request):
     return dict()
 
+@view_config(route_name='accounts.add_online_account', renderer='/accounts/add_online_account.mako', permission='login')
+def add_online_account(request):
+    return dict()
+
+def add_new_online_profile(request):
+    context = request.context
+    domain = context.profile["accounts"][0]['domain']
+    user_id  = context.profile["accounts"][0]['userid']
+    
+    
+    profile = request.user.get_profile(domain)
+    
+    if profile:
+        return HTTPFound(location=request.route_path('home'))
+    
+    if 'verifiedEmail' in context.profile:
+        email = context.profile['verifiedEmail']
+    else:
+        email = context.profile['preferredUsername']+"@"+domain
+    
+    if 'name' in context.profile:
+        first_name   = context.profile['name'].get('givenName', None)
+        last_name    = context.profile['name'].get('familyName', None)
+        if first_name is None:
+            if 'formatted' in context.profile['name']:
+                first_name = context.profile['name']['formatted']
+                last_name = 'No Last Name'
+    else:
+        names = context.profile['displayName'].split(' ')
+        first_name   = names[0]
+        last_name    = names[-1]
+        
+    profile = models.Profile()
+    profile.user_id = user_id
+    profile.domain = domain
+    profile.first_name = first_name
+    profile.last_name = last_name
+        
+    profile.display_name = context.profile['displayName']
+
+    if 'profile.php=' in context.profile['preferredUsername']:
+        profile.username = profile.username.split('=')[-1]
+    else:
+        profile.username = context.profile['preferredUsername']
+        
+    profile.email = email
+    profile.profile_source = context.profile
+    
+    # support old user accounts
+    if request.user.display_name is None:
+        request.user.display_name = request.user.username
+    
+    
+    request.user.online_profiles.append(profile)
+    request.user.save()
+    
+    return HTTPFound(location=request.route_path('home'))
+    
 @view_config(
     context='velruse.AuthenticationComplete',
 )
 def online_login_complete(request):
+    
+    if request.user:
+        return add_new_online_profile(request)
+    
     context = request.context
     
     domain = context.profile["accounts"][0]['domain']

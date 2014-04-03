@@ -78,6 +78,9 @@
 		            	<a href="${request.route_path('forums.topics.compose')}">New topic</a>
 		            </li>
 		            <li>
+		            	<a href="${request.route_path('manager.photo_albums.create')}">New photo albums</a>
+		            </li>
+		            <li>
 		            	<a href="${request.route_path('manager.topics.index')}">My topics</a>
 		            </li>
 		            % if has_permission('admin', request.context, request):

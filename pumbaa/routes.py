@@ -29,6 +29,7 @@ def manager_include(config):
     config.add_route('manager.photo_albums.edit', '/photo_albums/edit/{photo_album_id}')
     config.add_route('manager.photo_albums.delete', '/photo_albums/delete/{photo_album_id}')
     config.add_route('manager.photo_albums.add_photo', '/photo_albums/{photo_album_id}/add_photo')
+    config.add_route('manager.photo_albums.delete_photo', '/photo_albums/{photo_album_id}/delete_photo/{photo_id}')
 
 def forums_include(config):
     
@@ -36,7 +37,7 @@ def forums_include(config):
     config.add_route('forums.tags.list_contents', '/topics/tags/{name}')
 
     config.add_route('forums.comments.comment', '/topics/{topic_id}/comment')
-    config.add_route('forums.comments.replies', '/topics/{topic_id}/comment/${comment_id}')
+    config.add_route('forums.comments.reply', '/topics/{topic_id}/comments/${comment_id}')
     
     config.add_route('forums.topics.index', '/topics')
     config.add_route('forums.topics.compose', '/topics/compose')
@@ -49,11 +50,11 @@ def forums_include(config):
     config.add_route('forums.view', '/{name}')
     
 def photo_album_include(config):
-    config.add_route('photos.photo_albums.view', '/photo_albums/{photo_album_id}')
-    config.add_route('photos.photo_albums.photo_view', '/photo_albums/{photo_album_id}/photos/{photo_id}/view')
+    config.add_route('photos.photo_albums.view', '/{photo_album_id}')
+    config.add_route('photos.photo_albums.photo_view', '/{photo_album_id}/photos/{photo_id}/view')
     
-    config.add_route('photos.photo_albums.comment', '/photo_albums/{photo_album_id}/comment')
-    config.add_route('photos.photo_albums.photo_comment', '/photo_albums/{photo_album_id}/photos/{photo_id}/comment')
+    config.add_route('photos.photo_albums.comment', '/{photo_album_id}/comment')
+    config.add_route('photos.photo_albums.photo_comment', '/{photo_album_id}/photos/{photo_id}/comment')
 
 def add_routes(config):
     config.add_route('index', '/')
@@ -65,7 +66,7 @@ def add_routes(config):
     config.add_route('logout', '/logout')
     config.add_route('accounts.change_password', '/accounts/change_password')
     config.add_route('accounts.change_display_name', '/accounts/change_display_name')
-
+    config.add_route('accounts.add_online_account', '/accounts/add_online_account')
     # add admin route
     config.add_route('admin.index', '/admin')
     config.include(admin_include, route_prefix='/admin')

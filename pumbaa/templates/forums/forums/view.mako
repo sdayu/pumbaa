@@ -26,3 +26,4 @@
     </li>
     % endfor
 </ul>
+<%include file="/base/pagination.mako" args="page=page,pages=pages"/>

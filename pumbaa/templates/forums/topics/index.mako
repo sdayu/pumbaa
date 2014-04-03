@@ -10,7 +10,7 @@
 </%block>
 <%block name="panel_title">Topics</%block>
 <ul class="list-inline">
-	<li><a href="${request.route_path('forums.topics.compose')}">new topic</a></li>
+	<li><a href="${request.route_path('forums.topics.compose')}"><b>New Topic</b></a></li>
 </ul>
 <ul class="list-group">
 	% for topic in topics:
@@ -19,5 +19,4 @@
     </li>
     % endfor
 </ul>
-
-
+<%include file="/base/pagination.mako" args="page=page,pages=pages"/>

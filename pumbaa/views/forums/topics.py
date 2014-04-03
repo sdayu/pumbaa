@@ -9,13 +9,25 @@ from pyramid.response import Response
 
 from pumbaa import models, forms
 import json
+import math
 
 @view_config(route_name='forums.topics.index', 
              renderer='/forums/topics/index.mako')
 def index(request):
-    topics = models.Topic.objects(status='publish').order_by('-published_date').all()
+    page = int(request.GET.get('page', 1))
+    topics_per_page = 15
+    
+    topic_count = models.Topic.objects(status='publish').count()
+    pages = math.ceil(topic_count/topics_per_page)
+    
+    page = page if page > 0 else 1
+    page = page if page <= pages else pages
+    
+    topics = models.Topic.objects(status='publish').order_by('-published_date').skip((page-1)*topics_per_page).limit(topics_per_page).all()
     return dict(
-                topics=topics
+                topics=topics,
+                pages=pages,
+                page=page
                 )
 
 @view_config(route_name='forums.topics.compose', 
