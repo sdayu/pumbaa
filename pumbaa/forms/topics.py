@@ -31,7 +31,7 @@ def announce_tag_allow(form, field):
     request = get_current_request()
     for tag in tags:
         if tag in ['ประกาศ', 'ประกาศจากภาควิชา', 'announce']:
-            if not has_permission('anounce-tag', request.context, request):
+            if not has_permission('announce-tag', request.context, request):
                 raise validators.ValidationError(
                     'This tag name "%s" is not allowed'% tag)
 
