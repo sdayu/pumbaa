@@ -30,6 +30,7 @@ def register(request):
     role = models.Role.objects(name='anonymous').first()
     user.roles.append(role)
     user.ip_address = request.environ['REMOTE_ADDR']
+    user.display_name = "%s %s" % (form.data.get('first_name'), form.data.get('last_name'))
     user.save()
     
     return HTTPFound(location=request.route_path('index'))
