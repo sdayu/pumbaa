@@ -36,6 +36,14 @@ session.key = pumbaa_session
 session.secret = %(pumbaa.secret)s
 session.cookie_on_exception = true
 
+# mail
+mail.post_fb.enable = false 
+mail.host = smtp.gmail.com
+mail.port = 587
+mail.username = <email>@gmail.com
+mail.password = <password> 
+mail.fb_group = <groud-id>@groups.facebook.com
+
 # facebook profile
 velruse.facebook.consumer_key = <facebook consumer key>
 velruse.facebook.consumer_secret = <facebook consumer secret>
