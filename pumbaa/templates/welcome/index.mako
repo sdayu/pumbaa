@@ -63,12 +63,22 @@ document.addEventListener('DOMContentLoaded',function() {
 			</div>
 		<div class="panel panel-info">
 		  <div class="panel-heading">
-		    <h3 class="panel-title">Recent Topics <a href="${request.route_path('forums.feeds')}"><img alt="Atom feed" src="/public/images/feed-icon.svg" width=15px/></a></h3>
+		    <h3 class="panel-title">Recent Topics <a href="${request.route_path('forums.feeds')}"><img alt="Atom feed" src="/public/images/feed-icon.svg" width=15px/></a>
+            <a href="#" class="pull-right"><span class="glyphicon glyphicon-stats"></span></a>
+            </h3>
 		  </div>
-		  <div class="panel-body">
+		  <div class="panel-body">    
 			  <ul class="list-unstyled">
 			    % for topic in recent_topics:
-			    	<li><a href="${request.route_path('forums.topics.view', title=topic.title, topic_id=topic.id)}">${topic.title}</a></li>
+			    	<li>
+                        <a href="${request.route_path('forums.topics.view', 
+                            title=topic.title, topic_id=topic.id)}">${topic.title}</a>
+                        <div class="pull-right">
+                            % if len(topic.comments) > 0:
+                                <a href="#" class="badge">${len(topic.comments)}</a>
+                            % endif
+                        </div>
+                    </li>
 			    % endfor
 			  </ul>
 		  </div>
