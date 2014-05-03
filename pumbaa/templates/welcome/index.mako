@@ -19,7 +19,9 @@
 	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Sanitizer.js"></script>
 	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Editor.js"></script>
 	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Extra.js"></script>
-	
+
+    <script type="text/javascript" src="https://code.angularjs.org/1.2.9/angular.min.js"></script>
+
 	<script type="text/javascript" src="/public/libs/google-code-prettify/prettify.js"></script> 
 	<link rel="stylesheet" type="text/css" href="/public/libs/google-code-prettify/prettify.css" />
 
@@ -51,7 +53,41 @@ document.addEventListener('DOMContentLoaded',function() {
 });
 </script>
 
+<script type="text/javascript">
+    function IntroCtrl ($scope, $interval) {
+        $scope.name = "xZer0";
+        $scope.format = 'M/d/yy h:mm:ss a';
+        $scope.add = function(a, b) {
+            return a + b;
+        };
+        $scope.ptime = new Date(
+            ${servertime.year},
+            ${servertime.month},
+            ${servertime.day},
+            ${servertime.hour},
+            ${servertime.minute},
+            ${servertime.second},
+            ${servertime.microsecond}
+        );
+        $scope.counter = $interval(function(){
+            $scope.ptime = new Date($scope.ptime.getTime() + 1000);
+        }, 1000);
+    }
+</script>
+
 </%block>
+
+## <div ng-controller="pumbaaTimeCtrl">
+##     Current time is : <span ng-model="format"></span>
+    ## ${"{:%Y-%m-%d}".format(servertime)}
+    ##  <span class="label label-default">${"{:%H:%M:%S}".format(servertime)}</span>
+## </div>
+
+<div ng-controller="IntroCtrl">
+    Current time is : <span>{{ptime | date:'medium'}}</span><br>
+</div>
+
+
 <div class="row">
 	<div class="col-sm-6 col-md-6 col-lg-6">
 		<section>
@@ -68,7 +104,14 @@ document.addEventListener('DOMContentLoaded',function() {
 		  <div class="panel-body">
 			  <ul class="list-unstyled">
 			    % for topic in recent_topics:
-			    	<li><a href="${request.route_path('forums.topics.view', title=topic.title, topic_id=topic.id)}">${topic.title}</a></li>
+			    	<li>
+                        <a href="${request.route_path('forums.topics.view', title=topic.title, topic_id=topic.id)}">${topic.title}</a>
+                        <div class="pull-right">
+                            <a href="#">
+                                ${'{:%Y-%m-%d}'.format(topic.created_date)} <span class="badge">${len(topic.comments)}</span>
+                            </a>
+                        </div>
+                    </li>
 			    % endfor
 			  </ul>
 		  </div>

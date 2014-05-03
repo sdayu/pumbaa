@@ -16,7 +16,7 @@
     <%block name="addition_header"></%block>
 </head>
 
-<body>
+<body ng-app>
 ${next.body()}
 </body>
 
