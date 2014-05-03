@@ -5,6 +5,14 @@
     <div class="container">
       <div class="jumbotron">
         <h1 style="font-style: italic;"><a href="#">Hello, pumbaa.CoE!</a></h1>
+        <div ng-controller="IntroCtrl" class="pull-right">
+            Today is {{ptime | date:'MMM d, yyyy'}} <br>
+            <div class="pull-right">
+            <label class="label label-default">{{ptime | date:'hh'}}</label> :
+            <label class="label label-default">{{ptime | date:'mm'}}</label> :
+            <label class="label label-default">{{ptime | date:'ss'}}</label>
+            </div>
+        </div>
 	  </div>
 
 ${next.body()}

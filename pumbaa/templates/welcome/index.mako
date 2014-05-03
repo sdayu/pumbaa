@@ -77,17 +77,6 @@ document.addEventListener('DOMContentLoaded',function() {
 
 </%block>
 
-## <div ng-controller="pumbaaTimeCtrl">
-##     Current time is : <span ng-model="format"></span>
-    ## ${"{:%Y-%m-%d}".format(servertime)}
-    ##  <span class="label label-default">${"{:%H:%M:%S}".format(servertime)}</span>
-## </div>
-
-<div ng-controller="IntroCtrl">
-    Current time is : <span>{{ptime | date:'medium'}}</span><br>
-</div>
-
-
 <div class="row">
 	<div class="col-sm-6 col-md-6 col-lg-6">
 		<section>
