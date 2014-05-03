@@ -8,7 +8,7 @@ from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from pumbaa import models
 
-@view_config(route_name='feed', renderer="/feed/index.mako")
+@view_config(route_name='feeds', renderer="/feed/index.mako")
 def index(request):
     # tags = models.Topic.objects.distinct('tags')
     print("testing")

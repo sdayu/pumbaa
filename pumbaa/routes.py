@@ -89,7 +89,7 @@ def add_routes(config):
 
     # feed
     #config.add_route('feed.index', '/feed')
-    config.add_route('feed', '/feed')
+    config.add_route('feeds', '/feed')
     #config.include(feed_include, route_prefix='/feed')
     
     config.add_route('photos.thumbnail', '/photo_albums/{photo_album_id}/photos/thumbnail/{photo_id}')
