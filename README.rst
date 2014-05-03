@@ -30,6 +30,7 @@ Team
 * `Thanathip Limna`_
 * `Kullawat Chaowanawatee`_
 * `Alun Khunaree`_
+* `Watcharakorn Kaewsawee`_
 * `Warakorn Sitthirit`_
 * `Wasin Passornpakorn`_
 * `Cheewarak Rodniam`_
@@ -43,4 +44,5 @@ Team
 .. _Teerasak Kroputaponchai: http://github.com/ibotdotout
 .. _Pumbaa Project: https://github.com/sdayu/pumbaa
 .. _Alun Khunaree: https://github.com/NiNiiWs
+.. _Watcharakorn Kaewsawee: https://github.com/imspiiz
 .. _Cheewarak Rodniam: https://github.com/xZero0
