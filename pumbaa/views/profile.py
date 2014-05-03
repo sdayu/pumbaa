@@ -8,5 +8,5 @@ def index(request):
     user = models.User.objects(username=profile_id).first()
     
     return dict(
-                profile_id=user.username
+                user=user
                 )

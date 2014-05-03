@@ -36,7 +36,7 @@ class ProfileViewTests(unittest.TestCase):
         request.matchdict['profile_id'] = self.user.username
         result = index(request)
         
-        self.assertIn('profile_id', result, 'profile name disappear in result')
+        self.assertIn('user', result, 'profile name disappear in result')
 
         
 

@@ -6,6 +6,6 @@
 		</title>
 	</head>
 	<body>
-		Profile Name ${profile_id}
+		Profile Name ${user.username}
 	</body>
 </html>
