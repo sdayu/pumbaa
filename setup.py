@@ -19,7 +19,9 @@ requires = [
     'pycrypto',
     'wtforms',
     'feedformatter',
-    'pillow'
+    'pillow',
+    'nose',
+    'webtest'
     ]
 
 init = os.path.join(os.path.dirname(__file__), 'pumbaa', '__init__.py')
