@@ -13,7 +13,6 @@ class WelcomeViewTests(unittest.TestCase):
 
         from pumbaa import models
         models.initial(settings)
-        
 
     def tearDown(self):
         testing.tearDown()
@@ -31,7 +30,7 @@ class WelcomeViewFunctionalTests(unittest.TestCase):
         from pumbaa import main
         
         cfg = configparser.ConfigParser()
-        cfg.read('../../development.ini')
+        cfg.read('../../test.ini')
         
         settings = dict(cfg.items('app:main'))
 
@@ -39,6 +38,9 @@ class WelcomeViewFunctionalTests(unittest.TestCase):
         from webtest import TestApp
         self.testapp = TestApp(app)
 
+    def tearDown(self):
+        testing.tearDown()
+        
     def test_get_welcome_msg(self):
         response = self.testapp.get('/', status=200)
 
