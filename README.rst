@@ -29,8 +29,10 @@ Team
 * `Burawich Pamornnak`_
 * `Thanathip Limna`_
 * `Kullawat Chaowanawatee`_
+* `Cheewarak Rodniam`_
 
 .. _Burawich Pamornnak: mailto:burawich@gmail.com?Subject=Pumbaa%20Volunteer
 .. _Thanathip Limna: https://github.com/sdayu
 .. _Kullawat Chaowanawatee: mailto:e29qwg@gmail.com
 .. _Pumbaa Project: https://github.com/sdayu/pumbaa
+.. _Cheewarak Rodniam: https://github.com/xZero0
