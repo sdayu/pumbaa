@@ -1,3 +1,5 @@
+import mongoengine as me
+
 class Event(me.Document):
     meta = {'collection' : 'events'}
     
@@ -9,7 +11,12 @@ class Event(me.Document):
     
     status = me.StringField(required=True, default='draft')
     """ status: draft, publish, delete """
-    
+	
+	started_date = me.DatetimeField(required=True, default=datetime.datetime.now)
+	ended_date = me.DatetimeField(required=True, default=datetime.datetime.now)
+	all_day = me.BooleanField(required=True, default=False)
+	repeat = me.BooleanField(require=true, default=False)
+
     ip_address  = me.StringField(max_length=100, required=True, default='0.0.0.0')
 
     author = me.ReferenceField("User", dbref=True, required=True)
