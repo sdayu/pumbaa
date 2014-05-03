@@ -5,6 +5,8 @@ from pumbaa import models
 def index(request):
     profile_id = request.matchdict['profile_id']
     
+    user = models.User.objects.with_id(profile_id)
+    
     return dict(
-                profile_id=profile_id
+                profile_id=
                 )
