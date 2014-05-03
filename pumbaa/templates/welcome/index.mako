@@ -54,21 +54,8 @@ document.addEventListener('DOMContentLoaded',function() {
 </script>
 
 <script type="text/javascript">
-    function IntroCtrl ($scope, $interval) {
-        $scope.name = "xZer0";
-        $scope.format = 'M/d/yy h:mm:ss a';
-        $scope.add = function(a, b) {
-            return a + b;
-        };
-        $scope.ptime = new Date(
-            ${servertime.year},
-            ${servertime.month},
-            ${servertime.day},
-            ${servertime.hour},
-            ${servertime.minute},
-            ${servertime.second},
-            ${servertime.microsecond}
-        );
+    function pumbaaTimeCtrl ($scope, $interval) {
+        $scope.ptime = new Date("${servertime.strftime("%Y/%m/%d %H:%M:%S")}");
         $scope.counter = $interval(function(){
             $scope.ptime = new Date($scope.ptime.getTime() + 1000);
         }, 1000);
