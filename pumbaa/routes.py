@@ -55,6 +55,9 @@ def photo_album_include(config):
     
     config.add_route('photos.photo_albums.comment', '/{photo_album_id}/comment')
     config.add_route('photos.photo_albums.photo_comment', '/{photo_album_id}/photos/{photo_id}/comment')
+    
+def profile_include(config):
+	config.add_route('profile.index', '/{profile_id}')
 
 def add_routes(config):
     config.add_route('index', '/')
@@ -89,6 +92,9 @@ def add_routes(config):
     
     config.add_route('photos.thumbnail', '/photo_albums/{photo_album_id}/photos/thumbnail/{photo_id}')
     config.add_route('photos.view', '/photo_albums/{photo_album_id}/photos/{photo_id}')
+    
+    #profile
+    config.include(profile_include, route_prefix='/profile')
 
     
     config.add_static_view('public', 'public', cache_max_age=3600)
