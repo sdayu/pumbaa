@@ -86,6 +86,11 @@ def add_routes(config):
     # photo albums
     config.add_route('photos.photo_albums.index', '/photo_albums')
     config.include(photo_album_include, route_prefix='/photo_albums')
+
+    # feed
+    #config.add_route('feed.index', '/feed')
+    config.add_route('feed', '/feed')
+    #config.include(feed_include, route_prefix='/feed')
     
     config.add_route('photos.thumbnail', '/photo_albums/{photo_album_id}/photos/thumbnail/{photo_id}')
     config.add_route('photos.view', '/photo_albums/{photo_album_id}/photos/{photo_id}')
