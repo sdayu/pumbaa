@@ -29,6 +29,7 @@ def register(request):
     user.set_password(password)
     role = models.Role.objects(name='anonymous').first()
     user.roles.append(role)
+    user.display_name = "%s %s" % (form.data.get('first_name'), form.data.get('last_name'))
     user.ip_address = request.environ['REMOTE_ADDR']
     user.save()
     

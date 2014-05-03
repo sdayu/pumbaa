@@ -13,7 +13,7 @@ from pumbaa.routes import add_routes
 from pumbaa.acl import group_finder
 
 def main(global_config, **settings):
-    authn_policy = AuthTktAuthenticationPolicy(settings.get('pumbaa.secret'), callback=group_finder)
+    authn_policy = AuthTktAuthenticationPolicy(settings.get('pumbaa.secret'), callback=group_finder, hashalg='sha512')
     authz_policy = ACLAuthorizationPolicy()
     pumbaa_session_factory = session_factory_from_settings(settings)
     
