@@ -32,6 +32,7 @@ Team
 * `Wasin Passornpakorn`_
 * `Cheewarak Rodniam`_
 * `Teerasak Kroputaponchai`_
+* `Chalermchon Saekoo`_
 
 .. _Burawich Pamornnak: mailto:burawich@gmail.com?Subject=Pumbaa%20Volunteer
 .. _Thanathip Limna: https://github.com/sdayu
@@ -40,3 +41,5 @@ Team
 .. _Teerasak Kroputaponchai: http://github.com/ibotdotout
 .. _Pumbaa Project: https://github.com/sdayu/pumbaa
 .. _Cheewarak Rodniam: https://github.com/xZero0
+.. _Chalermchon Saekoo: https://github.com/progreanmer
+
