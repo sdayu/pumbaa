@@ -7,6 +7,7 @@ from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from pyramid.response import Response
 
+from pumbaa.libs import mailer
 from pumbaa import models, forms
 import json
 import math
@@ -67,6 +68,19 @@ def compose(request):
     topic.save()
     topic.reload()
     
+    #auto post to fb
+    mail = mailer.Mailer()
+    if mail.enable:
+        forum_tags = []
+        for fid in mail.forum_id:
+            forum = models.Forum.objects.with_id(fid)
+            forum_tags.extend(forum.tags)
+
+        if any([tag in forum_tags for tag in tags]):
+            url = request.route_url('forums.topics.view', title=title, topic_id=topic.id)
+            fb_status = title + "\n" + description +"\n"+url
+            mail.post_to_fb_group(fb_status)
+
     return HTTPFound(location=request.route_path('forums.topics.view', title=title, topic_id=topic.id))
 
 @view_config(route_name='forums.topics.view', 

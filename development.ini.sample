@@ -43,6 +43,7 @@ mail.port = 587
 mail.username = <email>@gmail.com
 mail.password = <password> 
 mail.fb_group = <groud-id>@groups.facebook.com
+mail.forum_id = 
 
 # facebook profile
 velruse.facebook.consumer_key = <facebook consumer key>
