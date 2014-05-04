@@ -21,6 +21,7 @@ if (window.location.hash && window.location.hash === "#_=_") {
 	<li><a href="${request.route_path('accounts.change_display_name')}">change display name</a></li>
 	<li><a href="${request.route_path('accounts.change_password')}">change password</a></li>
 	<li><a href="${request.route_path('accounts.add_online_account')}">add new profile</a></li>
+	<li><a href="${request.route_path('accounts.change_feed_url')}">add your blog</a></li>
 </ul>
 
 % if len(request.user.online_profiles) > 0:

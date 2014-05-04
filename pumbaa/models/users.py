@@ -40,6 +40,7 @@ class User(me.Document):
     first_name = me.StringField(max_length=100, required=True)
     last_name = me.StringField(max_length=100, required=True)
     display_name = me.StringField(max_length=250, required=True)
+    feed_url = me.StringField(max_length=500, required=False)
     
     default_profile = me.StringField(default='pumbaa.coe.psu.ac.th')
     online_profiles = me.ListField(me.EmbeddedDocumentField(Profile))

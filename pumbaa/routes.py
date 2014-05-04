@@ -66,6 +66,7 @@ def add_routes(config):
     config.add_route('logout', '/logout')
     config.add_route('accounts.change_password', '/accounts/change_password')
     config.add_route('accounts.change_display_name', '/accounts/change_display_name')
+    config.add_route('accounts.change_feed_url', '/accounts/change_feed_url')
     config.add_route('accounts.add_online_account', '/accounts/add_online_account')
     # add admin route
     config.add_route('admin.index', '/admin')

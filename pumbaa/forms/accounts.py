@@ -94,3 +94,5 @@ class Password(Form):
 
 class DisplayName(Form):
     display_name = fields.TextField('Display Name', validators=[validators.InputRequired(), validate_display_name])
+class FeedUrl(Form):
+    feed_url = fields.TextField('Feed URL', validators=[validators.InputRequired()])
