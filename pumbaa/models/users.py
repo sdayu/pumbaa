@@ -60,6 +60,13 @@ class User(me.Document):
             return self.display_name
         else:
             return self.username
+
+    def get_tim_display_name(self):
+        tname = self.get_display_name().split(" ")
+        if len(tname) > 1:
+            return "%s. %s" % (tname[0][0],tname[1])
+        else:
+            return "%s" % (tname[0])
         
     def set_password(self, password):
         from pyramid.threadlocal import get_current_request
@@ -76,6 +83,12 @@ class User(me.Document):
             if role.name == name:
                 return role
             
+    def get_profile_picture_url(self, width=50):
+        if self.default_profile == 'pumbaa.coe.psu.ac.th':
+            return "#"
+
+        return "#"
+
     def get_profile_picture(self, width=50):
         if self.default_profile == 'pumbaa.coe.psu.ac.th':
             return None

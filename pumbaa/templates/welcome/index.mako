@@ -2,6 +2,7 @@
 <%!
 	import json
 %>
+<%! import datetime %>
 <%block name="addition_header">
 <style type="text/css">
 .reset-box-sizing,
@@ -14,6 +15,7 @@
 
 ## for markdown
 	<link rel="stylesheet" type="text/css" href="/public/libs/markdown/pagedown/demo.css" />
+	<link rel="stylesheet" type="text/css" href="/public/css/topicinfo.css" />
         
 	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Converter.js"></script>
 	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Sanitizer.js"></script>
@@ -68,19 +70,7 @@ document.addEventListener('DOMContentLoaded',function() {
             </h3>
 		  </div>
 		  <div class="panel-body">    
-			  <ul class="list-unstyled">
-			    % for topic in recent_topics:
-			    	<li>
-                        <a href="${request.route_path('forums.topics.view', 
-                            title=topic.title, topic_id=topic.id)}">${topic.title}</a>
-                        <div class="pull-right">
-                            % if len(topic.comments) > 0:
-                                <a href="#" class="badge">${len(topic.comments)}</a>
-                            % endif
-                        </div>
-                    </li>
-			    % endfor
-			  </ul>
+            <%include file="/forums/topics/listinfo.mako" args="topics=recent_topics"/>
 		  </div>
 		</div>
 		## topic in forums

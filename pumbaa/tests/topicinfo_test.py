@@ -10,4 +10,9 @@ class TopicInfoViewTests(unittest.TestCase):
         testing.tearDown()
 
     def test_index_get_info(self):
+        # Given
+
+        # When
+
+        # Then
         pass
