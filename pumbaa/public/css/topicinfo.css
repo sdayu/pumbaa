@@ -1,11 +1,6 @@
-.badge-update{background-color:orange;}
+.badge-update{background-color:#f0ad4e;}
 
-.ptopic-xs {
+.ptopic-small {
     color:gray;
-    font-size:13px;
 };
 
-.ptopic-xxs {
-    color:gray;
-    font-size:10px;
-};

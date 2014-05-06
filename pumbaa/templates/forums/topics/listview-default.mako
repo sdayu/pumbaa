@@ -17,7 +17,7 @@
                             .author.get_tim_display_name()}
                         <span class="badge">${len(topic.comments)} </span>
                     % endif
-                </div>
+                 </div>
             </div>
         </div>
     </li>
