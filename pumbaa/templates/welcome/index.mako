@@ -2,7 +2,7 @@
 <%!
 	import json
 %>
-<%! import datetime %>
+
 <%block name="addition_header">
 <style type="text/css">
 .reset-box-sizing,
@@ -15,7 +15,6 @@
 
 ## for markdown
 	<link rel="stylesheet" type="text/css" href="/public/libs/markdown/pagedown/demo.css" />
-	<link rel="stylesheet" type="text/css" href="/public/css/topicinfo.css" />
         
 	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Converter.js"></script>
 	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Sanitizer.js"></script>
