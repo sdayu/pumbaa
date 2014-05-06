@@ -82,12 +82,6 @@ class User(me.Document):
         for role in self.roles:
             if role.name == name:
                 return role
-            
-    def get_profile_picture_url(self, width=50):
-        if self.default_profile == 'pumbaa.coe.psu.ac.th':
-            return "#"
-
-        return "#"
 
     def get_profile_picture(self, width=50):
         if self.default_profile == 'pumbaa.coe.psu.ac.th':
