@@ -14,14 +14,7 @@
     			<a href="${request.route_path('forums.feeds.forums', forum_name=forum.name)}"><img alt="Atom feed" src="/public/images/feed-icon.svg" width=15px/></a>
     		</h1>
   		</div>
-  		<div class="panel-body">
-   			<ul class="list-group">
-				% for topic in forum.get_topics(10):
-			    <li class="list-group-item">
-			    	<a href="${request.route_path('forums.topics.view', title=topic.title, topic_id=topic.id)}">${topic.title}</a>
-			    </li>
-			    % endfor
-			</ul>
-  		</div>
+        <%include file="/forums/topics/listview-small.mako"
+                      args="topics=forum.get_topics(10)"/>
 	</div>
 % endfor
