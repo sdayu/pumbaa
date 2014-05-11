@@ -77,7 +77,7 @@
 $(document).ready(function() {
     // Tooltip
     $('[data-toggle="tooltip"]').tooltip();
-    //    "title"="Created by ${topic.author.get_display_name()}"
+    ## //   "title"="Created by ${topic.author.get_display_name()}"
     // });
 });
 </script> 
