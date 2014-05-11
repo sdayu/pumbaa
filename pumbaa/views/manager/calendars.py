@@ -17,8 +17,8 @@ def index(request):
              renderer='/manager/calendars/event.mako')
 def add(request):
     form = forms.calendars.Event(request.POST)
-    if len(request.POST) == 0 and not form.validate():
+    print(len(request.POST))
+    if len(request.POST) == 0 or not form.validate():
         return dict(form=form)
-    return dict(
-                topics=topics
-                )
+    
+    return HTTPFound(location=request.route_path('manager.calendars.index'))
