@@ -8,6 +8,7 @@ from wtforms import fields
 from wtforms import validators
 
 from pumbaa import models
+from .fields import TagListField
 
 from pyramid.threadlocal import get_current_request
 from pyramid.security import has_permission
@@ -38,8 +39,7 @@ def announce_tag_allow(form, field):
 class Topic(Form):
     title = fields.TextField('Title', validators=[validators.InputRequired()])
     description = fields.TextAreaField('Description', validators=[validators.InputRequired()])
-    # tags = fields.TextField('Tags', validators=[validators.InputRequired()])
-    tags = fields.HiddenField('Tags', validators=[validators.InputRequired(), announce_tag_allow])
+    tags = TagListField('Tags', validators=[validators.InputRequired(), announce_tag_allow])
 
 class Page(Topic):
     title = fields.TextField('Title', validators=[validators.InputRequired(), available_page_title])

@@ -10,8 +10,9 @@
 	<script type="text/javascript" src="/public/libs/google-code-prettify/prettify.js"></script> 
 	<link rel="stylesheet" type="text/css" href="/public/libs/google-code-prettify/prettify.css" />
 	
-	<link rel="stylesheet" type="text/css" href="/public/libs/select2/3.4.2/select2.css" />
-	<script type="text/javascript" src="/public/libs/select2/3.4.2/select2.js"></script>
+	<link rel="stylesheet" type="text/css" href="/public/libs/select2/3.4.8/select2.css" />
+	<link rel="stylesheet" type="text/css" href="/public/libs/select2/3.4.8/select2-bootstrap.css" />
+	<script type="text/javascript" src="/public/libs/select2/3.4.8/select2.js"></script>
 </%block>
 <%block name="title">New Topic</%block>
 <%block name="where_am_i">
@@ -49,7 +50,7 @@
 	    % if form.tags.errors:
 			<span class="text-danger">: ${form.tags.errors[0]}</span>
 		% endif
-		${form.tags(style="width:100%")}
+		${form.tags(class_='form-control', placeholder='Enter tags: pumbaa, CoE, tag')}
 	</div>
 	<button type="submit" class="btn btn-primary">Create topic</button>
 </form>

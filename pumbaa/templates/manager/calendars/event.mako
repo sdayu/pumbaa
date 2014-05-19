@@ -1,4 +1,21 @@
 <%inherit file="/manager/base/base.mako"/>
+
+<%block name="addition_header">
+	<link rel="stylesheet" type="text/css" href="/public/libs/select2/3.4.8/select2.css" />
+	<link rel="stylesheet" type="text/css" href="/public/libs/select2/3.4.8/select2-bootstrap.css" />
+	<script type="text/javascript" src="/public/libs/select2/3.4.8/select2.js"></script>
+	<script>
+	$(document).ready(function(){
+		$("#tags").select2({
+		    tags:${tags | n},
+		    placeholder: "Enter tags: pumbaa, CoE, tag",
+		    tokenSeparators: [","],
+		    maximumInputLength: 30
+		});
+	});
+	</script>
+</%block>
+
 <%block name="title">Calendars</%block>
 <%block name="where_am_i">
 	${parent.where_am_i()}
@@ -19,7 +36,7 @@
 		% if form.description.errors:
 			<span class="text-danger">${form.description.errors[0]}</span>
 		% endif
-		${form.title(class_='form-control')}
+		${form.description(class_='form-control')}
 	</div>
 	<div class="row">
 		<div class="col-sm-6">
@@ -67,7 +84,10 @@
 		% if form.tags.errors:
 			<span class="text-danger">${form.tags.errors[0]}</span>
 		% endif
-		${form.tags(class_='form-control')}
+		<br/>
+		${form.tags(class_='form-control', placeholder='Add tags')}
+		
 	</div>
+	
 	
 </form>
