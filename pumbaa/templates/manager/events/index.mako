@@ -2,11 +2,11 @@
 <%block name="title">Calendars</%block>
 <%block name="where_am_i">
 	${parent.where_am_i()}
-	<li><a href="${request.current_route_path()}">Calendars</a></li>
+	<li><a href="${request.current_route_path()}">Events</a></li>
 </%block>
-<%block name="panel_title">Calendars</%block>
+<%block name="panel_title">Events</%block>
 <ul class="list-inline">
-	<li><a href="${request.route_path('manager.calendars.add')}">New Event</a></li>
+	<li><a href="${request.route_path('manager.events.add')}">New Event</a></li>
 </ul>
 <ul class="list-group">
 	% for topic in topics:

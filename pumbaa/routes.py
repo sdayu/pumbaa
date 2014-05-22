@@ -30,8 +30,9 @@ def manager_include(config):
     config.add_route('manager.photo_albums.delete', '/photo_albums/delete/{photo_album_id}')
     config.add_route('manager.photo_albums.add_photo', '/photo_albums/{photo_album_id}/add_photo')
     config.add_route('manager.photo_albums.delete_photo', '/photo_albums/{photo_album_id}/delete_photo/{photo_id}')
-    config.add_route('manager.calendars.index', '/calendars')
-    config.add_route('manager.calendars.add', '/calendars/add')
+    
+    config.add_route('manager.events.index', '/events')
+    config.add_route('manager.events.add', '/events/add')
 
 def forums_include(config):
     

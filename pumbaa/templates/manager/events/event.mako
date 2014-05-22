@@ -4,6 +4,11 @@
 	<link rel="stylesheet" type="text/css" href="/public/libs/select2/3.4.8/select2.css" />
 	<link rel="stylesheet" type="text/css" href="/public/libs/select2/3.4.8/select2-bootstrap.css" />
 	<script type="text/javascript" src="/public/libs/select2/3.4.8/select2.js"></script>
+	
+	<script type="text/javascript" src="/public/libs/moment/2.6.0/moment.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/public/libs/bootstrap/plugins/datetimepicker/3.0.0/css/bootstrap-datetimepicker.min.css" />
+	<script type="text/javascript" src="/public/libs/bootstrap/plugins/datetimepicker/3.0.0/js/bootstrap-datetimepicker.min.js"></script>
+	
 	<script>
 	$(document).ready(function(){
 		$("#tags").select2({
@@ -12,6 +17,11 @@
 		    tokenSeparators: [","],
 		    maximumInputLength: 30
 		});
+		
+		$(function () {
+            $('#started_date_picker').datetimepicker();
+            $('#updated_date_picker').datetimepicker();
+        });
 	});
 	</script>
 </%block>
@@ -19,7 +29,7 @@
 <%block name="title">Calendars</%block>
 <%block name="where_am_i">
 	${parent.where_am_i()}
-	<li><a href="${request.route_path('manager.calendars.index')}">Calendars</a></li>
+	<li><a href="${request.route_path('manager.events.index')}">Events</a></li>
 	<li><a href="${request.current_route_path()}">Create Event</a></li>
 </%block>
 <%block name="panel_title">Create Calendars</%block>
@@ -42,19 +52,29 @@
 		<div class="col-sm-6">
 			<div class="form-group${' has-error' if form.started_date.errors else ''}">
 				<label class="control-label">From</label>
-				% if form.description.errors:
-					<span class="text-danger">${form.started_date.errors[0]}</span>
-				% endif
-				${form.started_date(class_='form-control')}
+				<div class='input-group date' id='started_date_picker' data-date-format="DD/MM/YYYY hh:mm">
+					% if form.description.errors:
+						<span class="text-danger">${form.started_date.errors[0]}</span>
+					% endif
+					${form.started_date(class_='form-control')}
+					<span class="input-group-addon">
+						<span class="glyphicon glyphicon-time"></span>
+					</span>
+				</div>
 			</div>
 		</div>
 		<div class="col-sm-6">
 			<div class="form-group${' has-error' if form.ended_date.errors else ''}">
 				<label class="control-label">To</label>
-				% if form.ended_date.errors:
-					<span class="text-danger">${form.ended_date.errors[0]}</span>
-				% endif
-				${form.ended_date(class_='form-control')}
+				<div class='input-group date' id='updated_date_picker' data-date-format="DD/MM/YYYY hh:mm">
+					% if form.ended_date.errors:
+						<span class="text-danger">${form.ended_date.errors[0]}</span>
+					% endif
+					${form.ended_date(class_='form-control')}
+					<span class="input-group-addon">
+						<span class="glyphicon glyphicon-time"></span>
+					</span>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -88,6 +108,6 @@
 		${form.tags(class_='form-control', placeholder='Add tags')}
 		
 	</div>
-	
+	<button type="submit" class="btn btn-primary">Add new event</button>
 	
 </form>
