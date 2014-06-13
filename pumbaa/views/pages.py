@@ -12,7 +12,7 @@ from pumbaa import models
 @view_config(route_name='pages.index', 
              renderer='/pages/index.mako')
 def index(request):
-    topics = models.Topic.objects(status__ne='delete', page=True).all()
+    topics = models.Topic.objects(status__ne='delete', type='page').all()
     return dict(
                 topics=topics
                 )
@@ -22,7 +22,7 @@ def index(request):
 def view(request):
     title = request.matchdict.get('title')
     try:
-        topic = models.Topic.objects(title__iexact=title, page=True, status='publish').first()
+        topic = models.Topic.objects(title__iexact=title, type='page', status='publish').first()
         if topic is None:
             raise 'Not floud'
     except:

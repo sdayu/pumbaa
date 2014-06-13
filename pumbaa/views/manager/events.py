@@ -32,14 +32,19 @@ def add(request):
     event = models.Event(**form.data)
     topic.status = 'publish'
     topic.author = request.user
-    
+    topic.type = 'event'
+    topic.published_date = topic.updated_date
+    topic.ip_address = request.environ.get('REMOTE_ADDR', '0.0.0.0')
     topic.save()
+    
     event.topic = topic
     event.author = request.user
     event.ip_address = request.environ['REMOTE_ADDR']
     event.status = 'publish'
     event.save()
     return HTTPFound(location=request.route_path('manager.events.index'))
+
+
 
 @view_config(route_name='manager.events.delete',
              permission='member')

@@ -6,8 +6,8 @@ import datetime
 
 @view_config(route_name='index', renderer='/welcome/index.mako')
 def index(request):
-    recent_topics = models.Topic.objects(status='publish', page=False).order_by('-published_date').limit(10).all()
-    last_comments_topics_ = models.Topic.objects(status='publish', page=False).order_by('-comments__published_date').limit(10).all()
+    recent_topics = models.Topic.objects(status='publish', type='topic').order_by('-published_date').limit(10).all()
+    last_comments_topics_ = models.Topic.objects(status='publish', type='topic').order_by('-comments__published_date').limit(10).all()
     last_comments_topics = []
     for topic in last_comments_topics_:
         if len(topic.comments) > 0:
