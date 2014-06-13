@@ -28,7 +28,7 @@ def available_page_title(form, field):
             'This page title: %s is available on system'% field.data)
 
 def announce_tag_allow(form, field):
-    tags = [tag.strip() for tag in field.data.split(',')]
+    tags = field.data
     request = get_current_request()
     for tag in tags:
         if tag in ['ประกาศ', 'ประกาศจากภาควิชา', 'announce']:

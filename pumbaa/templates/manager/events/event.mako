@@ -26,7 +26,7 @@
 	</script>
 </%block>
 
-<%block name="title">Calendars</%block>
+<%block name="title">Events</%block>
 <%block name="where_am_i">
 	${parent.where_am_i()}
 	<li><a href="${request.route_path('manager.events.index')}">Events</a></li>
@@ -52,10 +52,10 @@
 		<div class="col-sm-6">
 			<div class="form-group${' has-error' if form.started_date.errors else ''}">
 				<label class="control-label">From</label>
-				<div class='input-group date' id='started_date_picker' data-date-format="DD/MM/YYYY hh:mm">
-					% if form.description.errors:
-						<span class="text-danger">${form.started_date.errors[0]}</span>
-					% endif
+				% if form.started_date.errors:
+					<span class="text-danger">${form.started_date.errors[0]}</span>
+				% endif
+				<div class='input-group date' id='started_date_picker' data-date-format="DD/MM/YYYY HH:mm">
 					${form.started_date(class_='form-control')}
 					<span class="input-group-addon">
 						<span class="glyphicon glyphicon-time"></span>
@@ -66,10 +66,10 @@
 		<div class="col-sm-6">
 			<div class="form-group${' has-error' if form.ended_date.errors else ''}">
 				<label class="control-label">To</label>
-				<div class='input-group date' id='updated_date_picker' data-date-format="DD/MM/YYYY hh:mm">
-					% if form.ended_date.errors:
-						<span class="text-danger">${form.ended_date.errors[0]}</span>
-					% endif
+				% if form.ended_date.errors:
+					<span class="text-danger">${form.ended_date.errors[0]}</span>
+				% endif
+				<div class='input-group date' id='updated_date_picker' data-date-format="DD/MM/YYYY HH:mm">
 					${form.ended_date(class_='form-control')}
 					<span class="input-group-addon">
 						<span class="glyphicon glyphicon-time"></span>
@@ -83,7 +83,7 @@
 		${form.all_day} All day
 	</label>
 	<label class="checkbox-inline">
-		${form.repeat} Repeat
+		## ${form.repeat} Repeat
 	</label>
 	<div class="form-group${' has-error' if form.event_type.errors else ''}">
 	    <label class="control-label">Event Type</label>
@@ -92,12 +92,12 @@
 		% endif
 		${form.event_type(class_='form-control')}
 	</div>
-	<div class="form-group${' has-error' if form.place.errors else ''}">
+	<div class="form-group${' has-error' if form.venue.errors else ''}">
 	    <label class="control-label">Where</label>
-		% if form.place.errors:
-			<span class="text-danger">${form.place.errors[0]}</span>
+		% if form.venue.errors:
+			<span class="text-danger">${form.venue.errors[0]}</span>
 		% endif
-		${form.place(class_='form-control')}
+		${form.venue(class_='form-control')}
 	</div>
 	<div class="form-group${' has-error' if form.tags.errors else ''}">
 	    <label class="control-label">Tags</label>

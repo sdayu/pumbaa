@@ -9,9 +9,9 @@
 	<li><a href="${request.route_path('manager.events.add')}">New Event</a></li>
 </ul>
 <ul class="list-group">
-	% for topic in topics:
+	% for event in events:
     <li class="list-group-item">
-    	<a href="${request.route_path('forums.topics.view', title=topic.title, topic_id=topic.id)}">${topic.title}</a>
+    	<a href="${request.route_path('calendars.events.view', event_id=event.id)}">${event.topic.title}</a>
     </li>
     % endfor
 </ul>
