@@ -29,6 +29,9 @@
 					<li>
 						<a href="${request.route_path('manager.photo_albums.index')}">Photo Albums</a>
 					</li>
+					<li>
+						<a href="${request.route_path('manager.events.index')}">Events</a>
+					</li>
 					% if has_permission('topic', request.context, request):
 					<li>
 						<a href="${request.route_path('manager.topics.problem')}">Topic Problem</a>

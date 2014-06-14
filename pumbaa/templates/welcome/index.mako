@@ -124,7 +124,29 @@ document.addEventListener('DOMContentLoaded',function() {
 			</script>
 			<gcse:searchbox-only></gcse:searchbox-only>
 		</div>
-		
+% if len(events) > 0:
+		<div class="panel panel-info">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Agenda</h3>
+		  </div>
+		  <div class="panel-body" style="padding: 0;">
+		  	<div class="list-group">
+		  		% for event in events:
+  				<a href="${request.route_path('calendars.events.view', event_id=event.id)}" class="list-group-item">
+  					<h4 class="list-group-item-heading">${event.topic.title}</h4>
+  					<p>
+  						<i>${event.started_date} - ${event.ended_date}</i><br/>
+  						${event.topic.description[:150]}<br/>
+  						% if event.venue:
+  						<b>where:</b> ${event.venue}
+  						% endif
+  					</p>
+  				</a>
+  				% endfor
+		  	</div>
+		  </div>
+		</div>
+% endif
 		<div class="panel panel-info">
 		  <div class="panel-heading">
 		    <h3 class="panel-title">Last Comments </h3>

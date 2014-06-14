@@ -39,7 +39,7 @@ def compose(request):
     if len(request.POST) > 0 and form.validate():
         title = form.data.get('title')
         description = form.data.get('description')
-        tags = [tag.strip() for tag in form.data.get('tags').split(',')]
+        tags = form.data.get('tags')
         if '' in tags:
             tags.remove('')
             

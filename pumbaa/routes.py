@@ -30,6 +30,10 @@ def manager_include(config):
     config.add_route('manager.photo_albums.delete', '/photo_albums/delete/{photo_album_id}')
     config.add_route('manager.photo_albums.add_photo', '/photo_albums/{photo_album_id}/add_photo')
     config.add_route('manager.photo_albums.delete_photo', '/photo_albums/{photo_album_id}/delete_photo/{photo_id}')
+    
+    config.add_route('manager.events.index', '/events')
+    config.add_route('manager.events.add', '/events/add')
+    config.add_route('manager.events.delete', '/events/delete/{event_id}')
 
 def forums_include(config):
     
@@ -55,6 +59,10 @@ def photo_album_include(config):
     
     config.add_route('photos.photo_albums.comment', '/{photo_album_id}/comment')
     config.add_route('photos.photo_albums.photo_comment', '/{photo_album_id}/photos/{photo_id}/comment')
+
+def calendars_include(config):
+    config.add_route('calendars.events.index', '/events')
+    config.add_route('calendars.events.view', '/events/{event_id}')
 
 def add_routes(config):
     config.add_route('index', '/')
@@ -86,6 +94,10 @@ def add_routes(config):
     # photo albums
     config.add_route('photos.photo_albums.index', '/photo_albums')
     config.include(photo_album_include, route_prefix='/photo_albums')
+    
+    # calendars
+    config.add_route('calendars.calendars.index', '/calendars')
+    config.include(calendars_include, route_prefix='/calendars')
     
     config.add_route('photos.thumbnail', '/photo_albums/{photo_album_id}/photos/thumbnail/{photo_id}')
     config.add_route('photos.view', '/photo_albums/{photo_album_id}/photos/{photo_id}')
