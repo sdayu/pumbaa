@@ -8,6 +8,7 @@
     <script src="/public/libs/jquery/jquery-2.0.3.js"></script>
     <link rel="stylesheet" href="/public/libs/bootstrap/3.1.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/public/libs/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/topicinfo.css" />
 	<script src="/public/libs/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 	<script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 	

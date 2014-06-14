@@ -2,6 +2,7 @@
 <%!
 	import json
 %>
+
 <%block name="addition_header">
 <style type="text/css">
 .reset-box-sizing,
@@ -63,15 +64,12 @@ document.addEventListener('DOMContentLoaded',function() {
 			</div>
 		<div class="panel panel-info">
 		  <div class="panel-heading">
-		    <h3 class="panel-title">Recent Topics <a href="${request.route_path('forums.feeds')}"><img alt="Atom feed" src="/public/images/feed-icon.svg" width=15px/></a></h3>
+		    <h3 class="panel-title">Recent Topics <a href="${request.route_path('forums.feeds')}"><img alt="Atom feed" src="/public/images/feed-icon.svg" width=15px/></a>
+            <a href="#" class="pull-right"><span class="glyphicon glyphicon-stats"></span></a>
+            </h3>
 		  </div>
-		  <div class="panel-body">
-			  <ul class="list-unstyled">
-			    % for topic in recent_topics:
-			    	<li><a href="${request.route_path('forums.topics.view', title=topic.title, topic_id=topic.id)}">${topic.title}</a></li>
-			    % endfor
-			  </ul>
-		  </div>
+          <%include file="/forums/topics/listview-small.mako" 
+                    args="topics=recent_topics"/>
 		</div>
 		## topic in forums
 		% for forum in forums:
@@ -79,13 +77,10 @@ document.addEventListener('DOMContentLoaded',function() {
 		  <div class="panel-heading">
 		    <h3 class="panel-title"><a href="${request.route_path('forums.view', name=forum.name)}">${forum.name}</a> <a href="${request.route_path('forums.feeds.forums', forum_name=forum.name)}"><img alt="Atom feed" src="/public/images/feed-icon.svg" width=15px/></a></h3>
 		  </div>
-		  <div class="panel-body">
-			  <ul class="list-unstyled">
-			    % for topic in forum.get_topics(10):
-			    	<li><a href="${request.route_path('forums.topics.view', title=topic.title, topic_id=topic.id)}">${topic.title}</a></li>
-			    % endfor
-			  </ul>
-		  </div>
+
+		  <%include file="/forums/topics/listview-small.mako" 
+                    args="topics=forum.get_topics(10)"/>
+
 		</div>
 		% endfor
 		## topic in forums

@@ -29,6 +29,11 @@
 		% endif
 	    ${form.title(class_='form-control', placeholder='Enter title')}
 	</div>
+
+    <div class="row">
+        this is test ${request.user.get_display_name()}
+    </div>
+
 	<div class="row">
 		<div class="col-md-6 col-lg-6">
 			<div id="wmd-button-bar"></div>
@@ -50,7 +55,8 @@
 	    % if form.tags.errors:
 			<span class="text-danger">: ${form.tags.errors[0]}</span>
 		% endif
-		${form.tags(class_='form-control', placeholder='Enter tags: pumbaa, CoE, tag')}
+		
+            ${form.tags(class_='form-control', placeholder='Enter tags: pumbaa, CoE, tag')}
 	</div>
 	<button type="submit" class="btn btn-primary">Create topic</button>
 </form>
