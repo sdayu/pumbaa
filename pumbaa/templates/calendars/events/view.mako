@@ -19,7 +19,7 @@
 	<b>Ended date:</b> ${event.ended_date.strftime('%a %d %b %Y %H:%M')}
 </p>
 <p>
-	<b>Where:</b> ${event.venue}
+	<b>Where:</b> ${event.venue if event.venue else ''}
 </p>
 <p>
 	<b>Tags:</b> ${', '.join(event.topic.tags)}

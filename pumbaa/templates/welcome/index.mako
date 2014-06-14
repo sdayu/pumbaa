@@ -129,6 +129,7 @@ document.addEventListener('DOMContentLoaded',function() {
 			</script>
 			<gcse:searchbox-only></gcse:searchbox-only>
 		</div>
+% if len(events) > 0:
 		<div class="panel panel-info">
 		  <div class="panel-heading">
 		    <h3 class="panel-title">Agenda</h3>
@@ -150,6 +151,7 @@ document.addEventListener('DOMContentLoaded',function() {
 		  	</div>
 		  </div>
 		</div>
+% endif
 		<div class="panel panel-info">
 		  <div class="panel-heading">
 		    <h3 class="panel-title">Last Comments </h3>
