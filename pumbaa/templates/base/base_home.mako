@@ -19,6 +19,12 @@
 	<div class="row">
 		<div class="col-xs-4 col-sm-4 col-md-3 col-lg-3">
 			<nav>
+<<<<<<< HEAD
+				<div class="list-group panel-primary">
+					<a class="list-group-item" class="active" href="${request.route_path('manager.users.approve')}">Approve users</a>
+					<a class="list-group-item" href="${request.route_path('manager.topics.index')}">Topic</a>
+					<a class="list-group-item" href="${request.route_path('manager.photo_albums.index')}">Photo Albums</a>
+=======
 				<ul class="nav bs-sidenav">
 					<li class="active">
 						<a href="${request.route_path('manager.users.approve')}">Approve users</a>
@@ -32,32 +38,31 @@
 					<li>
 						<a href="${request.route_path('manager.events.index')}">Events</a>
 					</li>
+>>>>>>> develop
 					% if has_permission('topic', request.context, request):
-					<li>
-						<a href="${request.route_path('manager.topics.problem')}">Topic Problem</a>
-					</li>
+					<a class="list-group-item" href="${request.route_path('manager.topics.problem')}">Topic Problem</a>
 					% endif
 					% if has_permission('page', request.context, request):
-					<li>
-						<a href="${request.route_path('manager.pages.index')}">Pages</a>
-					</li>
+					<a class="list-group-item" href="${request.route_path('manager.pages.index')}">Pages</a>
 					% endif
 					% if has_permission('admin', request.context, request):
-					<li>
-						<a href="${request.route_path('admin.index')}">admin</a>
-					</li>
+					<a class="list-group-item" href="${request.route_path('admin.index')}">admin</a>
 					% endif
-				</ul>
+				</div>
 			</nav>
 		</div>
 		<div class="col-xs-8 col-sm-8 col-md-9 col-lg-9">
 			## whare am i bar
-			<nav>
-				<ol class="breadcrumb">
-				  <%block name="where_am_i">
-				  <li><a href="${request.route_path('home')}">Home</a></li>
-				  </%block>
-				</ol>
+			<nav  class="navbar navbar-default" role="navigation">
+				<div class="container-fluid">
+					<div class="collapse navbar-collapse">
+						<ul class="nav navbar-nav">				
+						  <%block name="where_am_i">
+						  <li style="margin-left:-25px;"><a href="${request.route_path('home')}"><i class="glyphicon glyphicon-home"></i></a></li>
+						  </%block>
+						</ul>
+					</div>
+				</div>
 			</nav>
 			
 			${next.body()}
