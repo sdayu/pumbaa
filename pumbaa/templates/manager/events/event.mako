@@ -1,16 +1,66 @@
 <%inherit file="/manager/base/base.mako"/>
 
 <%block name="addition_header">
+	## mark down
+	<link rel="stylesheet" type="text/css" href="/public/libs/markdown/pagedown/demo.css" />
+        
+	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Converter.js"></script>
+	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Sanitizer.js"></script>
+	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Editor.js"></script>
+	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Extra.js"></script>
+
+	## pretty print
+	<script type="text/javascript" src="/public/libs/google-code-prettify/prettify.js"></script> 
+	<link rel="stylesheet" type="text/css" href="/public/libs/google-code-prettify/prettify.css" />
+
+	## select2
 	<link rel="stylesheet" type="text/css" href="/public/libs/select2/3.4.8/select2.css" />
 	<link rel="stylesheet" type="text/css" href="/public/libs/select2/3.4.8/select2-bootstrap.css" />
 	<script type="text/javascript" src="/public/libs/select2/3.4.8/select2.js"></script>
 	
+	## bootstrap-datetimepicker
 	<script type="text/javascript" src="/public/libs/moment/2.6.0/moment.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="/public/libs/bootstrap/plugins/datetimepicker/3.0.0/css/bootstrap-datetimepicker.min.css" />
 	<script type="text/javascript" src="/public/libs/bootstrap/plugins/datetimepicker/3.0.0/js/bootstrap-datetimepicker.min.js"></script>
 	
-	<script>
+	<script type="text/javascript">
 	$(document).ready(function(){
+		
+		## markdown script
+		(function () {
+
+		    ## var converter = Markdown.getSanitizingConverter();
+		    var converter = new Markdown.Converter();
+		    
+		    converter.hooks.chain("preBlockGamut", function (text, rbg) {
+		        return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
+		            return "<blockquote>" + rbg(inner) + "</blockquote>\n";
+		        });
+		    });
+
+		    converter.hooks.chain("postConversion", function(text) {
+		        return text.replace(/\s*:::(:)*python\s*\n/, "");
+		    });
+		    
+		    Markdown.Extra.init(converter, {
+		      extensions: "all",
+		      highlighter: "prettify"
+		    });
+
+		    var editor = new Markdown.Editor(converter);
+		    editor.hooks.chain("onPreviewRefresh", prettyPrint); // google code prettify
+		    editor.hooks.chain("onPreviewRefresh", function() {
+		        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+		    });
+		    editor.run();
+		})();
+
+		## google-code-prettify
+		document.addEventListener('DOMContentLoaded',function() {
+		    prettyPrint();
+		});
+
+		## select2
 		$("#tags").select2({
 		    tags:${tags | n},
 		    placeholder: "Enter tags: pumbaa, CoE, tag",
@@ -41,12 +91,21 @@
 		% endif
 		${form.title(class_='form-control')}
 	</div>	
-	<div class="form-group${' has-error' if form.description.errors else ''}">
-	    <label class="control-label">Description</label>
-		% if form.description.errors:
-			<span class="text-danger">${form.description.errors[0]}</span>
-		% endif
-		${form.description(class_='form-control')}
+	<div class="row">
+		<div class="col-md-6 col-lg-6">
+			<div id="wmd-button-bar"></div>
+			<div class="form-group${' has-error' if form.description.errors else ''}">
+		    <label class="control-label">Description</label>
+			% if form.description.errors:
+				<span class="text-danger">${form.description.errors[0]}</span>
+			% endif
+			${form.description(class_='form-control', placeholder='Enter description', rows='10', id="wmd-input")}
+		</div>
+		</div>
+		<div class="col-md-6 col-lg-6">
+			<b>Preview</b>
+			<div id="wmd-preview" class="well well-sm"></div>
+		</div>
 	</div>
 	<div class="row">
 		<div class="col-sm-6">

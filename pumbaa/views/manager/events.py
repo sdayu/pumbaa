@@ -25,7 +25,6 @@ def add(request):
         if len(request.POST) == 0:
             form.tags.data = ['Event']
         tags = models.Topic.objects().distinct('tags')
-        print(form.errors)
         return dict(form=form, tags=json.dumps(tags))
     
     topic = models.Topic(**form.data)
