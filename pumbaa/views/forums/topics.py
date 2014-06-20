@@ -39,7 +39,7 @@ def compose(request):
     if len(request.POST) > 0 and form.validate():
         title = form.data.get('title')
         description = form.data.get('description')
-        tags = [tag.strip() for tag in form.data.get('tags').split(',')]
+        tags = form.data.get('tags')
         if '' in tags:
             tags.remove('')
             
@@ -47,9 +47,26 @@ def compose(request):
         tags = models.Topic.objects().distinct('tags')
         tags.extend(models.Forum.objects().distinct('tags'))
         
+        ## set default tags for roles
+        role = [role.name for role in request.user.roles]
+        if "admin" in role:
+            default_tags = "announce,การใช้งาน"
+        elif "moderator" in role:
+            default_tags = "announce,การใช้งาน"
+        elif "lecturer" in role:
+            default_tags = "ประกาศ,ปรกาศจากทางภาควิชา"
+        elif "staff" in role:
+            default_tags = "ประกาศจากทางภาควิชา"
+        elif "member" in role:
+            default_tags = "พูกคุยทั่วไป"
+        else:
+            default_tags = ""
+        ## end set
+
         return dict(
                     tags = json.dumps(tags),
-                    form = form
+                    form = form,
+                    default_tags = default_tags
                     )
     
     topic = models.Topic(title=title, description=description, tags=tags)

@@ -19,10 +19,26 @@
 	<div class="row">
 		<div class="col-xs-4 col-sm-4 col-md-3 col-lg-3">
 			<nav>
+<<<<<<< HEAD
 				<div class="list-group panel-primary">
 					<a class="list-group-item" class="active" href="${request.route_path('manager.users.approve')}">Approve users</a>
 					<a class="list-group-item" href="${request.route_path('manager.topics.index')}">Topic</a>
 					<a class="list-group-item" href="${request.route_path('manager.photo_albums.index')}">Photo Albums</a>
+=======
+				<ul class="nav bs-sidenav">
+					<li class="active">
+						<a href="${request.route_path('manager.users.approve')}">Approve users</a>
+					</li>
+					<li>
+						<a href="${request.route_path('manager.topics.index')}">Topic</a>
+					</li>
+					<li>
+						<a href="${request.route_path('manager.photo_albums.index')}">Photo Albums</a>
+					</li>
+					<li>
+						<a href="${request.route_path('manager.events.index')}">Events</a>
+					</li>
+>>>>>>> develop
 					% if has_permission('topic', request.context, request):
 					<a class="list-group-item" href="${request.route_path('manager.topics.problem')}">Topic Problem</a>
 					% endif
