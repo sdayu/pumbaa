@@ -1,6 +1,7 @@
 <%inherit file="/base/default.mako"/>
 <%!
 	import json
+	from pumbaa import models
 %>
 
 <%block name="addition_header">
@@ -60,6 +61,21 @@ document.addEventListener('DOMContentLoaded',function() {
 				<a class="btn btn-primary btn-sm" href="${request.route_path('forums.tags.index')}">All tags</a>
 				<a class="btn btn-primary btn-sm" href="${request.route_path('forums.topics.compose')}">New topics</a>
 			</div>
+		## start forum ประกาศจากภาควิชา
+		<%
+			forum = models.Forum.get_forum('ประกาศจากภาควิชา')
+		%>
+		<div class="panel panel-info">
+		  <div class="panel-heading">
+		    <h3 class="panel-title"><a href="${request.route_path('forums.view', name=forum.name)}">${forum.name}</a> <a href="${request.route_path('forums.feeds.forums', forum_name=forum.name)}"><img alt="Atom feed" src="/public/images/feed-icon.svg" width=15px/></a></h3>
+		  </div>
+
+		  <%include file="/forums/topics/listview-small.mako" 
+                    args="topics=forum.get_topics(10)"/>
+
+		</div>
+		## end forum
+		
 		<div class="panel panel-info">
 		  <div class="panel-heading">
 		    <h3 class="panel-title">Recent Topics <a href="${request.route_path('forums.feeds')}"><img alt="Atom feed" src="/public/images/feed-icon.svg" width=15px/></a>
@@ -69,8 +85,12 @@ document.addEventListener('DOMContentLoaded',function() {
           <%include file="/forums/topics/listview-small.mako" 
                     args="topics=recent_topics"/>
 		</div>
+		
 		## topic in forums
-		% for forum in forums:
+		% for forum_name in ['พูดคุยทั่วไป', 'บัณฑิตศึกษา', 'ประกาศรับสมัครงาน', 'Development', 'การใช้งาน และ แจ้งปัญหา']:
+		<%
+		forum = models.Forum.get_forum(forum_name)
+		%>
 		<div class="panel panel-info">
 		  <div class="panel-heading">
 		    <h3 class="panel-title"><a href="${request.route_path('forums.view', name=forum.name)}">${forum.name}</a> <a href="${request.route_path('forums.feeds.forums', forum_name=forum.name)}"><img alt="Atom feed" src="/public/images/feed-icon.svg" width=15px/></a></h3>

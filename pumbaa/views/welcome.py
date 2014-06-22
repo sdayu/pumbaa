@@ -13,8 +13,6 @@ def index(request):
         if len(topic.comments) > 0:
             last_comments_topics.append(topic)
     
-    
-    forums = models.Forum.objects(status='publish').all()
     photo_albums_ = models.PhotoAlbum.objects(status='publish').order_by('-published_date').limit(10).all()
     photo_albums = []
     for photo_album in photo_albums_:
@@ -30,7 +28,6 @@ def index(request):
     return dict(
                 recent_topics=recent_topics,
                 last_comments_topics=last_comments_topics,
-                forums=forums,
                 photo_albums=photo_albums,
                 events=events
                 )
