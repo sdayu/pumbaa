@@ -1,18 +1,18 @@
 <%inherit file="/forums/base/base.mako"/>
 <%block name="addition_header">
-	<link rel="stylesheet" type="text/css" href="/public/libs/markdown/pagedown/demo.css" />
+	<link rel="stylesheet" type="text/css" href="/public/css/pagedown.css" />
         
-	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Converter.js"></script>
-	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Sanitizer.js"></script>
-	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Editor.js"></script>
-	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Extra.js"></script>
+	<script type="text/javascript" src="/public/components/pagedown/Markdown.Converter.js"></script>
+	<script type="text/javascript" src="/public/components/pagedown/Markdown.Sanitizer.js"></script>
+	<script type="text/javascript" src="/public/components/pagedown/Markdown.Editor.js"></script>
+	<script type="text/javascript" src="/public/components/pagedown/Markdown.Extra.js"></script>
 	
-	<script type="text/javascript" src="/public/libs/google-code-prettify/prettify.js"></script> 
-	<link rel="stylesheet" type="text/css" href="/public/libs/google-code-prettify/prettify.css" />
+	<script type="text/javascript" src="/public/components/google-code-prettify/src/prettify.js"></script> 
+	<link rel="stylesheet" type="text/css" href="/public/components/google-code-prettify/src/prettify.css" />
 	
-	<link rel="stylesheet" type="text/css" href="/public/libs/select2/3.4.8/select2.css" />
-	<link rel="stylesheet" type="text/css" href="/public/libs/select2/3.4.8/select2-bootstrap.css" />
-	<script type="text/javascript" src="/public/libs/select2/3.4.8/select2.js"></script>
+	<link rel="stylesheet" type="text/css" href="/public/components/select2/select2.css" />
+	<link rel="stylesheet" type="text/css" href="/public/components/select2/select2-bootstrap.css" />
+	<script type="text/javascript" src="/public/components/select2/select2.js"></script>
 </%block>
 <%block name="title">New Topic</%block>
 <%block name="where_am_i">
