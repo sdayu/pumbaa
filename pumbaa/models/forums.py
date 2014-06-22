@@ -112,3 +112,7 @@ class Forum(me.Document):
             topics = topics.skip(skip)
         
         return topics
+    
+    def get_forum(name):
+        forum = Forum.objects(name=name).first()
+        return forum
