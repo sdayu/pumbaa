@@ -47,7 +47,7 @@ def compose(request):
             topic = models.Topic.objects(id=topic_id).first()
             form.title.data = topic.title
             form.description.data = topic.description
-            form.tags.data = ", ".join(topic.tags)
+            form.tags.data = topic.tags
             form.comments_disable.data = 'disable' if topic.comments_disabled else 'enable'
     
         return dict(

@@ -15,7 +15,11 @@
       "select2": ">= 3.5.0",
       "angular": ">= 1.2.19",
       "fullcalendar": ">= 2.0.1",
-      "jquery-ui": ">= 1.10.3"
+      "jquery-ui": ">= 1.10.3",
+      "MathJax": ">= 2.3.0",
+      "pagedown": ">= 1.1.0",
+      "google-code-prettify": ">= 1.0.1",
+      "bootstrap3-datetimepicker": ">= 3.0.0"
   },
   "ignore": [
     "**/.*",
