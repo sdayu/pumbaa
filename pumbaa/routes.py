@@ -61,7 +61,7 @@ def photo_album_include(config):
     config.add_route('photos.photo_albums.photo_comment', '/{photo_album_id}/photos/{photo_id}/comment')
     
 def profile_include(config):
-	config.add_route('profile.index', '/{profile_id}')
+    config.add_route('profile.index', '/{profile_id}')
 
 def calendars_include(config):
     config.add_route('calendars.events.index', '/events')
