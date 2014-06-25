@@ -71,6 +71,7 @@ def compose(request):
     #auto post to fb
     mail = mailer.Mailer()
     if mail.enable:
+
         forum_tags = []
         for fid in mail.forum_id:
             forum = models.Forum.objects.with_id(fid)
@@ -79,7 +80,21 @@ def compose(request):
         if any([tag in forum_tags for tag in tags]):
             url = request.route_url('forums.topics.view', title=title, topic_id=topic.id)
             fb_status = title + "\n" + description +"\n"+url
-            mail.post_to_fb_group(fb_status)
+
+            from pyramid_mailer import get_mailer
+            pymailer = get_mailer(request)
+
+            from pyramid_mailer.message import Message
+            print(mail.sender)
+            print(mail.recipient)
+            message = Message(subject=None,
+                              sender=mail.sender,
+                              recipients=[mail.recipient],
+                              body=fb_status)
+            #pymailer.send(message)
+            pymailer.send_immediately(message, fail_silently=False)
+
+            #mail.post_to_fb_group(fb_status)
 
     return HTTPFound(location=request.route_path('forums.topics.view', title=title, topic_id=topic.id))
 

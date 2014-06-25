@@ -13,6 +13,7 @@ pyramid.debug_routematch = false
 pyramid.default_locale_name = en
 pyramid.includes = 
 #    pyramid_debugtoolbar
+    pyramid_mailer
     pyramid_mako
     pyramid_beaker
 
@@ -40,6 +41,7 @@ session.cookie_on_exception = true
 mail.post_fb.enable = false 
 mail.host = smtp.gmail.com
 mail.port = 587
+mail.tls = True
 mail.username = <email>@gmail.com
 mail.password = <password> 
 mail.fb_group = <groud-id>@groups.facebook.com
