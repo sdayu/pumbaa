@@ -2,7 +2,14 @@
 Created on Oct 11, 2013
 
 @author: boatkrap
+
 '''
+
+
+def apis_include(config):
+    config.add_route('apis.events', '/events/{event_id}')
+    config.add_route('apis.events.list', '/events')
+
 def admin_include(config):
     config.add_route('admin.forums.index', '/forums')
     config.add_route('admin.forums.create', '/forums/create')
@@ -78,6 +85,10 @@ def add_routes(config):
     config.add_route('accounts.change_password', '/accounts/change_password')
     config.add_route('accounts.change_display_name', '/accounts/change_display_name')
     config.add_route('accounts.add_online_account', '/accounts/add_online_account')
+    
+    # add apis route
+    config.include(apis_include, route_prefix='/apis')
+    
     # add admin route
     config.add_route('admin.index', '/admin')
     config.include(admin_include, route_prefix='/admin')
