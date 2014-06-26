@@ -1,7 +1,22 @@
 <%inherit file="/forums/base/base.mako"/>
 <%!
+	import json
 	from pumbaa.models import events
 %>
+<%
+	def get_color(event_type):
+		cmap = {'undergraduate':'#fc9a24',
+				'graduate':'#002080',
+				'department':'#3366FF',
+				'conference':'#FF33CC',
+				'thesis':'#1AC6FF',
+				'other':'#00B32D'}
+		if event_type in cmap:
+			return cmap[event_type]
+		
+		return '#3a87ad'
+%>
+
 <%block name="where_am_i">
 	<li><a href="${request.route_path('calendars.calendars.index')}">Calendars</a></li>
 </%block>
@@ -27,15 +42,18 @@
 </%block>
 
 <div role="main" ng-app="calendarPumbaaApp" id="top">
-        <section id="directives-calendar" ng-controller="CalendarCtrl" data-ng-init="init()">
+        <section id="directives-calendar" ng-controller="CalendarCtrl" data-ng-init="init(${json.dumps([dict(name=type, color=get_color(type)) for type in events.EVENT_TYPES])})">
                 <div class="rows" >
                 	<div class="col-sm-3">
                 		<div class="btn-group-vertical">
                 		% for t in events.EVENT_TYPES:
-                		<button class="btn btn-default" ng-click="addRemoveEventSource(pumbaaSources,${t}Source)">
-                            ${t}
+                		<button class="btn btn-default" ng-click="addRemoveEventSource(eventSources, pumbaaSources['${t}'])">
+                            ${t.title()}
                         </button>
                 		% endfor
+                		<button class="btn btn-default" ng-click="addRemoveEventSource(eventSources, holidaySource)">
+                            Holiday
+                        </button>
                 		</div>
                 	</div>
                     <div class="col-sm-9">

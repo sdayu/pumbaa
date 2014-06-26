@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded',function() {
 % if len(events) > 0:
 		<div class="panel panel-info">
 		  <div class="panel-heading">
-		    <h3 class="panel-title">Agenda</h3>
+		    <h3 class="panel-title"><a href="${request.route_path('calendars.calendars.index')}">Agenda</a></h3>
 		  </div>
 		  <div class="panel-body" style="padding: 0;">
 		  	<div class="list-group">
