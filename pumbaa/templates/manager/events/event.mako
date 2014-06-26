@@ -71,8 +71,23 @@
 		$(function () {
             $('#started_date_picker').datetimepicker();
             $('#updated_date_picker').datetimepicker();
+            $('#deadline_date_picker').datetimepicker();
+            $('#notification_date_picker').datetimepicker();
         });
+		
+		$('#conference').hide();
 	});
+	
+	function check_event_type(){
+		var type = $('#event_type').val();
+
+		if (type == 'conference') {
+			$('#conference').show();
+		}
+		else{
+			$('#conference').hide();
+		}
+	}
 	</script>
 </%block>
 
@@ -149,8 +164,41 @@
 		% if form.event_type.errors:
 			<span class="text-danger">${form.event_type.errors[0]}</span>
 		% endif
-		${form.event_type(class_='form-control')}
+		${form.event_type(class_='form-control', onclick='check_event_type()')}
 	</div>
+	
+	<div class="row" id="conference">
+		<div class="col-sm-6">
+			<div class="form-group${' has-error' if form.conference.deadline_date.errors else ''}">
+				<label class="control-label">Deadline Date</label>
+				% if form.conference.deadline_date.errors:
+					<span class="text-danger">${form.conference.deadline_date.errors[0]}</span>
+				% endif
+				<div class='input-group date' id='deadline_date_picker' data-date-format="DD/MM/YYYY">
+					${form.conference.deadline_date(class_='form-control')}
+					<span class="input-group-addon">
+						<span class="glyphicon glyphicon-time"></span>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="form-group${' has-error' if form.conference.notification_date.errors else ''}">
+				<label class="control-label">Notification Date</label>
+				% if form.conference.notification_date.errors:
+					<span class="text-danger">${form.conference.notification_date.errors[0]}</span>
+				% endif
+				<div class='input-group date' id='notification_date_picker' data-date-format="DD/MM/YYYY">
+					${form.conference.notification_date(class_='form-control')}
+					<span class="input-group-addon">
+						<span class="glyphicon glyphicon-time"></span>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 	<div class="form-group${' has-error' if form.venue.errors else ''}">
 	    <label class="control-label">Where</label>
 		% if form.venue.errors:
