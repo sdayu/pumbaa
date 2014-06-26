@@ -40,6 +40,7 @@ def manager_include(config):
     
     config.add_route('manager.events.index', '/events')
     config.add_route('manager.events.add', '/events/add')
+    config.add_route('manager.events.edit', '/events/edit/{event_id}')
     config.add_route('manager.events.delete', '/events/delete/{event_id}')
 
 def forums_include(config):
@@ -73,7 +74,7 @@ def profile_include(config):
 def calendars_include(config):
     config.add_route('calendars.events.index', '/events')
     config.add_route('calendars.events.view', '/events/{event_id}')
-
+    
 def add_routes(config):
     config.add_route('index', '/')
     

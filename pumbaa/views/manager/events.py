@@ -10,7 +10,7 @@ from pumbaa import forms
              permission='member',
              renderer='/manager/events/index.mako')
 def index(request):
-    events = models.Event.objects(status__ne='delete')
+    events = models.Event.objects(status__ne='delete', author=request.user)
     return dict(
                 events=events
                 )
@@ -43,6 +43,30 @@ def add(request):
     event.save()
     return HTTPFound(location=request.route_path('manager.events.index'))
 
+@view_config(route_name='manager.events.edit', 
+             permission='member',
+             renderer='/manager/events/event.mako')
+def edit(request):
+    event_id = request.matchdict.get('event_id')
+    form = forms.events.Event(request.POST)
+    event = models.Event.objects(id=event_id, author=request.user).first()
+    
+    if len(request.POST) == 0 or not form.validate():
+        if len(request.POST) == 0:
+            event.title = event.topic.title
+            event.description = event.topic.description
+            event.tags = event.topic.tags
+            form = forms.events.Event(obj=event)
+        tags = models.Topic.objects().distinct('tags')
+        return dict(form=form, tags=json.dumps(tags))
+    
+    form.populate_obj(event)
+    event.topic.title = form.data['title']
+    event.topic.description = form.data['description']
+    event.topic.tags = form.data['tags']
+    event.save()
+    
+    return HTTPFound(location=request.route_path('manager.events.index'))
 
 
 @view_config(route_name='manager.events.delete',

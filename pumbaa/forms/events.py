@@ -15,7 +15,9 @@ class RepeatableEvent(Form):
     on = fields.StringField('Repeat On')
     end = fields.StringField('End')
     
-    
+class ConferenceEvent(Form):
+    deadline_date = fields.DateField('Deadline Date')
+    notification_date = fields.DateField('Notification Date')
 
 class Event(topics.Topic):
     started_date = fields.DateTimeField('Start Date', format='%d/%m/%Y %H:%M', validators=[validators.InputRequired()])
@@ -30,4 +32,5 @@ class Event(topics.Topic):
     event_type = fields.SelectField('Event Type', validators=[validators.InputRequired()], 
                                     choices=[(t, t.title()) for t in models.events.EVENT_TYPES])
 
+    conference = fields.FormField(ConferenceEvent)
 

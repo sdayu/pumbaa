@@ -55,7 +55,7 @@ class Events:
                       'type': event.event_type,
                       'start': started_date.isoformat(),
                       'end': ended_date.isoformat(),
-                      'allDay:': event.all_day,
+                      'allDay': event.all_day,
                       'url': self.request.route_path('calendars.events.view', event_id=event.id)}
             results.append(result)
         

@@ -61,7 +61,6 @@
                                 <h4>{{alertMessage}}</h4>
                               </div>
                               <div class="btn-toolbar">
-                                <p class="pull-right lead">Calendar One View Options</p>
                                 <div class="btn-group">
                                     <button class="btn btn-success" ng-click="changeView('agendaDay', pumbaaCalendar)">AgendaDay</button>
                                     <button class="btn btn-success" ng-click="changeView('agendaWeek', pumbaaCalendar)">AgendaWeek</button>
