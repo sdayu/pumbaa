@@ -9,4 +9,9 @@ from pyramid.response import Response
 
 @view_config(route_name='calendars.calendars.index', renderer='/calendars/calendars/index.mako')
 def index(request):
+    request.response.headerlist.extend(
+            (
+                ('Access-Control-Allow-Origin', '*')
+            )
+    )
     return dict()
