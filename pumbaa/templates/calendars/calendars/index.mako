@@ -30,14 +30,14 @@
 
     <script src="/public/components/jquery-ui/ui/jquery-ui.js"></script>
 
-    <script src="/public/components/angular/angular.js"></script>
-    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.9.0.js"></script>
+    <script type='text/javascript' src="/public/components/angular/angular.js"></script>
+    <script type='text/javascript' src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.9.0.js"></script>
     
-    <script src="/public/components/moment/min/moment.min.js"></script>
-    <script src="/public/components/fullcalendar/dist/fullcalendar.js"></script>
-    <script src="/public/components/fullcalendar/dist/gcal.js"></script>
-    <script src="/public/components/angular-ui-calendar/src/calendar.js"></script>
-    <script src="/public/js/calendar_pumbaa.js"></script>
+    <script type='text/javascript' src="/public/components/moment/min/moment.min.js"></script>
+    <script type='text/javascript' src="/public/components/fullcalendar/dist/fullcalendar.js"></script>
+    <script type='text/javascript' src="/public/components/fullcalendar/dist/gcal.js"></script>
+    <script type='text/javascript' src="/public/components/angular-ui-calendar/src/calendar.js"></script>
+    <script type='text/javascript' src="/public/js/calendar_pumbaa.js"></script>
     
 </%block>
 
