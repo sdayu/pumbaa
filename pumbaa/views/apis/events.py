@@ -14,6 +14,8 @@ from dateutil import tz, parser
 
 from pumbaa import models
 
+import mongoengine as me
+
 @view_defaults(route_name='apis.events', renderer='json')
 class Events:
     def __init__(self, request):
@@ -60,24 +62,34 @@ class Events:
             if event.all_day:
                 result['end'] = (ended_date + datetime.timedelta(days=1)).isoformat()
             results.append(result)
-            
-            if event.event_type == 'conference' and event.conference:
-                if not hasattr(event.conference, 'paper_deadline_date'):
-                    continue 
-
-                if event.conference.paper_deadline_date:
-                    started_date = event.conference.paper_deadline_date.replace(tzinfo=ctz)
-                    ended_date = started_date + datetime.timedelta(days=1)
-                    result = {
-                      'id': str(event.id),
-                      'title': "Paper Deadline: "+event.topic.title,
-                      'type': event.event_type,
-                      'start': started_date.isoformat(),
-                      'end': ended_date.isoformat(),
-                      'allDay': event.all_day,
-                      'url': self.request.route_path('calendars.events.view', event_id=event.id)}
-                    
-                    results.append(result)
+        
+        if event_type == 'conference':
+            cevents = models.Event.objects((
+                                me.Q(status='publish') &
+                                me.Q(conference__paper_deadline_date__gt=started_date) &
+                                me.Q(conference__paper_deadline_date__lt=ended_date) &
+                                me.Q(event_type='conference')
+                                      ))\
+                            .order_by('+paper_deadline_date')
+                            
+            for event in cevents:
+                if event.event_type == 'conference' and event.conference:
+                    if not hasattr(event.conference, 'paper_deadline_date'):
+                        continue 
+    
+                    if event.conference.paper_deadline_date:
+                        started_date = event.conference.paper_deadline_date.replace(tzinfo=ctz)
+                        ended_date = started_date + datetime.timedelta(days=1)
+                        result = {
+                          'id': str(event.id),
+                          'title': "Paper Deadline: "+event.topic.title,
+                          'type': event.event_type,
+                          'start': started_date.isoformat(),
+                          'end': ended_date.isoformat(),
+                          'allDay': event.all_day,
+                          'url': self.request.route_path('calendars.events.view', event_id=event.id)}
+                        
+                        results.append(result)
         
         if render == 'fullcalendar':
             return results
