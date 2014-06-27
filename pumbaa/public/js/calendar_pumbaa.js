@@ -14,7 +14,7 @@ function CalendarCtrl($scope, $http) {
             url: "http://www.google.com/calendar/feeds/th__th%40holiday.calendar.google.com/public/basic",
             // className: 'gcal-event',           // an option!
             currentTimezone: 'Thailand/Bangkok', // an option!
-            color:'#d2322d'
+            color:'#d2322d',
     };
     
     /* event source that contains custom events on the scope */
