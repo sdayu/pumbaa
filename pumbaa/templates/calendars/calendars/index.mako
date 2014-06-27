@@ -31,7 +31,7 @@
     <script src="/public/components/jquery-ui/ui/jquery-ui.js"></script>
 
     <script src="/public/components/angular/angular.js"></script>
-    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.9.0.js"></script>
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.9.0.js"></script>
     
     <script src="/public/components/moment/min/moment.min.js"></script>
     <script src="/public/components/fullcalendar/dist/fullcalendar.js"></script>
