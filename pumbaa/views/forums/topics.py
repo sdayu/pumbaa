@@ -49,12 +49,8 @@ def compose(request):
         
         ## set default tags for roles
         role = [role.name for role in request.user.roles]
-        if "admin" in role:
-            default_tags = "announce,การใช้งาน"
-        elif "moderator" in role:
-            default_tags = "announce,การใช้งาน"
-        elif "lecturer" in role:
-            default_tags = "ประกาศ,ปรกาศจากทางภาควิชา"
+        if "lecturer" in role:
+            default_tags = "ปรกาศจากทางภาควิชา"
         elif "staff" in role:
             default_tags = "ประกาศจากทางภาควิชา"
         elif "member" in role:
