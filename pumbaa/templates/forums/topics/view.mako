@@ -1,12 +1,12 @@
 <%inherit file="/forums/base/base.mako"/>
 <%! 
-	import json
 	from pyramid.security import has_permission
  %>
+ 
+<%block name="title">${topic.title}</%block>
 <%block name="keywords">${", ".join(topic.tags)}</%block>
 <%block name="description">${topic.description[:200]}</%block>
 
-<%block name="title">${topic.title}</%block>
 <%block name="where_am_i">
 	${parent.where_am_i()}
 	<li><a href="${request.route_path('forums.topics.index')}">Topics</a></li>
@@ -33,7 +33,7 @@
 
 <section>
 	<article title="topic description" id="description">
-	${topic.description}
+${topic.description | n}
 	</article>
 	<div style="border-top: double #bce8f1; padding-top: 10px;">
 		<ul class="list-inline">
@@ -47,12 +47,11 @@
 
 <script type="text/javascript">
 $( document ).ready(function() {
-    $("#description").html(converter.makeHtml(${json.dumps(topic.description) | n}));
+    $("#description").html(converter.makeHtml($("#description").html()));
 });
 </script>
 
 <%block name="more_body">
-
 <%include file="/base/social_integration.mako"/>
 <%include file="/base/comments.mako" args="item=topic"/>
 </%block>

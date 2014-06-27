@@ -9,6 +9,9 @@ import bson
 #     name = me.StringField(required=True)
 #     created_date = me.DateTimeField(required=True, default=datetime.datetime.now)
 
+TOPIC_TYPES = ['topic', 'page', 'event']
+TOPIC_STATUS = ['draft', 'publish', 'delete']
+
 class Comment(me.EmbeddedDocument):
     id = me.ObjectIdField(required=True, default=bson.ObjectId)
     message = me.StringField(required=True)
@@ -18,7 +21,7 @@ class Comment(me.EmbeddedDocument):
     created_date = me.DateTimeField(required=True, default=datetime.datetime.now)
     updated_date = me.DateTimeField(required=True, default=datetime.datetime.now)
     published_date = me.DateTimeField(required=True, default=datetime.datetime.now)
-    status = me.StringField(required=True, default='draft')
+    status = me.StringField(required=True, default='draft', choices=TOPIC_STATUS)
     """ status: draft, publish, delete """
     
     ip_address  = me.StringField(max_length=100, required=True, default='0.0.0.0')
@@ -50,7 +53,7 @@ class Topic(me.Document):
     updated_date = me.DateTimeField(required=True, default=datetime.datetime.now)
     published_date = me.DateTimeField()
     
-    status = me.StringField(required=True, default='draft')
+    status = me.StringField(required=True, default='draft', choices=TOPIC_STATUS)
     """ status: draft, publish, delete """
     
     ip_address  = me.StringField(max_length=100, required=True, default='0.0.0.0')
@@ -60,7 +63,7 @@ class Topic(me.Document):
     comments = me.ListField(me.EmbeddedDocumentField(Comment))
     tags = me.ListField(me.StringField(required=True), required=True)
     
-    page = me.BooleanField(default=False, required=True)
+    type = me.StringField(required=True, default='topic', choices=TOPIC_TYPES)
     comments_disabled = me.BooleanField(default=False, required=True)
     
     histories = me.ListField(me.EmbeddedDocumentField(TopicHistory))
@@ -109,3 +112,7 @@ class Forum(me.Document):
             topics = topics.skip(skip)
         
         return topics
+    
+    def get_forum(name):
+        forum = Forum.objects(name=name).first()
+        return forum

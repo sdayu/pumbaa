@@ -94,3 +94,5 @@ class Password(Form):
 
 class DisplayName(Form):
     display_name = fields.TextField('Display Name', validators=[validators.InputRequired(), validate_display_name])
+    first_name = fields.TextField('First Name', validators=[validators.InputRequired()])
+    last_name = fields.TextField('Last Name', validators=[validators.InputRequired()])

@@ -21,6 +21,7 @@ requires = [
     'feedformatter',
     'pillow',
     'nose',
+    'python-dateutil',
     'webtest'
     ]
 

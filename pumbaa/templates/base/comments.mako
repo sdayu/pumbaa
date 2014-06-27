@@ -4,15 +4,15 @@
 	from pumbaa import models
 %>
 <%block name="addition_header">
-    <link rel="stylesheet" type="text/css" href="/public/libs/markdown/pagedown/demo.css" />
+    <link rel="stylesheet" type="text/css" href="/public/css/pagedown.css" />
         
-    <script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Converter.js"></script>
-    <script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Sanitizer.js"></script>
-    <script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Editor.js"></script>
-    <script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Extra.js"></script>
+    <script type="text/javascript" src="/public/components/pagedown/Markdown.Converter.js"></script>
+    <script type="text/javascript" src="/public/components/pagedown/Markdown.Sanitizer.js"></script>
+    <script type="text/javascript" src="/public/components/pagedown/Markdown.Editor.js"></script>
+    <script type="text/javascript" src="/public/components/pagedown/Markdown.Extra.js"></script>
     
-    <script type="text/javascript" src="/public/libs/google-code-prettify/prettify.js"></script> 
-    <link rel="stylesheet" type="text/css" href="/public/libs/google-code-prettify/prettify.css" />
+    <script type="text/javascript" src="/public/components/google-code-prettify/src/prettify.js"></script> 
+    <link rel="stylesheet" type="text/css" href="/public/components/google-code-prettify/src/prettify.css" />
 
 ## markdown script
 <script type="text/javascript">
@@ -46,10 +46,6 @@ document.addEventListener('DOMContentLoaded',function() {
     prettyPrint();
 });
 </script>
-
-## angularjs
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.min.js"></script>
-## end angularjs
 
 </%block>
 

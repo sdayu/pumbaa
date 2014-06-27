@@ -29,10 +29,23 @@ Team
 * `Burawich Pamornnak`_
 * `Thanathip Limna`_
 * `Kullawat Chaowanawatee`_
+* `Alun Khunaree`_
+* `Watcharakorn Kaewsawee`_
+* `Warakorn Sitthirit`_
+* `Wasin Passornpakorn`_
+* `Cheewarak Rodniam`_
 * `Teerasak Kroputaponchai`_
+* `Chalermchon Saekoo`_
 
 .. _Burawich Pamornnak: mailto:burawich@gmail.com?Subject=Pumbaa%20Volunteer
 .. _Thanathip Limna: https://github.com/sdayu
 .. _Kullawat Chaowanawatee: mailto:e29qwg@gmail.com
+.. _Warakorn Sitthirit: http://github.com/zeroxfire
+.. _Wasin Passornpakorn: https://github.com/Mheevun
 .. _Teerasak Kroputaponchai: http://github.com/ibotdotout
 .. _Pumbaa Project: https://github.com/sdayu/pumbaa
+.. _Alun Khunaree: https://github.com/NiNiiWs
+.. _Watcharakorn Kaewsawee: https://github.com/imspiiz
+.. _Cheewarak Rodniam: https://github.com/xZero0
+.. _Chalermchon Saekoo: https://github.com/progreanmer
+
