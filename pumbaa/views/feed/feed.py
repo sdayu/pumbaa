@@ -63,3 +63,5 @@ def show_month(data):
 	return '{0:%b}'.format(data)
 def show_day(data):
 	return '{0:%d}'.format(data)
+
+	
