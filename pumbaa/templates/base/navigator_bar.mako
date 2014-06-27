@@ -37,6 +37,7 @@
               	<li><a href="${request.route_path('index')}">หน้าแรก</a></li>
               	<li><a href="${request.route_path('forums.topics.index')}">Topics</a></li>
               	<li><a href="${request.route_path('photos.photo_albums.index')}">Photo Albums</a></li>
+  				<li><a href="${request.route_path('manager.events.index')}">Events</a></li>
   				<li><a href="${request.route_path('forums.tags.index')}">Tags</a></li>
                 <li class="divider"></li>
            		<li><a href="${request.route_path('pages.view', title='About')}">About</a></li>
@@ -79,6 +80,9 @@
 		            </li>
 		            <li>
 		            	<a href="${request.route_path('manager.photo_albums.create')}">New photo albums</a>
+		            </li>
+		            <li>
+		            	<a href="${request.route_path('manager.events.create')}">New events</a>
 		            </li>
 		            <li>
 		            	<a href="${request.route_path('manager.topics.index')}">My topics</a>

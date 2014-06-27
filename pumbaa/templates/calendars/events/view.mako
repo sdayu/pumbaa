@@ -35,11 +35,26 @@ ${event.topic.description}
 	<div>
 		<b>Ended date:</b> ${event.ended_date.strftime('%a %d %b %Y %H:%M')}
 	</div>
+	% if event.event_type == 'conference':
+	% if event.conference.paper_deadline_date:
+	<div>
+		<b>Paper deadline:</b> ${event.conference.paper_deadline_date.strftime('%a %d %b %Y')}
+	</div>
+	% endif
+	% if event.conference.notification_date:
+	<div>
+		<b>Notification date:</b> ${event.conference.notification_date.strftime('%a %d %b %Y')}
+	</div>
+	% endif
+	% endif
 	<div>
 		<b>Where:</b> ${event.venue if event.venue else ''}
 	</div>
 	<div>
-		<b>Tags:</b> ${', '.join(event.topic.tags)}
+		<b>Tags:</b> 
+		% for tag in event.topic.tags:
+			<a href="${request.route_path('calendars.events.list_by_tags', name=tag)}">${tag}</a>
+		% endfor
 	</div>
 </section>
 

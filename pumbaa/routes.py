@@ -39,7 +39,7 @@ def manager_include(config):
     config.add_route('manager.photo_albums.delete_photo', '/photo_albums/{photo_album_id}/delete_photo/{photo_id}')
     
     config.add_route('manager.events.index', '/events')
-    config.add_route('manager.events.add', '/events/add')
+    config.add_route('manager.events.create', '/events/create')
     config.add_route('manager.events.edit', '/events/edit/{event_id}')
     config.add_route('manager.events.delete', '/events/delete/{event_id}')
 
@@ -74,6 +74,7 @@ def profile_include(config):
 def calendars_include(config):
     config.add_route('calendars.events.index', '/events')
     config.add_route('calendars.events.view', '/events/{event_id}')
+    config.add_route('calendars.events.list_by_tags', '/events/tags/{name}')
     
 def add_routes(config):
     config.add_route('index', '/')

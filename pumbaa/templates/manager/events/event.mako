@@ -24,6 +24,17 @@
 	<script type="text/javascript" src="/public/components/bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 	
 	<script type="text/javascript">
+	function check_event_type(){
+		var type = $('#event_type').val();
+
+		if (type == 'conference') {
+			$('#conference').show();
+		}
+		else{
+			$('#conference').hide();
+		}
+	}
+	
 	$(document).ready(function(){
 		
 		## markdown script
@@ -71,23 +82,15 @@
 		$(function () {
             $('#started_date_picker').datetimepicker();
             $('#updated_date_picker').datetimepicker();
-            $('#deadline_date_picker').datetimepicker();
+            $('#paper_deadline_date_picker').datetimepicker();
             $('#notification_date_picker').datetimepicker();
         });
 		
-		$('#conference').hide();
+		
+		check_event_type();
 	});
 	
-	function check_event_type(){
-		var type = $('#event_type').val();
-
-		if (type == 'conference') {
-			$('#conference').show();
-		}
-		else{
-			$('#conference').hide();
-		}
-	}
+	
 	</script>
 </%block>
 
@@ -169,13 +172,13 @@
 	
 	<div class="row" id="conference">
 		<div class="col-sm-6">
-			<div class="form-group${' has-error' if form.conference.deadline_date.errors else ''}">
-				<label class="control-label">Deadline Date</label>
-				% if form.conference.deadline_date.errors:
-					<span class="text-danger">${form.conference.deadline_date.errors[0]}</span>
+			<div class="form-group${' has-error' if form.conference.paper_deadline_date.errors else ''}">
+				<label class="control-label">Paper deadline</label>
+				% if form.conference.paper_deadline_date.errors:
+					<span class="text-danger">${form.conference.paper_deadline_date.errors[0]}</span>
 				% endif
-				<div class='input-group date' id='deadline_date_picker' data-date-format="DD/MM/YYYY">
-					${form.conference.deadline_date(class_='form-control')}
+				<div class='input-group date' id='paper_deadline_date_picker' data-date-format="DD/MM/YYYY">
+					${form.conference.paper_deadline_date(class_='form-control')}
 					<span class="input-group-addon">
 						<span class="glyphicon glyphicon-time"></span>
 					</span>

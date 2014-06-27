@@ -57,7 +57,27 @@ class Events:
                       'end': ended_date.isoformat(),
                       'allDay': event.all_day,
                       'url': self.request.route_path('calendars.events.view', event_id=event.id)}
+            if event.all_day:
+                result['end'] = (ended_date + datetime.timedelta(days=1)).isoformat()
             results.append(result)
+            
+            if event.event_type == 'conference' and event.conference:
+                if not hasattr(event.conference, 'paper_deadline_date'):
+                    continue 
+
+                if event.conference.paper_deadline_date:
+                    started_date = event.conference.paper_deadline_date.replace(tzinfo=ctz)
+                    ended_date = started_date + datetime.timedelta(days=1)
+                    result = {
+                      'id': str(event.id),
+                      'title': "Paper Deadline: "+event.topic.title,
+                      'type': event.event_type,
+                      'start': started_date.isoformat(),
+                      'end': ended_date.isoformat(),
+                      'allDay': event.all_day,
+                      'url': self.request.route_path('calendars.events.view', event_id=event.id)}
+                    
+                    results.append(result)
         
         if render == 'fullcalendar':
             return results

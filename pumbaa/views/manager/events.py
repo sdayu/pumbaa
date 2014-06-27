@@ -15,10 +15,10 @@ def index(request):
                 events=events
                 )
 
-@view_config(route_name='manager.events.add', 
+@view_config(route_name='manager.events.create', 
              permission='member',
              renderer='/manager/events/event.mako')
-def add(request):
+def create(request):
     form = forms.events.Event(request.POST)
 
     if len(request.POST) == 0 or not form.validate():
@@ -34,12 +34,17 @@ def add(request):
     topic.type = 'event'
     topic.published_date = topic.updated_date
     topic.ip_address = request.environ.get('REMOTE_ADDR', '0.0.0.0')
+    if not event.event_type in topic.tags:
+        topic.tags.append(event.event_type)
+    if not 'Event' in topic.tags:
+        topic.tags.append('Event')
     topic.save()
     
     event.topic = topic
     event.author = request.user
     event.ip_address = request.environ['REMOTE_ADDR']
     event.status = 'publish'
+    
     event.save()
     return HTTPFound(location=request.route_path('manager.events.index'))
 
@@ -59,11 +64,19 @@ def edit(request):
             form = forms.events.Event(obj=event)
         tags = models.Topic.objects().distinct('tags')
         return dict(form=form, tags=json.dumps(tags))
-    
+  
     form.populate_obj(event)
     event.topic.title = form.data['title']
     event.topic.description = form.data['description']
     event.topic.tags = form.data['tags']
+    
+    if not event.event_type in event.topic.tags:
+        event.topic.tags.append(event.event_type)
+    
+    if not 'Event' in event.topic.tags:
+        event.topic.tags.append('Event')
+        
+    event.topic.save()
     event.save()
     
     return HTTPFound(location=request.route_path('manager.events.index'))

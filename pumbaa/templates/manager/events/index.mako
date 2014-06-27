@@ -6,7 +6,7 @@
 </%block>
 <%block name="panel_title">Events</%block>
 <ul class="list-inline">
-	<li><a href="${request.route_path('manager.events.add')}">New Event</a></li>
+	<li><a href="${request.route_path('manager.events.create')}">New Event</a></li>
 </ul>
 <ul class="list-group">
 	% for event in events:

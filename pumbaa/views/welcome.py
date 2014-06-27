@@ -3,6 +3,8 @@ from pumbaa import models
 
 import datetime
 
+import mongoengine as me
+
 
 @view_config(route_name='index', renderer='/welcome/index.mako')
 def index(request):
@@ -19,9 +21,10 @@ def index(request):
         if len(photo_album.photos)> 0:
             photo_albums.append(photo_album)
             
-    events = models.Event.objects(status='publish', 
-                                  started_date__gt=datetime.datetime.now(),
-                                  event_type__in=['undergraduate', 'graduate', 'department'])\
+    events = models.Event.objects((me.Q(status='publish') &
+                                  (me.Q(started_date__gt=datetime.datetime.now().date()) | 
+                                  me.Q(ended_date__gt=datetime.datetime.now())) &
+                                  me.Q(event_type__in=['undergraduate', 'graduate', 'department'])))\
                         .order_by('+started_date')\
                         .limit(5).all()
     
