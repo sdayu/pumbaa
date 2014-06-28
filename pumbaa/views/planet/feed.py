@@ -24,7 +24,7 @@ def index(request):
 			continue
 		if user.feed_url is None:
 			continue
-		print(user.username)
+		# print(user.username)
 		if "http://" not in user.feed_url and "https://" not in  user.feed_url:
 			continue
 		data = feedparser.parse(user.feed_url)
