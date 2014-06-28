@@ -3,7 +3,7 @@
 	from pumbaa import models
 	from pyramid.security import has_permission
 %>
-	<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar navbar-default navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -37,9 +37,11 @@
               	<li><a href="${request.route_path('index')}">หน้าแรก</a></li>
               	<li><a href="${request.route_path('forums.topics.index')}">Topics</a></li>
               	<li><a href="${request.route_path('photos.photo_albums.index')}">Photo Albums</a></li>
-  				<li><a href="${request.route_path('forums.tags.index')}">Tags</a></li>
+  		<li><a href="${request.route_path('manager.events.index')}">Events</a></li>
+  		<li><a href="${request.route_path('forums.tags.index')}">Tags</a></li>
+  		<li><a href="${request.route_path('planet')}">Planet (beta)</a></li>
                 <li class="divider"></li>
-           		<li><a href="${request.route_path('pages.view', title='About')}">About</a></li>
+           	<li><a href="${request.route_path('pages.view', title='About')}">About</a></li>
             	<li><a href="${request.route_path('pages.view', title='Contact')}">Contact</a></li>
                 <li class="dropdown-header">Pumbaa</li>
                 <li><a href="https://github.com/sdayu/pumbaa">Version ${pumbaa.__version__}</a></li>
@@ -79,6 +81,9 @@
 		            </li>
 		            <li>
 		            	<a href="${request.route_path('manager.photo_albums.create')}">New photo albums</a>
+		            </li>
+		            <li>
+		            	<a href="${request.route_path('manager.events.create')}">New events</a>
 		            </li>
 		            <li>
 		            	<a href="${request.route_path('manager.topics.index')}">My topics</a>

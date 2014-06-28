@@ -40,6 +40,10 @@ class User(me.Document):
     first_name = me.StringField(max_length=100, required=True)
     last_name = me.StringField(max_length=100, required=True)
     display_name = me.StringField(max_length=250, required=True)
+
+    # Feed Feature
+    feed_url = me.StringField(max_length=500, required=False)
+    feed_hash = me.StringField(required=False)
     
     default_profile = me.StringField(default='pumbaa.coe.psu.ac.th')
     online_profiles = me.ListField(me.EmbeddedDocumentField(Profile))
@@ -60,6 +64,13 @@ class User(me.Document):
             return self.display_name
         else:
             return self.username
+
+    def get_tim_display_name(self):
+        tname = self.get_display_name().split(" ")
+        if len(tname) > 1:
+            return "%s. %s" % (tname[0][0],tname[1])
+        else:
+            return "%s" % (tname[0])
         
     def set_password(self, password):
         from pyramid.threadlocal import get_current_request
@@ -75,7 +86,7 @@ class User(me.Document):
         for role in self.roles:
             if role.name == name:
                 return role
-            
+
     def get_profile_picture(self, width=50):
         if self.default_profile == 'pumbaa.coe.psu.ac.th':
             return None

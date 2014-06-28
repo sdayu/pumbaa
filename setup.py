@@ -13,6 +13,7 @@ requires = [
     'pyramid_mako',
     'pyramid_debugtoolbar',
     'pyramid_beaker',
+    'pyramid_mailer',
     'waitress',
     'mongoengine',
     'velruse',
@@ -21,7 +22,9 @@ requires = [
     'feedformatter',
     'pillow',
     'nose',
-    'webtest'
+    'python-dateutil',
+    'webtest',
+    'feedparser'
     ]
 
 init = os.path.join(os.path.dirname(__file__), 'pumbaa', '__init__.py')
