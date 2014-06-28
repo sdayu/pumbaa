@@ -14,7 +14,7 @@ import feedparser
 from time import mktime
 from datetime import datetime
 
-@view_config(route_name='feeds', renderer="/feed/index.mako")
+@view_config(route_name='planet', renderer="/planet/index.mako")
 def index(request):
 	#print("testing")
 	users = models.User.objects()

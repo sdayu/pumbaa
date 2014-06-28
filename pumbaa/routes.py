@@ -114,7 +114,7 @@ def add_routes(config):
 
     # feed
     #config.add_route('feed.index', '/feed')
-    config.add_route('feeds', '/feed')
+    config.add_route('planet', '/planet')
     #config.include(feed_include, route_prefix='/feed')
     
     # calendars
