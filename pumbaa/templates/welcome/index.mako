@@ -1,6 +1,7 @@
 <%inherit file="/base/default.mako"/>
 <%!
 	import json
+	from pumbaa import models
 %>
 
 <%block name="addition_header">
@@ -14,15 +15,13 @@
 </style>
 
 ## for markdown
-	<link rel="stylesheet" type="text/css" href="/public/libs/markdown/pagedown/demo.css" />
-        
-	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Converter.js"></script>
-	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Sanitizer.js"></script>
-	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Editor.js"></script>
-	<script type="text/javascript" src="/public/libs/markdown/pagedown/Markdown.Extra.js"></script>
+	<script type="text/javascript" src="/public/bower_components/pagedown/Markdown.Converter.js"></script>
+	<script type="text/javascript" src="/public/bower_components/pagedown/Markdown.Sanitizer.js"></script>
+	<script type="text/javascript" src="/public/bower_components/pagedown/Markdown.Editor.js"></script>
+	<script type="text/javascript" src="/public/bower_components/pagedown/Markdown.Extra.js"></script>
 	
-	<script type="text/javascript" src="/public/libs/google-code-prettify/prettify.js"></script> 
-	<link rel="stylesheet" type="text/css" href="/public/libs/google-code-prettify/prettify.css" />
+	<script type="text/javascript" src="/public/bower_components/google-code-prettify/src/prettify.js"></script> 
+	<link rel="stylesheet" type="text/css" href="/public/bower_components/google-code-prettify/src/prettify.css" />
 
 ## markdown script
 <script type="text/javascript">
@@ -62,6 +61,21 @@ document.addEventListener('DOMContentLoaded',function() {
 				<a class="btn btn-primary btn-sm" href="${request.route_path('forums.tags.index')}">All tags</a>
 				<a class="btn btn-primary btn-sm" href="${request.route_path('forums.topics.compose')}">New topics</a>
 			</div>
+		## start forum ประกาศจากภาควิชา
+		<%
+			forum = models.Forum.get_forum('ประกาศจากภาควิชา')
+		%>
+		<div class="panel panel-info">
+		  <div class="panel-heading">
+		    <h3 class="panel-title"><a href="${request.route_path('forums.view', name=forum.name)}">${forum.name}</a> <a href="${request.route_path('forums.feeds.forums', forum_name=forum.name)}"><img alt="Atom feed" src="/public/images/feed-icon.svg" width=15px/></a></h3>
+		  </div>
+
+		  <%include file="/forums/topics/listview-small.mako" 
+                    args="topics=forum.get_topics(10)"/>
+
+		</div>
+		## end forum
+		
 		<div class="panel panel-info">
 		  <div class="panel-heading">
 		    <h3 class="panel-title">Recent Topics <a href="${request.route_path('forums.feeds')}"><img alt="Atom feed" src="/public/images/feed-icon.svg" width=15px/></a>
@@ -71,8 +85,12 @@ document.addEventListener('DOMContentLoaded',function() {
           <%include file="/forums/topics/listview-small.mako" 
                     args="topics=recent_topics"/>
 		</div>
+		
 		## topic in forums
-		% for forum in forums:
+		% for forum_name in ['พูดคุยทั่วไป', 'บัณฑิตศึกษา', 'ประกาศรับสมัครงาน', 'Development', 'การใช้งาน และ แจ้งปัญหา']:
+		<%
+		forum = models.Forum.get_forum(forum_name)
+		%>
 		<div class="panel panel-info">
 		  <div class="panel-heading">
 		    <h3 class="panel-title"><a href="${request.route_path('forums.view', name=forum.name)}">${forum.name}</a> <a href="${request.route_path('forums.feeds.forums', forum_name=forum.name)}"><img alt="Atom feed" src="/public/images/feed-icon.svg" width=15px/></a></h3>
@@ -124,7 +142,29 @@ document.addEventListener('DOMContentLoaded',function() {
 			</script>
 			<gcse:searchbox-only></gcse:searchbox-only>
 		</div>
-		
+% if len(events) > 0:
+		<div class="panel panel-info">
+		  <div class="panel-heading">
+		    <h3 class="panel-title"><a href="${request.route_path('calendars.calendars.index')}">Agenda</a></h3>
+		  </div>
+		  <div class="panel-body" style="padding: 0;">
+		  	<div class="list-group">
+		  		% for event in events:
+  				<a href="${request.route_path('calendars.events.view', event_id=event.id)}" class="list-group-item">
+  					<h4 class="list-group-item-heading">${event.topic.title}</h4>
+  					<p>
+  						<i>${event.started_date} - ${event.ended_date}</i><br/>
+  						${event.topic.description[:150]}<br/>
+  						% if event.venue:
+  						<b>where:</b> ${event.venue}
+  						% endif
+  					</p>
+  				</a>
+  				% endfor
+		  	</div>
+		  </div>
+		</div>
+% endif
 		<div class="panel panel-info">
 		  <div class="panel-heading">
 		    <h3 class="panel-title">Last Comments </h3>
@@ -133,9 +173,9 @@ document.addEventListener('DOMContentLoaded',function() {
 		  	<% comments = [] %>
 			% for topic in last_comments_topics:
 				<% comments.append(topic.comments[-1]) %>
-				<div class="well well-sm">
+				<div class="well well-sm" style="word-wrap:break-word;">
 					<div>
-						<a href="${request.route_path('forums.topics.view', title=topic.title, topic_id=topic.id)}">${topic.title}</a>
+						<a href="${request.route_path('forums.topics.view', title=topic.title, topic_id=topic.id)}" style="font-weight:bold;">${topic.title}</a>
 					</div>
 					<div id="${topic.comments[-1].id}">
 						${topic.comments[-1].message}

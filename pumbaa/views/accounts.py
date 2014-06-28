@@ -29,7 +29,9 @@ def register(request):
     user.set_password(password)
     role = models.Role.objects(name='anonymous').first()
     user.roles.append(role)
+    user.display_name = "%s %s" % (form.data.get('first_name'), form.data.get('last_name'))
     user.ip_address = request.environ['REMOTE_ADDR']
+    user.display_name = "%s %s" % (form.data.get('first_name'), form.data.get('last_name'))
     user.save()
     
     return HTTPFound(location=request.route_path('index'))
@@ -290,6 +292,21 @@ def change_username(request):
     
     user = request.user
     user.display_name = form.data.get('display_name')
+    
+    user.save()
+    return HTTPFound(location=request.route_path('home'))
+
+@view_config(route_name='accounts.change_feed_url', 
+             renderer='/accounts/change_feed_url.mako')
+def change_feed_url(request):
+    form = forms.accounts.FeedUrl(request.POST)
+    if len(request.POST) == 0 or not form.validate():
+        return dict(
+                    form=form
+                    )
+    
+    user = request.user
+    user.feed_url = form.data.get('feed_url')
     
     user.save()
     return HTTPFound(location=request.route_path('home'))

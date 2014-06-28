@@ -15,7 +15,7 @@ import datetime
 @view_config(route_name='manager.pages.index', 
              renderer='/manager/pages/index.mako')
 def index(request):
-    topics = models.Topic.objects(status__ne='delete', page=True).all()
+    topics = models.Topic.objects(status__ne='delete', type='page').all()
     return dict(
                 topics=topics
                 )
@@ -33,12 +33,12 @@ def compose(request):
     if len(request.POST) > 0 and form.validate():
         title = form.data.get('title')
         description = form.data.get('description')
-        tags = [tag.strip() for tag in form.data.get('tags').split(',')]
+        tags = form.data.get('tags')
         if '' in tags:
             tags.remove('')
         
         comments_disable = form.data.get('comments_disable', None)
-        print("comments_disable::::",comments_disable)
+        # print("comments_disable::::",comments_disable)
     else:
         form.data['comments_disable'] = 'disable'
         
@@ -47,7 +47,7 @@ def compose(request):
             topic = models.Topic.objects(id=topic_id).first()
             form.title.data = topic.title
             form.description.data = topic.description
-            form.tags.data = ", ".join(topic.tags)
+            form.tags.data = topic.tags
             form.comments_disable.data = 'disable' if topic.comments_disabled else 'enable'
     
         return dict(
@@ -67,9 +67,9 @@ def compose(request):
     topic.title=title
     topic.description=description
     topic.tags=tags
+    topic.type='page'
     
     topic.ip_address = request.environ.get('REMOTE_ADDR', '0.0.0.0')
-    topic.page = True
     if comments_disable is not None:
         if comments_disable == 'enable':
             topic.comments_disabled = False

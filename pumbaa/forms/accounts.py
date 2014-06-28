@@ -17,12 +17,14 @@ from wtforms.fields import html5
 
 from pumbaa import models
 
+
 def validate_email(form, field):
     user = models.User.objects(email=field.data).first()
 
     if user is not None:
         raise validators.ValidationError(
             'This email: %s is available on system'% field.data)
+
 
 def validate_username(form, field):
 
@@ -43,6 +45,7 @@ def validate_username(form, field):
     if user is not None:
         raise validators.ValidationError(
             'This user: %s is available on system'% field.data)
+
 
 def validate_display_name(form, field):
 
@@ -73,11 +76,13 @@ def validate_old_password(form, field):
         raise validators.ValidationError(
             'Old password mismatch')
 
+
 class Login(Form): 
     username = fields.TextField('Username or Email', validators=[validators.InputRequired()])
     password = fields.PasswordField('Password', validators=[validators.InputRequired()])
     came_from = fields.HiddenField('Came form')
-    
+
+
 class Register(Form):
     username = fields.TextField('Username', validators=[validators.InputRequired(), validators.Length(min=2), validate_username])
     email = html5.EmailField('Email', validators=[validators.InputRequired(), validators.Email(), validate_email])
@@ -86,11 +91,19 @@ class Register(Form):
     first_name = fields.TextField('First name', validators=[validators.InputRequired()])
     last_name = fields.TextField('Last name', validators=[validators.InputRequired()])
     agree_term = fields.BooleanField('Agree term', validators=[validators.InputRequired()])
-    
+
+
 class Password(Form):
     old_password = fields.PasswordField('Old password', validators=[validators.InputRequired(), validators.Length(min=6), validate_old_password])
     password = fields.PasswordField('Password', validators=[validators.InputRequired(), validators.Length(min=6), validators.EqualTo('password_conf', message="password mismatch")])
     password_conf = fields.PasswordField('Password confirm', validators=[validators.InputRequired()])
 
+
 class DisplayName(Form):
     display_name = fields.TextField('Display Name', validators=[validators.InputRequired(), validate_display_name])
+    first_name = fields.TextField('First Name', validators=[validators.InputRequired()])
+    last_name = fields.TextField('Last Name', validators=[validators.InputRequired()])
+
+
+class FeedUrl(Form):
+    feed_url = fields.TextField('Feed URL', validators=[validators.InputRequired()])

@@ -1,0 +1,32 @@
+{
+  "name": "Pumbaa CoE",
+  "version": "1.0.0",
+  "homepage": "https://github.com/sdayu/pumbaa",
+  "authors": [
+    "Thanathip Limna <boatkrap@gmail.com>"
+  ],
+  "description": "Pumbaa.CoE comunity website",
+  "keywords": [
+    "pumbaa"
+  ],
+  "dependencies":{
+      "jquery": ">= 2.1.1",
+      "bootstrap-css": ">= 3.1.1",
+      "select2": ">= 3.5.0",
+      "angular": ">= 1.2.19",
+      "angular-ui-calendar": ">= 0.8.1",
+      "fullcalendar": ">= 2.0.1",
+      "jquery-ui": ">= 1.10.3",
+      "MathJax": ">= 2.3.0",
+      "pagedown": ">= 1.1.0",
+      "google-code-prettify": ">= 1.0.1",
+      "bootstrap3-datetimepicker": ">= 3.0.0"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

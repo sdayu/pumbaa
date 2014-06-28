@@ -19,10 +19,14 @@ class WelcomeViewTests(unittest.TestCase):
 
     def test_index_get_recent_topics(self):
         from pumbaa.views.welcome import index
+        import mongoengine as me
         request = testing.DummyRequest()
         result = index(request)
         
         self.assertIn('recent_topics', result, 'topics disappear in result')
+        self.assertIsInstance(result['recent_topics'], me.queryset.queryset.QuerySet)
+        self.assertGreaterEqual(len(result['recent_topics']), 0)
+        
         
 
 class WelcomeViewFunctionalTests(unittest.TestCase):
