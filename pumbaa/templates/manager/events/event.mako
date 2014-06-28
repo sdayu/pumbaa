@@ -4,24 +4,24 @@
 	## mark down
 	<link rel="stylesheet" type="text/css" href="/public/css/pagedown.css" />
         
-	<script type="text/javascript" src="/public/components/pagedown/Markdown.Converter.js"></script>
-	<script type="text/javascript" src="/public/components/pagedown/Markdown.Sanitizer.js"></script>
-	<script type="text/javascript" src="/public/components/pagedown/Markdown.Editor.js"></script>
-	<script type="text/javascript" src="/public/components/pagedown/Markdown.Extra.js"></script>
+	<script type="text/javascript" src="/public/bower_components/pagedown/Markdown.Converter.js"></script>
+	<script type="text/javascript" src="/public/bower_components/pagedown/Markdown.Sanitizer.js"></script>
+	<script type="text/javascript" src="/public/bower_components/pagedown/Markdown.Editor.js"></script>
+	<script type="text/javascript" src="/public/bower_components/pagedown/Markdown.Extra.js"></script>
 
 	## pretty print
-	<script type="text/javascript" src="/public/components/google-code-prettify/src/prettify.js"></script> 
-	<link rel="stylesheet" type="text/css" href="/public/components/google-code-prettify/src/prettify.css" />
+	<script type="text/javascript" src="/public/bower_components/google-code-prettify/src/prettify.js"></script> 
+	<link rel="stylesheet" type="text/css" href="/public/bower_components/google-code-prettify/src/prettify.css" />
 
 	## select2
-	<link rel="stylesheet" type="text/css" href="/public/components/select2/select2.css" />
-	<link rel="stylesheet" type="text/css" href="/public/components/select2/select2-bootstrap.css" />
-	<script type="text/javascript" src="/public/components/select2/select2.js"></script>
+	<link rel="stylesheet" type="text/css" href="/public/bower_components/select2/select2.css" />
+	<link rel="stylesheet" type="text/css" href="/public/bower_components/select2/select2-bootstrap.css" />
+	<script type="text/javascript" src="/public/bower_components/select2/select2.js"></script>
 	
 	## bootstrap-datetimepicker
-	<script type="text/javascript" src="/public/components/moment/min/moment.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="/public/components/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
-	<script type="text/javascript" src="/public/components/bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="/public/bower_components/moment/min/moment.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/public/bower_components/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+	<script type="text/javascript" src="/public/bower_components/bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 	
 	<script type="text/javascript">
 	function check_event_type(){
