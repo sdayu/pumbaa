@@ -1,4 +1,4 @@
 *.ini
 *.pyc
 *.egg*
-pumbaa/public/components
+pumbaa/public/bower_components
