@@ -31,6 +31,7 @@ def register(request):
     user.roles.append(role)
     user.display_name = "%s %s" % (form.data.get('first_name'), form.data.get('last_name'))
     user.ip_address = request.environ['REMOTE_ADDR']
+    user.display_name = "%s %s" % (form.data.get('first_name'), form.data.get('last_name'))
     user.save()
     
     return HTTPFound(location=request.route_path('index'))

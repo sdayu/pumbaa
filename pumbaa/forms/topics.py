@@ -8,12 +8,13 @@ from wtforms import fields
 from wtforms import validators
 
 from pumbaa import models
+from .fields import TagListField
 
 from pyramid.threadlocal import get_current_request
 from pyramid.security import has_permission
 
 def available_page_title(form, field):
-    topic = models.Topic.objects(title=field.data, page=True).first()
+    topic = models.Topic.objects(title=field.data, type='page').first()
     
     request = get_current_request()
     topic_id = request.matchdict.get('topic_id', None)
@@ -27,7 +28,7 @@ def available_page_title(form, field):
             'This page title: %s is available on system'% field.data)
 
 def announce_tag_allow(form, field):
-    tags = [tag.strip() for tag in field.data.split(',')]
+    tags = field.data
     request = get_current_request()
     for tag in tags:
         if tag in ['ประกาศ', 'ประกาศจากภาควิชา', 'announce']:
@@ -38,8 +39,7 @@ def announce_tag_allow(form, field):
 class Topic(Form):
     title = fields.TextField('Title', validators=[validators.InputRequired()])
     description = fields.TextAreaField('Description', validators=[validators.InputRequired()])
-    # tags = fields.TextField('Tags', validators=[validators.InputRequired()])
-    tags = fields.HiddenField('Tags', validators=[validators.InputRequired(), announce_tag_allow])
+    tags = TagListField('Tags', validators=[validators.InputRequired(), announce_tag_allow])
 
 class Page(Topic):
     title = fields.TextField('Title', validators=[validators.InputRequired(), available_page_title])

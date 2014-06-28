@@ -2,7 +2,14 @@
 Created on Oct 11, 2013
 
 @author: boatkrap
+
 '''
+
+
+def apis_include(config):
+    config.add_route('apis.events', '/events/{event_id}')
+    config.add_route('apis.events.list', '/events')
+
 def admin_include(config):
     config.add_route('admin.forums.index', '/forums')
     config.add_route('admin.forums.create', '/forums/create')
@@ -30,6 +37,11 @@ def manager_include(config):
     config.add_route('manager.photo_albums.delete', '/photo_albums/delete/{photo_album_id}')
     config.add_route('manager.photo_albums.add_photo', '/photo_albums/{photo_album_id}/add_photo')
     config.add_route('manager.photo_albums.delete_photo', '/photo_albums/{photo_album_id}/delete_photo/{photo_id}')
+    
+    config.add_route('manager.events.index', '/events')
+    config.add_route('manager.events.create', '/events/create')
+    config.add_route('manager.events.edit', '/events/edit/{event_id}')
+    config.add_route('manager.events.delete', '/events/delete/{event_id}')
 
 def forums_include(config):
     
@@ -55,7 +67,15 @@ def photo_album_include(config):
     
     config.add_route('photos.photo_albums.comment', '/{photo_album_id}/comment')
     config.add_route('photos.photo_albums.photo_comment', '/{photo_album_id}/photos/{photo_id}/comment')
+    
+def profile_include(config):
+    config.add_route('profile.index', '/{profile_id}')
 
+def calendars_include(config):
+    config.add_route('calendars.events.index', '/events')
+    config.add_route('calendars.events.view', '/events/{event_id}')
+    config.add_route('calendars.events.list_by_tags', '/events/tags/{name}')
+    
 def add_routes(config):
     config.add_route('index', '/')
     
@@ -68,6 +88,10 @@ def add_routes(config):
     config.add_route('accounts.change_display_name', '/accounts/change_display_name')
     config.add_route('accounts.change_feed_url', '/accounts/change_feed_url')
     config.add_route('accounts.add_online_account', '/accounts/add_online_account')
+    
+    # add apis route
+    config.include(apis_include, route_prefix='/apis')
+    
     # add admin route
     config.add_route('admin.index', '/admin')
     config.include(admin_include, route_prefix='/admin')
@@ -93,8 +117,15 @@ def add_routes(config):
     config.add_route('feeds', '/feed')
     #config.include(feed_include, route_prefix='/feed')
     
+    # calendars
+    config.add_route('calendars.calendars.index', '/calendars')
+    config.include(calendars_include, route_prefix='/calendars')
+    
     config.add_route('photos.thumbnail', '/photo_albums/{photo_album_id}/photos/thumbnail/{photo_id}')
     config.add_route('photos.view', '/photo_albums/{photo_album_id}/photos/{photo_id}')
+    
+    #profile
+    config.include(profile_include, route_prefix='/profile')
 
     
     config.add_static_view('public', 'public', cache_max_age=3600)

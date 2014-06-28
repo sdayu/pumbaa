@@ -13,6 +13,7 @@ requires = [
     'pyramid_mako',
     'pyramid_debugtoolbar',
     'pyramid_beaker',
+    'pyramid_mailer',
     'waitress',
     'mongoengine',
     'velruse',
@@ -21,6 +22,7 @@ requires = [
     'feedformatter',
     'pillow',
     'nose',
+    'python-dateutil',
     'webtest'
     ]
 
