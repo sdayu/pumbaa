@@ -14,7 +14,7 @@ import feedparser
 from time import mktime
 from datetime import datetime
 
-@view_config(route_name='feeds', renderer="/feed/index.mako")
+@view_config(route_name='planet', renderer="/planet/index.mako")
 def index(request):
 	#print("testing")
 	users = models.User.objects()
@@ -24,7 +24,7 @@ def index(request):
 			continue
 		if user.feed_url is None:
 			continue
-		print(user.username)
+		# print(user.username)
 		if "http://" not in user.feed_url and "https://" not in  user.feed_url:
 			continue
 		data = feedparser.parse(user.feed_url)

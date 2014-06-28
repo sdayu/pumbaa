@@ -23,7 +23,8 @@ requires = [
     'pillow',
     'nose',
     'python-dateutil',
-    'webtest'
+    'webtest',
+    'feedparser'
     ]
 
 init = os.path.join(os.path.dirname(__file__), 'pumbaa', '__init__.py')

@@ -15,13 +15,13 @@
 </style>
 
 ## for markdown
-	<script type="text/javascript" src="/public/components/pagedown/Markdown.Converter.js"></script>
-	<script type="text/javascript" src="/public/components/pagedown/Markdown.Sanitizer.js"></script>
-	<script type="text/javascript" src="/public/components/pagedown/Markdown.Editor.js"></script>
-	<script type="text/javascript" src="/public/components/pagedown/Markdown.Extra.js"></script>
+	<script type="text/javascript" src="/public/bower_components/pagedown/Markdown.Converter.js"></script>
+	<script type="text/javascript" src="/public/bower_components/pagedown/Markdown.Sanitizer.js"></script>
+	<script type="text/javascript" src="/public/bower_components/pagedown/Markdown.Editor.js"></script>
+	<script type="text/javascript" src="/public/bower_components/pagedown/Markdown.Extra.js"></script>
 	
-	<script type="text/javascript" src="/public/components/google-code-prettify/src/prettify.js"></script> 
-	<link rel="stylesheet" type="text/css" href="/public/components/google-code-prettify/src/prettify.css" />
+	<script type="text/javascript" src="/public/bower_components/google-code-prettify/src/prettify.js"></script> 
+	<link rel="stylesheet" type="text/css" href="/public/bower_components/google-code-prettify/src/prettify.css" />
 
 ## markdown script
 <script type="text/javascript">
@@ -173,9 +173,9 @@ document.addEventListener('DOMContentLoaded',function() {
 		  	<% comments = [] %>
 			% for topic in last_comments_topics:
 				<% comments.append(topic.comments[-1]) %>
-				<div class="well well-sm">
+				<div class="well well-sm" style="word-wrap:break-word;">
 					<div>
-						<a href="${request.route_path('forums.topics.view', title=topic.title, topic_id=topic.id)}">${topic.title}</a>
+						<a href="${request.route_path('forums.topics.view', title=topic.title, topic_id=topic.id)}" style="font-weight:bold;">${topic.title}</a>
 					</div>
 					<div id="${topic.comments[-1].id}">
 						${topic.comments[-1].message}
