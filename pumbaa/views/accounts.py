@@ -295,3 +295,18 @@ def change_username(request):
     
     user.save()
     return HTTPFound(location=request.route_path('home'))
+
+@view_config(route_name='accounts.change_feed_url', 
+             renderer='/accounts/change_feed_url.mako')
+def change_feed_url(request):
+    form = forms.accounts.FeedUrl(request.POST)
+    if len(request.POST) == 0 or not form.validate():
+        return dict(
+                    form=form
+                    )
+    
+    user = request.user
+    user.feed_url = form.data.get('feed_url')
+    
+    user.save()
+    return HTTPFound(location=request.route_path('home'))

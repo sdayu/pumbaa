@@ -49,12 +49,8 @@ def compose(request):
         
         ## set default tags for roles
         role = [role.name for role in request.user.roles]
-        if "admin" in role:
-            default_tags = "announce,การใช้งาน"
-        elif "moderator" in role:
-            default_tags = "announce,การใช้งาน"
-        elif "lecturer" in role:
-            default_tags = "ประกาศ,ปรกาศจากทางภาควิชา"
+        if "lecturer" in role:
+            default_tags = "ปรกาศจากทางภาควิชา"
         elif "staff" in role:
             default_tags = "ประกาศจากทางภาควิชา"
         elif "member" in role:
@@ -84,6 +80,22 @@ def compose(request):
     topic.save()
     topic.reload()
     
+    #auto post to fb
+    from pumbaa.libs import auto_post_fb as autopost_fb
+    post_to_fb = autopost_fb.AutoPostFacebook(request)
+    if post_to_fb.enable:
+
+        forum_tags = []
+        for fid in post_to_fb.forum_id:
+            forum = models.Forum.objects.with_id(fid)
+            forum_tags.extend(forum.tags)
+
+        if any([tag in forum_tags for tag in tags]):
+            url = request.route_url('forums.topics.view', title=title, topic_id=topic.id)
+            fb_status = title + "\n" + description +"\n"+url
+
+            post_to_fb.post_to_fb_group(fb_status)
+
     return HTTPFound(location=request.route_path('forums.topics.view', title=title, topic_id=topic.id))
 
 @view_config(route_name='forums.topics.view', 

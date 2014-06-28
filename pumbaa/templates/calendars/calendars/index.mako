@@ -25,18 +25,18 @@
 
 
 <%block name="addition_header">
-    <link rel="stylesheet" href="/public/components/fullcalendar/dist/fullcalendar.css">
+    <link rel="stylesheet" href="/public/bower_components/fullcalendar/dist/fullcalendar.css">
     <link rel="stylesheet" href="/public/css/calendar_pumbaa.css" />
 
-    <script src="/public/components/jquery-ui/ui/jquery-ui.js"></script>
+    <script src="/public/bower_components/jquery-ui/ui/jquery-ui.js"></script>
 
-    <script type='text/javascript' src="/public/components/angular/angular.js"></script>
+    <script type='text/javascript' src="/public/bower_components/angular/angular.js"></script>
     <script type='text/javascript' src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.9.0.js"></script>
     
-    <script type='text/javascript' src="/public/components/moment/min/moment.min.js"></script>
-    <script type='text/javascript' src="/public/components/fullcalendar/dist/fullcalendar.js"></script>
-    <script type='text/javascript' src="/public/components/fullcalendar/dist/gcal.js"></script>
-    <script type='text/javascript' src="/public/components/angular-ui-calendar/src/calendar.js"></script>
+    <script type='text/javascript' src="/public/bower_components/moment/min/moment.min.js"></script>
+    <script type='text/javascript' src="/public/bower_components/fullcalendar/dist/fullcalendar.js"></script>
+    <script type='text/javascript' src="/public/bower_components/fullcalendar/dist/gcal.js"></script>
+    <script type='text/javascript' src="/public/bower_components/angular-ui-calendar/src/calendar.js"></script>
     <script type='text/javascript' src="/public/js/calendar_pumbaa.js"></script>
     
 </%block>

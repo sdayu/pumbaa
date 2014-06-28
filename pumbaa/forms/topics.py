@@ -14,7 +14,7 @@ from pyramid.threadlocal import get_current_request
 from pyramid.security import has_permission
 
 def available_page_title(form, field):
-    topic = models.Topic.objects(title=field.data, page=True).first()
+    topic = models.Topic.objects(title=field.data, type='page').first()
     
     request = get_current_request()
     topic_id = request.matchdict.get('topic_id', None)
