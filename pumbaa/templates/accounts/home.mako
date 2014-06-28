@@ -24,7 +24,7 @@ if (window.location.hash && window.location.hash === "#_=_") {
 	<li><button class="btn btn-primary btn-lg btn-block" style="margin:5px;text-align:left;padding-left:52px;" onclick="location.href='${request.route_path("accounts.change_display_name")}'"><i class="glyphicon glyphicon-pencil"></i> Edit User Profile</button></li>
 	<li><button class="btn btn-warning btn-lg btn-block" style="margin:5px;text-align:left;padding-left:52px;" onclick="location.href='${request.route_path("accounts.change_password")}'"><i class="glyphicon glyphicon-lock"></i> Change Password</button></li>
 	<li><button class="btn btn-success btn-lg btn-block" style="margin:5px;" onclick="location.href='${request.route_path("accounts.add_online_account")}'"><i class="glyphicon glyphicon-globe"></i> Link to Online Profile</button></li>
-	<li><a href="${request.route_path('accounts.change_feed_url')}">add your blog</a></li>
+	<li><button class="btn btn-primary btn-lg btn-block" style="margin:5px;text-align:left;padding-left:52px;" onclick="location.href='${request.route_path('accounts.change_feed_url')}'"><i class="glyphicon glyphicon-paperclip"></i> Add your blog</button></li>
 </ul>
 </div>
 
