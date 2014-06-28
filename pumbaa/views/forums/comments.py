@@ -38,4 +38,12 @@ def comment(request):
         parrent_comment.replies.append(comment)
     topic.save()
     
-    return HTTPFound(location=request.route_path('forums.topics.view', topic_id=topic_id, title=title))
+    url = request.route_path('forums.topics.view', topic_id=topic_id, title=title)
+    
+    if topic.type == 'page':
+        url = request.route_path('forums.pages.view', topic_id=topic_id, title=title)
+    elif topic.type == 'event':
+        event = models.Event.objects(topic=topic).first()
+        url = request.route_path('calendars.events.view', event_id=event.id)
+    
+    return HTTPFound(location=url)

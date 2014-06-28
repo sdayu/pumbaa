@@ -7,6 +7,8 @@ from pumbaa import models
 from pyramid.threadlocal import get_current_request
 from pyramid.security import has_permission
 
+from pumbaa.forms import fields as pfields
+
 from . import topics
 
 class RepeatableEvent(Form):
@@ -15,7 +17,9 @@ class RepeatableEvent(Form):
     on = fields.StringField('Repeat On')
     end = fields.StringField('End')
     
-    
+class ConferenceEvent(Form):
+    paper_deadline_date = pfields.DateNoneField('Deadline Date', format='%d/%m/%Y')
+    notification_date = pfields.DateNoneField('Notification Date', format='%d/%m/%Y')
 
 class Event(topics.Topic):
     started_date = fields.DateTimeField('Start Date', format='%d/%m/%Y %H:%M', validators=[validators.InputRequired()])
@@ -30,4 +34,5 @@ class Event(topics.Topic):
     event_type = fields.SelectField('Event Type', validators=[validators.InputRequired()], 
                                     choices=[(t, t.title()) for t in models.events.EVENT_TYPES])
 
+    conference = fields.FormField(ConferenceEvent)
 

@@ -38,7 +38,7 @@ def compose(request):
             tags.remove('')
         
         comments_disable = form.data.get('comments_disable', None)
-        print("comments_disable::::",comments_disable)
+        # print("comments_disable::::",comments_disable)
     else:
         form.data['comments_disable'] = 'disable'
         
@@ -47,7 +47,7 @@ def compose(request):
             topic = models.Topic.objects(id=topic_id).first()
             form.title.data = topic.title
             form.description.data = topic.description
-            form.tags.data = ", ".join(topic.tags)
+            form.tags.data = topic.tags
             form.comments_disable.data = 'disable' if topic.comments_disabled else 'enable'
     
         return dict(

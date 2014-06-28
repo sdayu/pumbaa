@@ -1,16 +1,77 @@
 <%inherit file="/manager/base/base.mako"/>
 
 <%block name="addition_header">
-	<link rel="stylesheet" type="text/css" href="/public/libs/select2/3.4.8/select2.css" />
-	<link rel="stylesheet" type="text/css" href="/public/libs/select2/3.4.8/select2-bootstrap.css" />
-	<script type="text/javascript" src="/public/libs/select2/3.4.8/select2.js"></script>
+	## mark down
+	<link rel="stylesheet" type="text/css" href="/public/css/pagedown.css" />
+        
+	<script type="text/javascript" src="/public/bower_components/pagedown/Markdown.Converter.js"></script>
+	<script type="text/javascript" src="/public/bower_components/pagedown/Markdown.Sanitizer.js"></script>
+	<script type="text/javascript" src="/public/bower_components/pagedown/Markdown.Editor.js"></script>
+	<script type="text/javascript" src="/public/bower_components/pagedown/Markdown.Extra.js"></script>
+
+	## pretty print
+	<script type="text/javascript" src="/public/bower_components/google-code-prettify/src/prettify.js"></script> 
+	<link rel="stylesheet" type="text/css" href="/public/bower_components/google-code-prettify/src/prettify.css" />
+
+	## select2
+	<link rel="stylesheet" type="text/css" href="/public/bower_components/select2/select2.css" />
+	<link rel="stylesheet" type="text/css" href="/public/bower_components/select2/select2-bootstrap.css" />
+	<script type="text/javascript" src="/public/bower_components/select2/select2.js"></script>
 	
-	<script type="text/javascript" src="/public/libs/moment/2.6.0/moment.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="/public/libs/bootstrap/plugins/datetimepicker/3.0.0/css/bootstrap-datetimepicker.min.css" />
-	<script type="text/javascript" src="/public/libs/bootstrap/plugins/datetimepicker/3.0.0/js/bootstrap-datetimepicker.min.js"></script>
+	## bootstrap-datetimepicker
+	<script type="text/javascript" src="/public/bower_components/moment/min/moment.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/public/bower_components/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+	<script type="text/javascript" src="/public/bower_components/bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 	
-	<script>
+	<script type="text/javascript">
+	function check_event_type(){
+		var type = $('#event_type').val();
+
+		if (type == 'conference') {
+			$('#conference').show();
+		}
+		else{
+			$('#conference').hide();
+		}
+	}
+	
 	$(document).ready(function(){
+		
+		## markdown script
+		(function () {
+
+		    ## var converter = Markdown.getSanitizingConverter();
+		    var converter = new Markdown.Converter();
+		    
+		    converter.hooks.chain("preBlockGamut", function (text, rbg) {
+		        return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
+		            return "<blockquote>" + rbg(inner) + "</blockquote>\n";
+		        });
+		    });
+
+		    converter.hooks.chain("postConversion", function(text) {
+		        return text.replace(/\s*:::(:)*python\s*\n/, "");
+		    });
+		    
+		    Markdown.Extra.init(converter, {
+		      extensions: "all",
+		      highlighter: "prettify"
+		    });
+
+		    var editor = new Markdown.Editor(converter);
+		    editor.hooks.chain("onPreviewRefresh", prettyPrint); // google code prettify
+		    editor.hooks.chain("onPreviewRefresh", function() {
+		        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+		    });
+		    editor.run();
+		})();
+
+		## google-code-prettify
+		document.addEventListener('DOMContentLoaded',function() {
+		    prettyPrint();
+		});
+
+		## select2
 		$("#tags").select2({
 		    tags:${tags | n},
 		    placeholder: "Enter tags: pumbaa, CoE, tag",
@@ -21,8 +82,15 @@
 		$(function () {
             $('#started_date_picker').datetimepicker();
             $('#updated_date_picker').datetimepicker();
+            $('#paper_deadline_date_picker').datetimepicker();
+            $('#notification_date_picker').datetimepicker();
         });
+		
+		
+		check_event_type();
 	});
+	
+	
 	</script>
 </%block>
 
@@ -41,12 +109,21 @@
 		% endif
 		${form.title(class_='form-control')}
 	</div>	
-	<div class="form-group${' has-error' if form.description.errors else ''}">
-	    <label class="control-label">Description</label>
-		% if form.description.errors:
-			<span class="text-danger">${form.description.errors[0]}</span>
-		% endif
-		${form.description(class_='form-control')}
+	<div class="row">
+		<div class="col-md-6 col-lg-6">
+			<div id="wmd-button-bar"></div>
+			<div class="form-group${' has-error' if form.description.errors else ''}">
+		    <label class="control-label">Description</label>
+			% if form.description.errors:
+				<span class="text-danger">${form.description.errors[0]}</span>
+			% endif
+			${form.description(class_='form-control', placeholder='Enter description', rows='10', id="wmd-input")}
+		</div>
+		</div>
+		<div class="col-md-6 col-lg-6">
+			<b>Preview</b>
+			<div id="wmd-preview" class="well well-sm"></div>
+		</div>
 	</div>
 	<div class="row">
 		<div class="col-sm-6">
@@ -90,8 +167,41 @@
 		% if form.event_type.errors:
 			<span class="text-danger">${form.event_type.errors[0]}</span>
 		% endif
-		${form.event_type(class_='form-control')}
+		${form.event_type(class_='form-control', onclick='check_event_type()')}
 	</div>
+	
+	<div class="row" id="conference">
+		<div class="col-sm-6">
+			<div class="form-group${' has-error' if form.conference.paper_deadline_date.errors else ''}">
+				<label class="control-label">Paper deadline</label>
+				% if form.conference.paper_deadline_date.errors:
+					<span class="text-danger">${form.conference.paper_deadline_date.errors[0]}</span>
+				% endif
+				<div class='input-group date' id='paper_deadline_date_picker' data-date-format="DD/MM/YYYY">
+					${form.conference.paper_deadline_date(class_='form-control')}
+					<span class="input-group-addon">
+						<span class="glyphicon glyphicon-time"></span>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="form-group${' has-error' if form.conference.notification_date.errors else ''}">
+				<label class="control-label">Notification Date</label>
+				% if form.conference.notification_date.errors:
+					<span class="text-danger">${form.conference.notification_date.errors[0]}</span>
+				% endif
+				<div class='input-group date' id='notification_date_picker' data-date-format="DD/MM/YYYY">
+					${form.conference.notification_date(class_='form-control')}
+					<span class="input-group-addon">
+						<span class="glyphicon glyphicon-time"></span>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 	<div class="form-group${' has-error' if form.venue.errors else ''}">
 	    <label class="control-label">Where</label>
 		% if form.venue.errors:

@@ -3,6 +3,8 @@ from pumbaa import models
 
 import datetime
 
+import mongoengine as me
+
 
 @view_config(route_name='index', renderer='/welcome/index.mako')
 def index(request):
@@ -13,24 +15,22 @@ def index(request):
         if len(topic.comments) > 0:
             last_comments_topics.append(topic)
     
-    
-    forums = models.Forum.objects(status='publish').all()
     photo_albums_ = models.PhotoAlbum.objects(status='publish').order_by('-published_date').limit(10).all()
     photo_albums = []
     for photo_album in photo_albums_:
         if len(photo_album.photos)> 0:
             photo_albums.append(photo_album)
             
-    events = models.Event.objects(status='publish', 
-                                  started_date__gt=datetime.datetime.now(),
-                                  event_type__in=['undergraduate', 'graduate', 'department'])\
+    events = models.Event.objects((me.Q(status='publish') &
+                                  (me.Q(started_date__gt=datetime.datetime.now().date()) | 
+                                  me.Q(ended_date__gt=datetime.datetime.now())) &
+                                  me.Q(event_type__in=['undergraduate', 'graduate', 'department'])))\
                         .order_by('+started_date')\
                         .limit(5).all()
     
     return dict(
                 recent_topics=recent_topics,
                 last_comments_topics=last_comments_topics,
-                forums=forums,
                 photo_albums=photo_albums,
                 events=events
                 )

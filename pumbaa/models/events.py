@@ -6,8 +6,11 @@ from .forums import Topic
 EVENT_TYPES = ['undergraduate', 'graduate', 'department', 'conference', 'thesis', 'other']
 
 class RepeatableEvent(me.EmbeddedDocument):
-    pass
-    
+    pass    
+
+class ConferenceEvent(me.EmbeddedDocument):
+    paper_deadline_date = me.DateTimeField()
+    notification_date = me.DateTimeField()
 
 class Event(me.Document):
     meta = {'collection': 'events'}
@@ -29,6 +32,8 @@ class Event(me.Document):
 
     tags = me.ListField(me.StringField(required=True), required=True) 
     event_type = me.StringField(required=True, default='department', choices=EVENT_TYPES)
+    
+    conference = me.EmbeddedDocumentField(ConferenceEvent)
     
     def is_repeatable(self):
         repeat = False
