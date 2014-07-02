@@ -3,7 +3,7 @@ import datetime
 
 from .forums import Topic
 
-EVENT_TYPES = ['undergraduate', 'graduate', 'department', 'conference', 'thesis', 'other']
+EVENT_TYPES = ['undergraduate', 'graduate', 'department', 'university', 'conference', 'thesis', 'other']
 
 class RepeatableEvent(me.EmbeddedDocument):
     pass    
