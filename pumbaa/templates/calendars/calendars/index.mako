@@ -8,6 +8,7 @@
 		cmap = {'undergraduate':'#fc9a24',
 				'graduate':'#002080',
 				'department':'#3366FF',
+				'university':'#6699FF',
 				'conference':'#FF33CC',
 				'thesis':'#1AC6FF',
 				'other':'#00B32D'}
