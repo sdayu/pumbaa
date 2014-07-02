@@ -38,7 +38,7 @@ ${event.topic.description}
 	% if event.event_type == 'conference':
 	% if event.conference.paper_deadline_date:
 	<div>
-		<b>Paper deadline:</b> ${event.conference.paper_deadline_date.strftime('%a %d %b %Y')}
+		<b>Paper deadline:</b> <span style="color: red; font-weight: bold;">${event.conference.paper_deadline_date.strftime('%a %d %b %Y')}</span>
 	</div>
 	% endif
 	% if event.conference.notification_date:

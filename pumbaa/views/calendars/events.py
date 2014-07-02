@@ -31,6 +31,6 @@ def view(request):
 def list_by_tags(request):
     tname = request.matchdict.get('name')
     topics = models.Topic.objects(tags__icontains=tname, status='publish')
-    events = models.Event.objects(topic__in=topics, status='publish')
+    events = models.Event.objects(topic__in=topics, status='publish').order_by('-started_date')
 
     return dict(events=events, tag=tname)
