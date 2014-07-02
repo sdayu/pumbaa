@@ -2,13 +2,12 @@
 <%!
 	import datetime
 %>
-<%block name="title">List events by tag: ${tag}</%block>
+<%block name="title">Agenda</%block>
 <%block name="where_am_i">
 	<li><a href="${request.route_path('calendars.calendars.index')}">Calendars</a></li>
-	<li><a href="${request.route_path('calendars.events.index')}">Events</a></li>
-	<li><a href="${request.current_route_path()}">${tag}</a></li>
+	<li><a href="${request.current_route_path()}">Agenda</a></li>
 </%block>
-<%block name="panel_title">Tag: ${tag}</%block>
+<%block name="panel_title">Agenda</%block>
 
 		<ul class="list-group">
 			% for event in events:

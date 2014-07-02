@@ -1,6 +1,7 @@
 <%inherit file="/base/default.mako"/>
 <%!
 	import json
+	import datetime
 	from pumbaa import models
 %>
 
@@ -145,12 +146,26 @@ document.addEventListener('DOMContentLoaded',function() {
 % if len(events) > 0:
 		<div class="panel panel-info">
 		  <div class="panel-heading">
-		    <h3 class="panel-title"><a href="${request.route_path('calendars.calendars.index')}">Agenda</a></h3>
+		    <h3 class="panel-title">
+		    	<a href="${request.route_path('calendars.calendars.agenda')}">Agenda</a> 
+		    	<div class="pull-right">
+		    		<a href="${request.route_path('calendars.calendars.index')}">
+		    			<span class="glyphicon glyphicon-calendar"></span>
+		    		</a>
+		    	</div>
+		    </h3> 
 		  </div>
 		  <div class="panel-body" style="padding: 0;">
-		  	<div class="list-group">
+		  	<div class="list-group" style="margin: 0;">
 		  		% for event in events:
-  				<a href="${request.route_path('calendars.events.view', event_id=event.id)}" class="list-group-item">
+		  		<% 
+		  			style=''
+		  			if event.started_date.date() == datetime.datetime.now().date():
+		  				style = ' list-group-item-success'
+		  			elif event.started_date.date() == datetime.datetime.now().date() + datetime.timedelta(days=1):
+		  				style = ' list-group-item-warning'
+		  		%>
+  				<a href="${request.route_path('calendars.events.view', event_id=event.id)}" class="list-group-item${style}">
   					<h4 class="list-group-item-heading">${event.topic.title}</h4>
   					<p>
   						<i>${event.started_date} - ${event.ended_date}</i><br/>

@@ -72,6 +72,7 @@ def profile_include(config):
     config.add_route('profile.index', '/{profile_id}')
 
 def calendars_include(config):
+    config.add_route('calendars.calendars.agenda', '/agenda')
     config.add_route('calendars.events.index', '/events')
     config.add_route('calendars.events.view', '/events/{event_id}')
     config.add_route('calendars.events.list_by_tags', '/events/tags/{name}')
