@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded',function() {
 		<%
 			forum = models.Forum.get_forum('ประกาศจากภาควิชา')
 		%>
+		% if forum:
 		<div class="panel panel-info">
 		  <div class="panel-heading">
 		    <h3 class="panel-title"><a href="${request.route_path('forums.view', name=forum.name)}">${forum.name}</a> <a href="${request.route_path('forums.feeds.forums', forum_name=forum.name)}"><img alt="Atom feed" src="/public/images/feed-icon.svg" width=15px/></a></h3>
@@ -75,6 +76,7 @@ document.addEventListener('DOMContentLoaded',function() {
                     args="topics=forum.get_topics(10)"/>
 
 		</div>
+		% endif
 		## end forum
 		
 		<div class="panel panel-info">
@@ -92,6 +94,7 @@ document.addEventListener('DOMContentLoaded',function() {
 		<%
 		forum = models.Forum.get_forum(forum_name)
 		%>
+		% if forum:
 		<div class="panel panel-info">
 		  <div class="panel-heading">
 		    <h3 class="panel-title"><a href="${request.route_path('forums.view', name=forum.name)}">${forum.name}</a> <a href="${request.route_path('forums.feeds.forums', forum_name=forum.name)}"><img alt="Atom feed" src="/public/images/feed-icon.svg" width=15px/></a></h3>
@@ -101,6 +104,7 @@ document.addEventListener('DOMContentLoaded',function() {
                     args="topics=forum.get_topics(10)"/>
 
 		</div>
+		% endif
 		% endfor
 		## topic in forums
 		
@@ -166,14 +170,18 @@ document.addEventListener('DOMContentLoaded',function() {
 		  				style = ' list-group-item-warning'
 		  		%>
   				<a href="${request.route_path('calendars.events.view', event_id=event.id)}" class="list-group-item${style}">
-  					<h4 class="list-group-item-heading">${event.topic.title}</h4>
-  					<p>
-  						<i>${event.started_date} - ${event.ended_date}</i><br/>
-  						${event.topic.description[:150]}<br/>
+  					<h5 class="list-group-item-heading">${event.topic.title}</h5>
+  					<section>
+  							% if event.all_day:
+  							<i>${event.started_date.date()} - ${event.ended_date.date()}</i>
+  							% else:
+  							<i>${event.started_date} - ${event.ended_date}</i>
+  							% endif
+  							<br/>
   						% if event.venue:
   						<b>where:</b> ${event.venue}
   						% endif
-  					</p>
+  					</section>
   				</a>
   				% endfor
 		  	</div>

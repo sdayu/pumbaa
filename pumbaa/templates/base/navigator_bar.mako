@@ -28,6 +28,9 @@
             	<a href="${request.route_path('forums.index')}">Forums</a>
             </li>
             <li>
+            	<a href="${request.route_path('calendars.calendars.index')}">Calendar</a>
+            </li>
+            <li>
             	<a href="${request.route_path('forums.topics.compose')}">New Topic</a>
             </li>
             
