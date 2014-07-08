@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded',function() {
 		  				style = ' list-group-item-warning'
 		  		%>
   				<a href="${request.route_path('calendars.events.view', event_id=event.id)}" class="list-group-item${style}">
-  					<h5 class="list-group-item-heading">${event.topic.title}</h5>
+  					<h4 class="list-group-item-heading">${event.topic.title}</h4>
   					<section>
   							% if event.all_day:
   							<i>${event.started_date.date()} - ${event.ended_date.date()}</i>
