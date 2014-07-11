@@ -8,15 +8,20 @@ from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from pyramid.response import Response
 
+from beaker.cache import cache_region
+
 from pumbaa import models, forms
+
 
 @view_config(route_name='photos.photo_albums.index',
              renderer='/photos/photo_albums/index.mako')
 def index(request):
-    photo_albums = models.PhotoAlbum.objects(status="publish").all()
+    
+    photo_albums = models.PhotoAlbum.objects(status="publish").order_by('-event_date').all()
     return dict(
-                photo_albums=photo_albums
-                )
+            photo_albums=photo_albums
+            )
+
 
 @view_config(route_name='photos.photo_albums.view',
              renderer='/photos/photo_albums/view.mako')

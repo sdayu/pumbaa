@@ -7,6 +7,7 @@ from pyramid.authorization import ACLAuthorizationPolicy
 from pyramid.session import UnencryptedCookieSessionFactoryConfig
 
 from pyramid_beaker import session_factory_from_settings
+from pyramid_beaker import set_cache_regions_from_settings
 
 from pumbaa import models
 from pumbaa.routes import add_routes
@@ -16,6 +17,7 @@ def main(global_config, **settings):
     authn_policy = AuthTktAuthenticationPolicy(settings.get('pumbaa.secret'), callback=group_finder, hashalg='sha512')
     authz_policy = ACLAuthorizationPolicy()
     pumbaa_session_factory = session_factory_from_settings(settings)
+    set_cache_regions_from_settings(settings)
     
     config = Configurator(settings=settings, 
                           root_factory='pumbaa.acl.RootFactory',

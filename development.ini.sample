@@ -30,12 +30,22 @@ mako.module_directory = %(pumbaa.cache_dir)s/mako
 mongodb.host = mongodb://localhost/pumbaa
 mongodb.db_name = pumbaa
 
+# Beaker session
 session.type = file
 session.data_dir = %(pumbaa.cache_dir)s/data/sessions/data
 session.lock_dir = %(pumbaa.cache_dir)s/data/sessions/lock
 session.key = pumbaa_session
 session.secret = %(pumbaa.secret)s
 session.cookie_on_exception = true
+
+# Beaker cache
+cache.regions = default_term, second, short_term, long_term
+cache.type = memory
+cache.second.expire = 1
+cache.short_term.expire = 60
+cache.default_term.expire = 300
+cache.long_term.expire = 3600
+
 
 # mail
 mail.post_fb.enable = false 

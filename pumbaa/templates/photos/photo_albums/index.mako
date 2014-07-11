@@ -1,14 +1,26 @@
 <%inherit file="/forums/base/base.mako"/>
-<%! from pumbaa import models %>
+<%! 
+	from pumbaa import models 
+	import math
+%>
 <%block name="title">Photo Albums</%block>
 <%block name="description">Photo Albums: ${", ".join([photo_album.name for photo_album in photo_albums])}</%block>
 <%block name="where_am_i">
 <li><a href="${request.route_path('photos.photo_albums.index')}">Photo Albums</a></li>
 </%block>
 <%block name="panel_title">Photo Albums</%block>
-
+<%
+count = 0
+album_count = photo_albums.count()
+%>
+% for i in range(0, math.ceil(album_count/4)+1):
 <div class="row">
-% for photo_album in photo_albums:
+  % for i in range(0, 4):
+  <%
+  	if count >=  album_count:
+  		break
+  	photo_album = photo_albums[count] 
+  %>
   % if len(photo_album.photos) > 0:
   <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
     <div class="thumbnail">
@@ -23,5 +35,7 @@
      </div>
   </div>
   % endif
-% endfor
+  <% count += 1 %>
+  % endfor
 </div>
+% endfor
