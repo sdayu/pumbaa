@@ -44,7 +44,7 @@ def index(request):
 				'img_src' : get_image_url(post.content[0].value)
 				})
 	results = sorted(results, key=lambda k: k['published'], reverse=True) 
-	return {'project': 'feed feature', 'results': results}
+	return {'results': results}
 
 
 def striphtml(data):

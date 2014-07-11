@@ -10,22 +10,20 @@
 }
 </style>
 </%block>
-<h1>${project}</h1>
+<h3>Planet</h3>
 <div class="row">
-	<div class="col-sm-6 col-md-8">
+	<div class="col-sm-8 col-md-8">
 	% for result in results:
 
 		<div class="row">
-
-
-			<div class="col-sm-6 col-md-12">
+			<div class="col-sm-12 col-md-12">
 				<div class="thumbnail">
 
 					<div class="row">
-						<div class="col-sm-6 col-md-4">
+						<div class="col-sm-3 col-md-3">
 					  		<img src="${result['img_src']}" width="100%">
 					  	</div>
-					  	<div class="col-sm-6 col-md-8">
+					  	<div class="col-sm-9 col-md-9">
 							<div class="caption">
 								<span class="pull-right">
 									<span class="label label-primary published">${result['published_year']}</span>&nbsp;
@@ -44,13 +42,11 @@
 					</div>
 				</div>
 			</div>
-
-
 		</div>
 
 	% endfor
 	</div>
-	<div class="col-sm-6 col-md-4">
+	<div class="col-sm-4 col-md-4">
 	Test menu
 	</div>
 </div>
