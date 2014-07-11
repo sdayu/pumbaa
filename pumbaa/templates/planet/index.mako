@@ -37,7 +37,7 @@
 
 								
 							    <br/>
-							    <p class="pull-right"><a href="#" class="btn btn-primary" role="button">Read more >></a> 
+							    <p class="pull-right"><a href="${result['link']}" class="btn btn-primary" role="button">Read more >></a> 
 							    </p>
 							</div>
 					  	</div>

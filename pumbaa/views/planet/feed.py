@@ -30,7 +30,6 @@ def index(request):
 		data = feedparser.parse(user.feed_url)
 
 		for post in data.entries:
-
 			plaintext = striphtml(post.content[0].value)
 			dt = datetime.fromtimestamp(mktime(post.published_parsed))
 
@@ -46,10 +45,13 @@ def index(request):
 				})
 	results = sorted(results, key=lambda k: k['published'], reverse=True) 
 	return {'project': 'feed feature', 'results': results}
-   
+
+
 def striphtml(data):
-    p = re.compile(r'<.*?>')
-    return p.sub('', data)
+	p = re.compile(r'<.*?>')
+	return p.sub('', data)
+
+
 def get_image_url(data):
 	no_image_url = "/public/images/no-image.jpg"
 	matches = re.findall('src="([^"]+)"',data)
@@ -57,10 +59,16 @@ def get_image_url(data):
 		return matches[random.randint(0, len(matches)-1)]
 	else:
 		return no_image_url
+	
+	
 def show_year(data):
 	return '{0:%Y}'.format(data)
+
+
 def show_month(data):
 	return '{0:%b}'.format(data)
+
+
 def show_day(data):
 	return '{0:%d}'.format(data)
 
