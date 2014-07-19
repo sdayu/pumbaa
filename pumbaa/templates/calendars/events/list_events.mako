@@ -6,7 +6,7 @@
 <%block name="where_am_i">
 	<li><a href="${request.route_path('calendars.calendars.index')}">Calendars</a></li>
 	<li><a href="${request.route_path('calendars.events.index')}">Events</a></li>
-	<li><a href="${request.current_route_path()}">${tag}</a></li>
+	<li class="active">${tag}</li>
 </%block>
 <%block name="panel_title">Tag: ${tag}</%block>
 
@@ -23,7 +23,12 @@
 	  		%>
 		    
 	    	<a href="${request.route_path('calendars.events.view', event_id=event.id)}" class="list-group-item${style}">
-	    		${event.started_date}: <b>${event.topic.title}</b>
+	    		% if event.all_day:
+	    		${event.started_date.date()}
+	    		% else:
+	    		${event.started_date}
+	    		% endif
+	    		: <b>${event.topic.title}</b>
 	    	</a>
 		    
 		    % endfor

@@ -17,7 +17,7 @@
 <%block name="where_am_i">
 	${parent.where_am_i()}
 	<li><a href="${request.route_path('manager.pages.index')}">Pages</a></li>
-	<li><a href="${request.current_route_path()}">New page</a></li>
+	<li class="active">New page</li>
 </%block>
 
 <%block name="panel_title">New Page</%block>

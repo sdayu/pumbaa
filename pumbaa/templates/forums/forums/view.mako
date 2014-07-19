@@ -5,7 +5,7 @@
 <%block name="title">${forum.name}</%block>
 <%block name="where_am_i">
 	${parent.where_am_i()}
-	<li><a href="${request.route_path('forums.view', name=forum.name)}">${forum.name}</a></li>
+	<li class="active">${forum.name}</li>
 </%block>
 <%block name="panel_title">
 	${forum.name} 

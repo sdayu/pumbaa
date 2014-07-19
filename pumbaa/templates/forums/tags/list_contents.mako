@@ -3,6 +3,7 @@
 <%block name="where_am_i">
 ${parent.where_am_i()}
 <li><a href="${request.route_path('forums.tags.index')}">Tags</a></li>
+<li class="active">${tag}</li>
 </%block>
 <%block name="panel_title">Tag: ${tag}</%block>
 

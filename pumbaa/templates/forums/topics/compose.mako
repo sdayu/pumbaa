@@ -18,6 +18,7 @@
 <%block name="where_am_i">
 	${parent.where_am_i()}
 	<li><a href="${request.route_path('forums.topics.index')}">Topics</a></li>
+	<li class="active">New Topic</li>
 </%block>
 
 <%block name="panel_title">New Topic</%block>

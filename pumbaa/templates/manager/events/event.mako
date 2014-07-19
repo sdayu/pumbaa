@@ -98,7 +98,7 @@
 <%block name="where_am_i">
 	${parent.where_am_i()}
 	<li><a href="${request.route_path('manager.events.index')}">Events</a></li>
-	<li><a href="${request.current_route_path()}">Create Event</a></li>
+	<li class="active">Create Event</li>
 </%block>
 <%block name="panel_title">Create Calendars</%block>
 <form action="${request.current_route_path()}" method="post" accept-charset="utf-8">

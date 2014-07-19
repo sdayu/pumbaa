@@ -4,7 +4,7 @@
 <%block name="where_am_i">
 	${parent.where_am_i()}
 	<li><a href="${request.route_path('manager.photo_albums.index')}">Photo Albums</a></li>
-	<li><a href="${request.current_route_path()}">New photo</a></li>
+	<li class="active">New photo</li>
 </%block>
 
 <%block name="panel_title">New Photo</%block>

@@ -4,6 +4,10 @@
 
 <%block name="title">Forum</%block>
 
+<%block name="where_am_i">
+	<li class="active">Forums</li>
+</%block>
+
 <%block name="panel_title">Forums</%block>
 
 % for forum in forums:

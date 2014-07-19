@@ -5,7 +5,7 @@ Photo Album Manager
 </%block>
 <%block name="where_am_i">
 	${parent.where_am_i()}
-	<li><a href="${request.current_route_path()}">Photo Albums</a></li>
+	<li class="active">Photo Albums</li>
 </%block>
 <%block name="panel_title">Photo Albums</%block>
 <ul class="list-inline">

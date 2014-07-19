@@ -2,7 +2,7 @@
 <%block name="title">Calendars</%block>
 <%block name="where_am_i">
 	${parent.where_am_i()}
-	<li><a href="${request.current_route_path()}">Events</a></li>
+	<li class="active">Events</li>
 </%block>
 <%block name="panel_title">Events</%block>
 <ul class="list-inline">

@@ -6,7 +6,7 @@
 <%block name="title">Photo Albums</%block>
 <%block name="description">Photo Albums: ${", ".join([photo_album.name for photo_album in photo_albums])}</%block>
 <%block name="where_am_i">
-<li><a href="${request.route_path('photos.photo_albums.index')}">Photo Albums</a></li>
+<li class="active">Photo Albums</li>
 </%block>
 <%block name="panel_title">Photo Albums</%block>
 <%

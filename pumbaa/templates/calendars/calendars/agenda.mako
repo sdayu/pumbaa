@@ -5,7 +5,7 @@
 <%block name="title">Agenda</%block>
 <%block name="where_am_i">
 	<li><a href="${request.route_path('calendars.calendars.index')}">Calendars</a></li>
-	<li><a href="${request.current_route_path()}">Agenda</a></li>
+	<li class="active">Agenda</li>
 </%block>
 <%block name="panel_title">Agenda</%block>
 

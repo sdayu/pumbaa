@@ -2,7 +2,7 @@
 <%block name="where_am_i">
 	<li><a href="${request.route_path('calendars.calendars.index')}">Calendars</a></li>
 	<li><a href="${request.route_path('calendars.events.index')}">Events</a></li>
-	<li><a href="${request.current_route_path()}">${event.topic.title}</a></li>
+	<li class="active">${event.topic.title}</li>
 </%block>
 <%block name="title">Event: ${event.topic.title}</%block>
 <%block name="keywords">${", ".join(event.topic.tags)}</%block>

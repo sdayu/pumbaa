@@ -19,7 +19,7 @@
 %>
 
 <%block name="where_am_i">
-	<li><a href="${request.route_path('calendars.calendars.index')}">Calendars</a></li>
+	<li class="active">Calendars</li>
 </%block>
 <%block name="title">Calendar</%block>
 <%block name="panel_title">Calendar</%block>

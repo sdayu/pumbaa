@@ -5,6 +5,7 @@
 <%block name="where_am_i">
 <li><a href="${request.route_path('photos.photo_albums.index')}">Photo Albums</a></li>
 <li><a href="${request.route_path('photos.photo_albums.view', photo_album_id=photo_album.id)}">${photo_album.name}</a></li>
+<li class="active">${photo.image.filename}</li>
 </%block>
 <%block name="panel_title">${photo_album.name}</%block>
 <div class="row">
