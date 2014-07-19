@@ -25,9 +25,11 @@
 	</div>
 	<div>
 		<b>Description:</b> <br/>
+                <div class="well">
 		<article title="topic description" id="description">
 ${event.topic.description}
 		</article>
+                </div>
 	</div>
 	<div>
 		<b>Started date:</b> ${event.started_date.strftime('%a %d %b %Y %H:%M')}
@@ -53,7 +55,7 @@ ${event.topic.description}
 	<div>
 		<b>Tags:</b> 
 		% for tag in event.topic.tags:
-			<a href="${request.route_path('calendars.events.list_by_tags', name=tag)}">${tag}</a>
+			<a href="${request.route_path('calendars.events.list_by_tags', name=tag)}">${tag}</a>,
 		% endfor
 	</div>
 </section>

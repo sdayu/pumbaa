@@ -42,7 +42,15 @@
 					${photo.created_date.strftime("%d %b %Y %X")}
 				</div>
 			</div>
-			<p><b>License:</b> ${photo.license}</p>
+			<p><b>License:</b> 
+			% if 'CC-' in photo.license:
+				<a href="http://creativecommons.org/licenses/${photo.license.lower().replace('cc-', '')}/4.0/">
+					${photo.license}
+				</a>
+			% else:
+				${photo.license}
+			% endif
+			</p>
 			% if photo.caption:
 			<p>${photo.caption}</p>
 			% endif

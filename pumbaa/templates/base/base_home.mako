@@ -38,17 +38,13 @@
 		</div>
 		<div class="col-xs-8 col-sm-8 col-md-9 col-lg-9">
 			## whare am i bar
-			<nav  class="navbar navbar-default" role="navigation">
-				<div class="container-fluid">
-					<div class="collapse navbar-collapse">
-						<ul class="nav navbar-nav">
-						  <%block name="where_am_i">
-						  <li style="margin-left:-25px;"><a href="${request.route_path('home')}"><i class="glyphicon glyphicon-home"></i></a></li>
-						  </%block>
-						</ul>
-					</div>
-				</div>
-			</nav>
+			<section title="where am i bar">
+				<ol class="breadcrumb">
+				  <%block name="where_am_i">
+				  <li style="margin-left:-25px;"><a href="${request.route_path('home')}"><i class="glyphicon glyphicon-home"></i></a></li>
+				  </%block>
+				</ol>
+			</section>
 			
 			${next.body()}
 		</div>

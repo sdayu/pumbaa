@@ -45,11 +45,15 @@
     )
 %>
     <li class="list-group-item">
+    	<div class="row">
+    		<div class="col-xs-9 col-md-9 col-lg-9">
             <span data-toggle="tooltip" data-placement="top" title="${topic_author_tooltip}">
                 <a href="${request.route_path('forums.topics.view', 
                     title=topic.title, topic_id=topic.id)}">${topic.title}</a>
             </span>
-            <div class="pull-right">
+            </div>
+            <div class="col-xs-3 col-md-3 col-lg-3">
+            	<div class="pull-right">
                 % if len(topic.comments) > 0:
 <%
     last_comment_timediff = topic_timenow - topic.comments[len(topic.comments)-1].updated_date
@@ -68,7 +72,9 @@
                 % if topic_timediff.days >= 0 and topic_timediff.days <= 1:
                     <span class="label label-warning">Today</span>
                 % endif
+                </div>
             </div>
+        </div>
     </li>
 %endfor
 </ul>

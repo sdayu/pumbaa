@@ -10,8 +10,10 @@
 <ul class="list-group">
 	% for topic in topics:
     <li class="list-group-item">
-    	<a href="${request.route_path('pages.view', title=topic.title)}">${topic.title}</a> ::
-    	<a href="${request.route_path('manager.pages.edit', topic_id=topic.id)}">Edit</a>
+    	<a href="${request.route_path('pages.view', title=topic.title)}">${topic.title}</a>
+    	<div class="pull-right">
+    		<a href="${request.route_path('manager.pages.edit', topic_id=topic.id)}"><span class="glyphicon glyphicon-edit"></span></a>
+    	</div>
     </li>
     % endfor
 </ul>

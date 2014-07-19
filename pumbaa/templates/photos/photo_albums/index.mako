@@ -28,7 +28,7 @@ album_count = photo_albums.count()
       	<img src="${request.route_path('photos.thumbnail', photo_album_id=photo_album.id, photo_id=photo_album.photos[0].image.filename)}" alt="${photo_album.name}" width="100%">
       </a>
       <div class="caption">
-        <h3>${photo_album.name}</h3>
+        <h3 style="word-wrap:break-word;">${photo_album.name}</h3>
         <p>${photo_album.description}</p>
         <p><a href="${request.route_path('photos.photo_albums.view', photo_album_id=photo_album.id)}" class="btn btn-primary" role="button">ชมภาพ</a></p>
       </div>
