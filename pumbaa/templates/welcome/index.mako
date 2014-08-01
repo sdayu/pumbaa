@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded',function() {
 		  		% for event in events:
 		  		<% 
 		  			style=''
-		  			if event.started_date.date() == datetime.datetime.now().date():
+		  			if event.started_date.date() <= datetime.datetime.now().date():
 		  				style = ' list-group-item-success'
 		  			elif event.started_date.date() == datetime.datetime.now().date() + datetime.timedelta(days=1):
 		  				style = ' list-group-item-warning'

@@ -7,7 +7,9 @@
 <li><a href="${request.route_path('photos.photo_albums.view', photo_album_id=photo_album.id)}">${photo_album.name}</a></li>
 <li class="active">${photo.image.filename}</li>
 </%block>
-<%block name="panel_title">${photo_album.name}</%block>
+<%block name="panel_title">
+	<a href="${request.route_path('photos.photo_albums.view', photo_album_id=photo_album.id)}">${photo_album.name}</a>
+</%block>
 <div class="row">
 	<div class="col-sm-8 col-md-8 col-lg-9">
 		<ul class="pager">

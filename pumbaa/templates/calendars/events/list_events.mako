@@ -10,11 +10,11 @@
 </%block>
 <%block name="panel_title">Tag: ${tag}</%block>
 
-		<ul class="list-group">
+		<div class="list-group">
 			% for event in events:
 			<% 
 	  			style=''
-	  			if event.started_date.date() == datetime.datetime.now().date():
+	  			if event.started_date.date() <= datetime.datetime.now().date():
 	  				style = ' list-group-item-success'
 	  			elif event.started_date.date() == datetime.datetime.now().date() + datetime.timedelta(days=1):
 	  				style = ' list-group-item-warning'
@@ -23,13 +23,26 @@
 	  		%>
 		    
 	    	<a href="${request.route_path('calendars.events.view', event_id=event.id)}" class="list-group-item${style}">
-	    		% if event.all_day:
-	    		${event.started_date.date()}
-	    		% else:
-	    		${event.started_date}
-	    		% endif
-	    		: <b>${event.topic.title}</b>
+	    		<div class="row">
+		    		<div class="col-sm-2">
+		    			${event.started_date.date()}
+		    		</div>
+	    			<div class="col-sm-10">
+		  				<section>
+		  				<h4 class="list-group-item-heading">${event.topic.title}</h4>
+						% if event.all_day:
+							<i>${event.started_date.date()} - ${event.ended_date.date()}</i>
+							% else:
+							<i>${event.started_date} - ${event.ended_date}</i>
+							% endif
+							<br/>
+						% if event.venue:
+						<b>where:</b> ${event.venue}<br/>
+						% endif
+		  				</section>
+		  			</div>
+  				</div>
 	    	</a>
 		    
 		    % endfor
-		</ul>
+		</div>
