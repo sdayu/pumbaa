@@ -6,10 +6,12 @@ Created on May 23, 2014
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from pyramid.response import Response
+import mongoengine as me
 
 import datetime
 
 from pumbaa import models
+
 
 @view_config(route_name='calendars.calendars.index', renderer='/calendars/calendars/index.mako')
 def index(request):
@@ -25,7 +27,10 @@ def index(request):
 
 @view_config(route_name='calendars.calendars.agenda', renderer='/calendars/calendars/agenda.mako')
 def agenda(request):
-    events = models.Event.objects(started_date__gte = datetime.datetime.now().date(),
-                                  event_type__ne = 'conference')\
-                    .order_by('+started_date')
+    events =     events = models.Event.objects((me.Q(status='publish') &
+                                  (me.Q(started_date__gt=datetime.datetime.now().date()) | 
+                                  me.Q(ended_date__gt=datetime.datetime.now())) &
+                                  me.Q(event_type__ne='conference')))\
+                        .order_by('+started_date')\
+                        .all()
     return dict(events=events)

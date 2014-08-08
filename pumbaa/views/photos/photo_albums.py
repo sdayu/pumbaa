@@ -13,20 +13,18 @@ from beaker.cache import cache_region
 from pumbaa import models, forms
 
 
-@cache_region('default_term')
-def get_all_albums():
-    photo_albums = models.PhotoAlbum.objects(status="publish").order_by('-event_date').all()
-    return dict(
-            photo_albums=photo_albums
-            )
-
-
 @view_config(route_name='photos.photo_albums.index',
              renderer='/photos/photo_albums/index.mako')
 def index(request):
-    return get_all_albums()
-    
 
+    photo_albums = models.PhotoAlbum.objects(status="publish").order_by('-event_date').all()
+    album_count = photo_albums.count()
+
+    return dict(
+            photo_albums=photo_albums,
+            album_count=album_count
+            )
+    
 
 @view_config(route_name='photos.photo_albums.view',
              renderer='/photos/photo_albums/view.mako')

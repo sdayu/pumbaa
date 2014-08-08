@@ -1,3 +1,4 @@
+<%page cached="True"/>
 <%inherit file="/forums/base/base.mako"/>
 <%! 
 	from pumbaa import models 
@@ -11,7 +12,6 @@
 <%block name="panel_title">Photo Albums</%block>
 <%
 count = 0
-album_count = photo_albums.count()
 %>
 % for i in range(0, math.ceil(album_count/4)+1):
 <div class="row">
