@@ -10,7 +10,7 @@ import bson
 #     created_date = me.DateTimeField(required=True, default=datetime.datetime.now)
 
 TOPIC_TYPES = ['topic', 'page', 'event']
-TOPIC_STATUS = ['draft', 'publish', 'delete']
+TOPIC_STATUS = ['draft', 'publish', 'delete', 'suspend']
 
 class Comment(me.EmbeddedDocument):
     id = me.ObjectIdField(required=True, default=bson.ObjectId)
