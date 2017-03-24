@@ -2,4 +2,4 @@
 *.pyc
 *.egg*
 __pycache__
-pumbaa/static/jspm_modules
+pumbaa/static/jspm_packages

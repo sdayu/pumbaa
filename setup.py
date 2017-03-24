@@ -14,6 +14,7 @@ requires = [
     'flask-mongoengine',
     'flask-login',
     'flask-principal',
+    'flask-iniconfig',
     'authomatic',
     'pillow'
    ]

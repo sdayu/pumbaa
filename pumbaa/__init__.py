@@ -6,7 +6,7 @@ from flask_mongoengine import MongoEngine
 from flask_login import user_logged_in
 from flask_principal import Principal, Permission, RoleNeed
 from flask_login import LoginManager
-from flask_appconfig import AppConfig
+from flask.ext.iniconfig import INIConfig
 
 app = Flask(__name__)
 # app.config.from_pyfile('../development.cfg')
@@ -47,5 +47,7 @@ from .views import *
 
 def initial(app, config_file=None):
     if config_file:
-        AppConfig(app, config_file)
+        INIConfig(app)
+        app.config.from_inifile(config_file)
+    print("%s:::"%app.config.get('MONGODB_DB'))
     db = MongoEngine(app)
