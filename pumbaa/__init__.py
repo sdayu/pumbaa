@@ -6,7 +6,7 @@ from flask_mongoengine import MongoEngine
 from flask_login import user_logged_in
 from flask_principal import Principal, Permission, RoleNeed
 from flask_login import LoginManager
-from flask.ext.iniconfig import INIConfig
+from flask_iniconfig import INIConfig
 
 app = Flask(__name__)
 # app.config.from_pyfile('../development.cfg')

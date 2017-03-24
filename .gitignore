@@ -3,3 +3,4 @@
 *.egg*
 __pycache__
 pumbaa/static/jspm_packages
+pumbaa/static/config.js
