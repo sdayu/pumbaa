@@ -4,8 +4,8 @@ from wtforms import validators
 
 from pumbaa import models
 
-from pyramid.threadlocal import get_current_request
-from pyramid.security import has_permission
+#from pyramid.threadlocal import get_current_request
+#from pyramid.security import has_permission
 
 from pumbaa.forms import fields as pfields
 

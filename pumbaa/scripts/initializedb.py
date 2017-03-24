@@ -1,12 +1,12 @@
 import os
 import sys
 
-from pyramid.paster import (
-    get_appsettings,
-    setup_logging,
-    )
+# from pyramid.paster import (
+#     get_appsettings,
+#     setup_logging,
+#     )
 
-from pyramid.scripts.common import parse_vars
+# from pyramid.scripts.common import parse_vars
 
 from pumbaa import models
 from pumbaa import crypto
@@ -21,10 +21,22 @@ def usage(argv):
 def main(argv=sys.argv):
     if len(argv) < 2:
         usage(argv)
-    config_uri = argv[1]
-    options = parse_vars(argv[2:])
-    setup_logging(config_uri)
-    settings = get_appsettings(config_uri, options=options)
+    # config_uri = argv[1]
+    # options = parse_vars(argv[2:])
+    # setup_logging(config_uri)
+    # settings = get_appsettings(config_uri, options=options)
+
+    settings = {}
+    with open(argv[1]) as cf:
+        for op in cf:
+            if '=' in op:
+                args = op.split('=')
+                key = args[0].strip()
+                val = args[1].strip()
+                settings[key] = val
+    if len(settings) == 0:
+        sys.exit(1)
+
 
     models.initial(settings)
     
@@ -55,3 +67,6 @@ def main(argv=sys.argv):
         
         print('add admin user:', adminuser)
 
+
+if __name__ == '__main__':
+    main(sys.argv)

@@ -3,16 +3,20 @@ Created on Oct 18, 2013
 
 @author: boatkrap
 '''
-from pyramid.view import view_config
-from pyramid.httpexceptions import HTTPFound
-from pyramid.response import Response
+from flask import Blueprint, render_template, request, redirect, make_response, current_app, url_for
+from authomatic.adapters import WerkzeugAdapter
+
+from flask_login import login_required, current_user, login_user, logout_user
+from flask_principal import identity_changed, Identity, AnonymousIdentity
 
 from pumbaa import models, forms
 import json
 import math
 
-@view_config(route_name='forums.topics.index', 
-             renderer='/forums/topics/index.mako')
+module = Blueprint('forums.topics', __name__)
+
+# @view_config(route_name='forums.topics.index', 
+#              renderer='/forums/topics/index.mako')
 def index(request):
     page = int(request.GET.get('page', 1))
     topics_per_page = 15
@@ -30,9 +34,9 @@ def index(request):
                 page=page
                 )
 
-@view_config(route_name='forums.topics.compose', 
-             permission='member',
-             renderer='/forums/topics/compose.mako')
+# @view_config(route_name='forums.topics.compose', 
+#              permission='member',
+#              renderer='/forums/topics/compose.mako')
 def compose(request):
     form = forms.topics.Topic(request.POST)
     
@@ -98,17 +102,16 @@ def compose(request):
 
     return HTTPFound(location=request.route_path('forums.topics.view', title=title, topic_id=topic.id))
 
-@view_config(route_name='forums.topics.view', 
-             renderer='/forums/topics/view.mako')
-def view(request):
-    topic_id = request.matchdict.get('topic_id')
-    title = request.matchdict.get('title')
+# @view_config(route_name='forums.topics.view', 
+#              renderer='/forums/topics/view.mako')
+@module.route('/<topic_id>/<title>')
+def view(topic_id, title):
     
     topic = models.Topic.objects(id=topic_id, status='publish').first()
     
     if topic is None:
         return Response('Not Found, topic title:%s'%title, status='404 Not Found')
         
-    return dict(
-                topic=topic
-                )
+    return render_template('/forums/topics/view.jinja2',
+            topic=topic
+            )

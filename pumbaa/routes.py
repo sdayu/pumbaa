@@ -72,7 +72,6 @@ def profile_include(config):
     config.add_route('profile.index', '/{profile_id}')
 
 def calendars_include(config):
-    config.add_route('calendars.calendars.agenda', '/agenda')
     config.add_route('calendars.events.index', '/events')
     config.add_route('calendars.events.view', '/events/{event_id}')
     config.add_route('calendars.events.list_by_tags', '/events/tags/{name}')
@@ -87,7 +86,6 @@ def add_routes(config):
     config.add_route('logout', '/logout')
     config.add_route('accounts.change_password', '/accounts/change_password')
     config.add_route('accounts.change_display_name', '/accounts/change_display_name')
-    config.add_route('accounts.change_feed_url', '/accounts/change_feed_url')
     config.add_route('accounts.add_online_account', '/accounts/add_online_account')
     
     # add apis route
@@ -112,11 +110,6 @@ def add_routes(config):
     # photo albums
     config.add_route('photos.photo_albums.index', '/photo_albums')
     config.include(photo_album_include, route_prefix='/photo_albums')
-
-    # feed
-    #config.add_route('feed.index', '/feed')
-    config.add_route('planet', '/planet')
-    #config.include(feed_include, route_prefix='/feed')
     
     # calendars
     config.add_route('calendars.calendars.index', '/calendars')

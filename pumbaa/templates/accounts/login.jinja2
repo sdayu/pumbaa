@@ -1,0 +1,54 @@
+{% extends "/base/default.jinja2" %}
+{% block content %}
+<h1>Login</h1>
+
+<div class="row">
+	<div class="col s6">
+		<h3>Please log in</h3>
+        <form action="{{ url_for('accounts.login') }}" method="post">
+          {#% if len(message) > 0 or form.username.errors or
+          form.password.errors: #}
+          {#
+		  <div class="alert alert-danger">
+            
+		  	% if len(message) > 0:
+		  		${message}<br/>
+		  	% endif
+		  	% if form.username.errors:
+		  	 ${form.username.label.text} : ${"".join(form.username.errors)} <br/>
+		  	% endif
+		  	% if form.password.errors:
+		  	 ${form.password.label.text} : ${"".join(form.password.errors)} <br/>
+		  	% endif
+		  </div>
+		  % endif
+          #}
+          <div class="row">
+            <div class="input-field col s12">
+          {{ form.username(placeholder=form.username.label.text, autofocus='autofocus') }}
+          {{ form.username.label }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+          {{ form.password() }}
+          {{ form.password.label() }}
+            </div>
+          </div>
+          {{ form.came_from }}
+		  <button class="btn light-blue accent-4" type="submit">Log in</button>
+		  <p><a href="${request.route_path('register')}">register</a></p>
+		</form>
+		
+	</div>
+	<div class="col s6">
+		<h3>Login with</h3>
+		<ul style="display: inline-block;">
+			<li style="float:left; padding-left: 10px;"><a href="${login_url(request, 'facebook')}"><img src="/static/images/f.png" width="70px" class="slogo"/></a></li>
+			<li style="float:left; padding-left: 10px;"><a href="${login_url(request, 'google')}"><img src="/static/images/g.png" width="70px" class="slogo"/></a></li>
+			<li style="float:left; padding-left: 10px;"><a href="${login_url(request, 'twitter')}"><img src="/static/images/t.png" width="70px" class="slogo"/></a></li>
+		</ul>
+	</div>
+</div>
+
+{% endblock %}

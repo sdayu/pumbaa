@@ -1,4 +1,5 @@
 *.ini
 *.pyc
 *.egg*
-pumbaa/public/bower_components
+__pycache__
+pumbaa/static/jspm_modules

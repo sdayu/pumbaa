@@ -1,0 +1,38 @@
+{% macro render_topic_list(topics) -%}
+<ul class="collection">
+    {% for topic in topics %}
+    {% set topic_timenow = topicutils.get_current_time() %}
+    {% set topic_timediff = topicutils.topic_diff_time(topic) %}
+    {% set topic_author_tooltip = "By %s (%s)" % (
+        topic.author.get_display_name(),
+        topicutils.tooltip_get_days(topic.updated_date, topic_timediff)
+    )
+    %}
+
+    <li class="collection-item">
+            <span data-toggle="tooltip" data-placement="top" title="${topic_author_tooltip}">
+                <a href="{{url_for('forums.topics.view', title=topic.title, topic_id=topic.id)}}">{{ topic.title }}</a>
+            </span>
+            <div class="right">
+                {% if topic.comments | count > 0 %}
+                {% set last_comment_timediff = topic_timenow -
+                topic.comments[topic.comments | count -1].updated_date
+    %}
+                    <small>
+                        {{ topic.comments[topic.comments|count-1].author.get_tim_display_name() }}
+                        {% if last_comment_timediff.days >= 0 and last_comment_timediff.days <= 1 %}
+                        <span class="new badge blue">{{ topic.comments| count }} </span>
+                        {% else %}
+                        <span class="new badge blue" data-badge-caption="">{{ topic.comments | count }} </span>
+                        {% endif %}
+                    </small>
+                {% endif %}
+
+                {% if topic_timediff.days >= 0 and topic_timediff.days <= 1 %}
+                    <span class="new badge blue" data-badge-caption="">Today</span>
+                {% endif %}
+            </div>
+    </li>
+    {% endfor %}
+</ul>
+{%- endmacro %}

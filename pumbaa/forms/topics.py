@@ -10,11 +10,11 @@ from wtforms import validators
 from pumbaa import models
 from .fields import TagListField
 
-from pyramid.threadlocal import get_current_request
-from pyramid.security import has_permission
+#from pyramid.threadlocal import get_current_request
+#from pyramid.security import has_permission
 
 def available_page_title(form, field):
-    topic = models.Topic.objects(title=field.data, type='page').first()
+    topic = models.Topic.objects(title=field.data, page=True).first()
     
     request = get_current_request()
     topic_id = request.matchdict.get('topic_id', None)

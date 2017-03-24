@@ -2,22 +2,22 @@
 <%block name="addition_header">
 	<link rel="stylesheet" type="text/css" href="/public/css/pagedown.css" />
         
-	<script type="text/javascript" src="/public/bower_components/pagedown/Markdown.Converter.js"></script>
-	<script type="text/javascript" src="/public/bower_components/pagedown/Markdown.Sanitizer.js"></script>
-	<script type="text/javascript" src="/public/bower_components/pagedown/Markdown.Editor.js"></script>
-	<script type="text/javascript" src="/public/bower_components/pagedown/Markdown.Extra.js"></script>
+	<script type="text/javascript" src="/public/components/pagedown/Markdown.Converter.js"></script>
+	<script type="text/javascript" src="/public/components/pagedown/Markdown.Sanitizer.js"></script>
+	<script type="text/javascript" src="/public/components/pagedown/Markdown.Editor.js"></script>
+	<script type="text/javascript" src="/public/components/pagedown/Markdown.Extra.js"></script>
 	
-	<script type="text/javascript" src="/public/bower_components/google-code-prettify/src/prettify.js"></script> 
-	<link rel="stylesheet" type="text/css" href="/public/bower_components/google-code-prettify/src/prettify.css" />
+	<script type="text/javascript" src="/public/components/google-code-prettify/src/prettify.js"></script> 
+	<link rel="stylesheet" type="text/css" href="/public/components/google-code-prettify/src/prettify.css" />
 	
-	<link rel="stylesheet" type="text/css" href="/public/bower_components/select2/select2.css" />
-	<script type="text/javascript" src="/public/bower_components/select2/select2.js"></script>
+	<link rel="stylesheet" type="text/css" href="/public/components/select2/select2.css" />
+	<script type="text/javascript" src="/public/components/select2/select2.js"></script>
 </%block>
 <%block name="title">New Pages</%block>
 <%block name="where_am_i">
 	${parent.where_am_i()}
 	<li><a href="${request.route_path('manager.pages.index')}">Pages</a></li>
-	<li class="active">New page</li>
+	<li><a href="${request.current_route_path()}">New page</a></li>
 </%block>
 
 <%block name="panel_title">New Page</%block>

@@ -3,17 +3,19 @@ Created on Oct 20, 2013
 
 @author: boatkrap
 '''
-from feedformatter import Feed
-from pyramid.view import view_config
-from pyramid.response import Response
+#from feedformatter import Feed
+from flask import Blueprint
 
 from pumbaa import models
 
 import datetime
 
-@view_config(route_name="forums.feeds")
-@view_config(route_name="forums.feeds.forums")
-def feed(request):
+
+module = Blueprint('forums.feeds', __name__)
+
+@module.route('/')
+@module.route('/<forum_name>')
+def feed():
     
     forum_name = request.matchdict.get('forum_name', None)
     

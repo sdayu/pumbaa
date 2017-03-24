@@ -2,7 +2,7 @@
 <%block name="where_am_i">
 	<li><a href="${request.route_path('calendars.calendars.index')}">Calendars</a></li>
 	<li><a href="${request.route_path('calendars.events.index')}">Events</a></li>
-	<li class="active">${event.topic.title}</li>
+	<li><a href="${request.current_route_path()}">${event.topic.title}</a></li>
 </%block>
 <%block name="title">Event: ${event.topic.title}</%block>
 <%block name="keywords">${", ".join(event.topic.tags)}</%block>
@@ -25,11 +25,9 @@
 	</div>
 	<div>
 		<b>Description:</b> <br/>
-                <div class="well">
 		<article title="topic description" id="description">
 ${event.topic.description}
 		</article>
-                </div>
 	</div>
 	<div>
 		<b>Started date:</b> ${event.started_date.strftime('%a %d %b %Y %H:%M')}
@@ -40,7 +38,7 @@ ${event.topic.description}
 	% if event.event_type == 'conference':
 	% if event.conference.paper_deadline_date:
 	<div>
-		<b>Paper deadline:</b> <span style="color: red; font-weight: bold;">${event.conference.paper_deadline_date.strftime('%a %d %b %Y')}</span>
+		<b>Paper deadline:</b> ${event.conference.paper_deadline_date.strftime('%a %d %b %Y')}
 	</div>
 	% endif
 	% if event.conference.notification_date:
@@ -55,7 +53,7 @@ ${event.topic.description}
 	<div>
 		<b>Tags:</b> 
 		% for tag in event.topic.tags:
-			<a href="${request.route_path('calendars.events.list_by_tags', name=tag)}">${tag}</a>,
+			<a href="${request.route_path('calendars.events.list_by_tags', name=tag)}">${tag}</a>
 		% endfor
 	</div>
 </section>

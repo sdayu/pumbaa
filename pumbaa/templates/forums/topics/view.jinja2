@@ -1,0 +1,46 @@
+{% extends "/base/topic_view.jinja2" %}
+ 
+{% block title %}{{ topic.title }}{% endblock %}
+{% block keywords %}{{ ", ".join(topic.tags) }}{% endblock %}
+{% block description %}{{ topic.description[:200] }}{% endblock %}
+
+{% block breadcrumb %}
+	<a href="${request.route_path('forums.topics.index')}" class="breadcrumb">Topics</a>
+{% endblock %}
+
+{% block topic_title %}
+    {{ topic.title }}
+        {# % if has_permission('topic', request.context, request):
+	<span class="pull-right">
+		<a href="${request.route_path('manager.topics.change_status', topic_id=topic.id, status='suspend')}" class="btn btn-primary btn-xs">
+		<span class="glyphicon glyphicon-stop" title="คุณมีสิทธิ์หยุดเผยแพร่กระทู้"></span>
+		</a>
+	</span>
+    % endif #}
+{% endblock %}
+   
+
+{% block content %}
+<section>
+	<article title="topic description" id="description" style="font-size: 18px;">
+{{ topic.description }}
+    </article>
+	<div>
+        {% for tag in topic.tags %}
+        <a class="waves-effect btn grey lighten-3 grey-text grey-text-darken-3"  href="${request.route_path('forums.tags.list_contents', name=tag)}">{{ tag }}</a></li>
+        {% endfor %}
+	</div>
+</section>
+
+{# footer #}
+{% block topic_footer %}
+    <p>{{'' if topic.author.get_profile_picture() == None else topic.author.get_profile_picture() }}
+    <b>{{ topic.author.get_display_name() }}</b> | {{ topic.published_date }} </p>
+{% endblock %}
+
+{% include "/base/social_integration.jinja2" %}
+{% endblock content %}
+
+{% block comments %}
+{% include "/base/comments.jinja2" with context %}
+{% endblock %}

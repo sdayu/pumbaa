@@ -24,7 +24,7 @@ def index(request):
     events = models.Event.objects((me.Q(status='publish') &
                                   (me.Q(started_date__gt=datetime.datetime.now().date()) | 
                                   me.Q(ended_date__gt=datetime.datetime.now())) &
-                                  me.Q(event_type__in=['undergraduate', 'graduate', 'department', 'university'])))\
+                                  me.Q(event_type__in=['undergraduate', 'graduate', 'department'])))\
                         .order_by('+started_date')\
                         .limit(5).all()
     

@@ -1,0 +1,23 @@
+{
+  "jspm": {
+    "directories": {
+      "baseURL": "pumbaa/static"
+    },
+    "dependencies": {
+      "clean-css": "npm:clean-css@^3.4.12",
+      "css": "github:systemjs/plugin-css@^0.1.20",
+      "jquery": "npm:jquery@^2.2.3",
+      "materialicons": "github:jossef/material-design-icons-iconfont@^3.0.3",
+      "materialize": "npm:materialize-css@^0.98.0",
+      "showdown": "github:showdownjs/showdown@^1.6.0"
+    },
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.8.24",
+      "babel-runtime": "npm:babel-runtime@^5.8.24",
+      "core-js": "npm:core-js@^1.1.4"
+    }
+  },
+  "devDependencies": {
+    "jspm": "^0.16.50"
+  }
+}

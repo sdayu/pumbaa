@@ -8,7 +8,6 @@
 		cmap = {'undergraduate':'#fc9a24',
 				'graduate':'#002080',
 				'department':'#3366FF',
-				'university':'#6699FF',
 				'conference':'#FF33CC',
 				'thesis':'#1AC6FF',
 				'other':'#00B32D'}
@@ -19,25 +18,25 @@
 %>
 
 <%block name="where_am_i">
-	<li class="active">Calendars</li>
+	<li><a href="${request.route_path('calendars.calendars.index')}">Calendars</a></li>
 </%block>
 <%block name="title">Calendar</%block>
 <%block name="panel_title">Calendar</%block>
 
 
 <%block name="addition_header">
-    <link rel="stylesheet" href="/public/bower_components/fullcalendar/dist/fullcalendar.css">
+    <link rel="stylesheet" href="/public/components/fullcalendar/dist/fullcalendar.css">
     <link rel="stylesheet" href="/public/css/calendar_pumbaa.css" />
 
-    <script src="/public/bower_components/jquery-ui/ui/jquery-ui.js"></script>
+    <script src="/public/components/jquery-ui/ui/jquery-ui.js"></script>
 
-    <script type='text/javascript' src="/public/bower_components/angular/angular.js"></script>
+    <script type='text/javascript' src="/public/components/angular/angular.js"></script>
     <script type='text/javascript' src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.9.0.js"></script>
     
-    <script type='text/javascript' src="/public/bower_components/moment/min/moment.min.js"></script>
-    <script type='text/javascript' src="/public/bower_components/fullcalendar/dist/fullcalendar.js"></script>
-    <script type='text/javascript' src="/public/bower_components/fullcalendar/dist/gcal.js"></script>
-    <script type='text/javascript' src="/public/bower_components/angular-ui-calendar/src/calendar.js"></script>
+    <script type='text/javascript' src="/public/components/moment/min/moment.min.js"></script>
+    <script type='text/javascript' src="/public/components/fullcalendar/dist/fullcalendar.js"></script>
+    <script type='text/javascript' src="/public/components/fullcalendar/dist/gcal.js"></script>
+    <script type='text/javascript' src="/public/components/angular-ui-calendar/src/calendar.js"></script>
     <script type='text/javascript' src="/public/js/calendar_pumbaa.js"></script>
     
 </%block>

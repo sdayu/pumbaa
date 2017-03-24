@@ -4,55 +4,55 @@ Created on Nov 10, 2013
 @author: boatkrap
 '''
 
-from pyramid.view import view_config
-from pyramid.httpexceptions import HTTPFound
-from pyramid.response import Response
 
-from beaker.cache import cache_region
+from flask import Blueprint, render_template, request, redirect, make_response, current_app, url_for
 
 from pumbaa import models, forms
 
 
-@view_config(route_name='photos.photo_albums.index',
-             renderer='/photos/photo_albums/index.mako')
-def index(request):
+module = Blueprint('photos.photo_albums', __name__, url_prefix='/photo_albums')
 
-    photo_albums = models.PhotoAlbum.objects(status="publish").order_by('-event_date').all()
-    album_count = photo_albums.count()
+# @view_config(route_name='photos.photo_albums.index',
+#              renderer='/photos/photo_albums/index.mako')
+@module.route('/')
+def index():
+    photo_albums = models.PhotoAlbum.objects(status="publish").all()
+    return render_template('/photos/photo_albums/index.jinja2',
+                photo_albums=photo_albums
+                )
 
-    return dict(
-            photo_albums=photo_albums,
-            album_count=album_count
-            )
-    
-
-@view_config(route_name='photos.photo_albums.view',
-             renderer='/photos/photo_albums/view.mako')
-def view(request):
-    photo_album = models.PhotoAlbum.objects.with_id(request.matchdict.get('photo_album_id'))
-    return dict(
+# @view_config(route_name='photos.photo_albums.view',
+#              renderer='/photos/photo_albums/view.mako')
+@module.route('/<photo_album_id>')
+def view(photo_album_id):
+    photo_album = models.PhotoAlbum.objects.with_id(photo_album_id)
+    return render_template('/photos/photo_albums/view.jinja2',
                 photo_album=photo_album
                 )
     
-@view_config(route_name='photos.photo_albums.photo_view',
-             renderer='/photos/photo_albums/photo_view.mako')
-def photo_view(request):
+# @view_config(route_name='photos.photo_albums.photo_view',
+#              renderer='/photos/photo_albums/photo_view.mako')
+@module.route('/<photo_album_id>/<photo_id>')
+def photo_view(photo_album_id, photo_id):
     
-    photo_album = models.PhotoAlbum.objects.with_id(request.matchdict.get('photo_album_id'))
-    photo, pprevious, pnext = photo_album.get_photo_index(request.matchdict.get('photo_id'))
-    return dict(
+    photo_album = models.PhotoAlbum.objects.with_id(photo_album_id)
+    photo, pprevious, pnext = photo_album.get_photo_index(photo_id)
+    return render_template('/photos/photo_albums/photo_view.jinja2',
                 photo_album=photo_album,
                 photo=photo,
                 pprevious=pprevious,
                 pnext=pnext
                 )
 
-@view_config(route_name='photos.photo_albums.comment') 
-@view_config(route_name='photos.photo_albums.photo_comment')
-def photo_comment(request):
-    
-    photo_album_id = request.matchdict.get('photo_album_id')
-    photo_id = request.matchdict.get('photo_id', None)
+# @view_config(route_name='photos.photo_albums.comment') 
+# @view_config(route_name='photos.photo_albums.photo_comment')
+
+@module.route('/comments/<photo_album_id>/<photo_id>')
+@module.route('/comments/<photo_album_id>')
+def photo_comment(photo_album_id, photo_id=None):
+   
+    # photo_album_id = request.matchdict.get('photo_album_id')
+    # photo_id = request.matchdict.get('photo_id', None)
     
     photo_album = models.PhotoAlbum.objects.with_id(request.matchdict.get('photo_album_id'))
     item = photo_album

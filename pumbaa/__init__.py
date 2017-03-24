@@ -1,43 +1,51 @@
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 
-from pyramid.config import Configurator
 
-from pyramid.authentication import AuthTktAuthenticationPolicy
-from pyramid.authorization import ACLAuthorizationPolicy
-from pyramid.session import UnencryptedCookieSessionFactoryConfig
+from flask import Flask
+from flask_mongoengine import MongoEngine
+from flask_login import user_logged_in
+from flask_principal import Principal, Permission, RoleNeed
+from flask_login import LoginManager
+from flask_appconfig import AppConfig
 
-from pyramid_beaker import session_factory_from_settings
-from pyramid_beaker import set_cache_regions_from_settings
+app = Flask(__name__)
+# app.config.from_pyfile('../development.cfg')
+# app.secret_key = 'super secret key'
 
-from pumbaa import models
-from pumbaa.routes import add_routes
-from pumbaa.acl import group_finder
+# load extension
+# db = MongoEngine(app)
 
-def main(global_config, **settings):
-    authn_policy = AuthTktAuthenticationPolicy(settings.get('pumbaa.secret'), callback=group_finder, hashalg='sha512')
-    authz_policy = ACLAuthorizationPolicy()
-    pumbaa_session_factory = session_factory_from_settings(settings)
-    set_cache_regions_from_settings(settings)
-    
-    config = Configurator(settings=settings, 
-                          root_factory='pumbaa.acl.RootFactory',
-                          authentication_policy=authn_policy, 
-                          authorization_policy=authz_policy,
-                          session_factory = pumbaa_session_factory)
+# intial login
+login_manager = LoginManager(app)
 
-    models.initial(settings)
-    
-    config.include('velruse.providers.facebook')
-    config.add_facebook_login_from_settings(prefix='velruse.facebook.')
-    config.include('velruse.providers.google_oauth2')
-    config.add_google_oauth2_login_from_settings(prefix='velruse.google.')
-    config.include('velruse.providers.twitter')
-    config.add_twitter_login_from_settings(prefix='velruse.twitter.')
-    
-    add_routes(config)
-    config.scan('pumbaa.views')
-    
-    from .request_factory import RequestWithUserAttribute
-    config.set_request_factory(RequestWithUserAttribute)
+# initial principal
+principals = Principal(app)
+admin_permission = Permission(RoleNeed('admin'))
+user_permission = Permission(RoleNeed('user'))
 
-    return config.make_wsgi_app()
+from . import aaa_setup
+
+from authomatic import Authomatic
+from .authomatic_config import CONFIG
+authomatic = Authomatic(CONFIG, 'your secret string', report_errors=False)
+from .views import *
+
+
+# print(app.url_map)
+# from .views import dashboard
+# from .views import admin
+
+# from .views import literatures
+
+# app.register_blueprint(site.module)
+# app.register_blueprint(forums.module)
+# app.register_blueprint(dashboard.module, url_prefix='/dashboard')
+# app.register_blueprint(literatures.novels.module, url_prefix='/novels')
+# app.register_blueprint(literatures.stories.module, url_prefix='/stories')
+# app.register_blueprint(admin.module, url_prefix='/admin')
+
+
+def initial(app, config_file=None):
+    if config_file:
+        AppConfig(app, config_file)
+    db = MongoEngine(app)

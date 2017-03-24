@@ -38,7 +38,7 @@ def compose(request):
             tags.remove('')
         
         comments_disable = form.data.get('comments_disable', None)
-        # print("comments_disable::::",comments_disable)
+        print("comments_disable::::",comments_disable)
     else:
         form.data['comments_disable'] = 'disable'
         

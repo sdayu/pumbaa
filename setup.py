@@ -3,29 +3,20 @@ import os
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
-with open(os.path.join(here, 'README.rst')) as f:
+with open(os.path.join(here, 'README.md')) as f:
     README = f.read()
-with open(os.path.join(here, 'CHANGES.rst')) as f:
+with open(os.path.join(here, 'CHANGES.md')) as f:
     CHANGES = f.read()
 
 requires = [
-    'pyramid',
-    'pyramid_mako',
-    'pyramid_debugtoolbar',
-    'pyramid_beaker',
-    'pyramid_mailer',
-    'waitress',
-    'mongoengine',
-    'velruse',
-    'pycrypto',
-    'wtforms',
-    'feedformatter',
-    'pillow',
-    'nose',
-    'python-dateutil',
-    'webtest',
-    'feedparser'
-    ]
+    'flask',
+    'flask-wtf',
+    'flask-mongoengine',
+    'flask-login',
+    'flask-principal',
+    'authomatic',
+    'pillow'
+   ]
 
 init = os.path.join(os.path.dirname(__file__), 'pumbaa', '__init__.py')
 version_line = list(filter(lambda l: l.startswith('__version__'), open(init)))[0]

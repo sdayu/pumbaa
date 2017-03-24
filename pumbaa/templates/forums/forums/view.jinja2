@@ -1,0 +1,37 @@
+{#% extends "/forums/base/base.jinja2" %#}
+{% extends "/base/topic_view.jinja2" %}
+
+{% block keywords %}{{ ", ".join(forum.tags) }}{% endblock %}
+{% block description %}{{ forum.description[:200] }}{% endblock %}
+{% block title %}{{ forum.name }}{% endblock %}
+
+<%block name="where_am_i">
+	${parent.where_am_i()}
+	<li><a href="${request.route_path('forums.view', name=forum.name)}">${forum.name}</a></li>
+</%block>
+
+{% block topic_title %}
+    {{forum.name}}
+    <a href="{{ url_for('forums.feeds.feed', forum_name=forum.name) }}">
+		<img alt="Atom feed" src="/static/images/feed-icon.svg" width=15px/>
+	</a>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-content">
+    <p>{{ forum.description }}</p>
+    <p><b>process tags</b>: {{ ', '.join(forum.tags) }}</p>
+    </div>
+</div>
+
+<ul class="collection">
+    {% for topic in topics %}
+    <li class="collection-item">
+        <a href="{{ url_for('forums.topics.view', title=topic.title,
+        topic_id=topic.id) }}">{{ topic.title }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% include '/base/pagination.jinja2' with context %}
+{% endblock %}

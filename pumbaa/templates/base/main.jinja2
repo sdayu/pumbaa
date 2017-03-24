@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="">
+	<meta name="keywords" content="{% block keywords %}{% endblock keywords %}"/>
+	<meta name="description" content="{% block description %}{% endblock %}"/>
+	<title>{% block title %}Welcome to Pumbaa community{% endblock %}</title>
+    {# <link rel="icon" href="../../favicon.ico"> #}
+
+	
+    <script src="/static/jspm_packages/system.js"></script>
+    <script src="/static/config.js"></script>
+    <script>
+      {% block jsmodule %}
+        System.import('css-framework').then(() => {
+          System.import('main');
+        });
+      {% endblock %}
+    </script>
+
+    {% block additional_header %}{% endblock %}
+  </head>
+
+  <body>
+    <header>
+      {% block header %}
+        {% include "/base/toolbar.jinja2" %}
+        {% include "/base/banner.jinja2" %}
+      {% endblock %}
+    </header>
+
+    <main>
+      {% block main %}
+        {% block body %}{% endblock %}
+      {% endblock %}
+    </main>
+
+    <footer>
+      {% block footer %}
+        {% include "/base/footer.jinja2" %}
+      {% endblock %}
+    </footer>
+  </body>
+
+</html>
+

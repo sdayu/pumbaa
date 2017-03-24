@@ -1,0 +1,174 @@
+{% extends "/base/default.jinja2" %}
+{% import '/forums/topics/listview-small.jinja2' as listview_small with context %}
+
+{% block content %}
+<div class="row">
+    <div class="col m6">
+        	<div>
+      			<a class="btn-floating red" title="Create new topic" href="${request.route_path('forums.topics.compose')}"><i class="material-icons">mode_edit</i></a>
+      			<a class="btn-floating yellow darken-1" title="All forums" href="${request.route_path('forums.index')}"><i class="material-icons">group_work</i></a>
+      		    <a class="btn-floating green" title="All topics" href="${request.route_path('forums.topics.index')}"><i class="material-icons">list</i></a>
+      		    <a class="btn-floating blue" title="All tags" href="${request.route_path('forums.tags.index')}"><i class="material-icons">label</i></a>
+  			</div>
+
+    </div>
+    <div class="col m6">
+        <div>
+			<h4 class="text-info">Search</h4>
+			<script>
+			  (function() {
+			    var cx = '012330424726856876039:gyjrvz5ohbo';
+			    var gcse = document.createElement('script');
+			    gcse.type = 'text/javascript';
+			    gcse.async = true;
+			    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+			        '//www.google.com/cse/cse.js?cx=' + cx;
+			    var s = document.getElementsByTagName('script')[0];
+			    s.parentNode.insertBefore(gcse, s);
+			  })();
+			</script>
+			<gcse:searchbox-only></gcse:searchbox-only>
+		</div>
+    </div>
+</div>
+<div class="row">
+	<div class="col l6">
+		<section>
+        {# start forum ประกาศจากภาควิชา #}
+        {% set forum = dep_announcement %}
+		<div>
+		  <div>
+		    <h4 class="panel-title">
+                <a href="{{ url_for('forums.view', name=forum.name) }}">{{forum.name}}</a> 
+                <a href="{{ url_for('forums.feeds.feed', forum_name=forum.name) }}">
+                    <img alt="Atom feed" src="/static/images/feed-icon.svg" width=15px/>
+                </a>
+            </h4>
+		  </div>
+
+           {{ listview_small.render_topic_list(topics=forum.get_topics(5)) }}
+		</div>
+        {# end forum #}
+		
+		<div>
+		  <div>
+		    <h4>Recent Topics <a href="{{ url_for('forums.feeds.feed') }}"><img alt="Atom feed" src="/static/images/feed-icon.svg" width=15px/></a>
+            </h4>
+		  </div>
+           {{ listview_small.render_topic_list(topics=recent_topics) }}
+		</div>
+		
+        {# topic in forums #}
+        {% for forum_name in ['พูดคุยทั่วไป', 'บัณฑิตศึกษา', 'ประกาศรับสมัครงาน', 'Development', 'การใช้งาน และ แจ้งปัญหา'] %}
+        {% set forum = topicutils.get_forum(forum_name) %}
+		<div class="panel panel-info">
+		  <div class="panel-heading">
+		    <h4 class="panel-title">
+                <a href="{{url_for('forums.view',
+                    name=forum.name)}}">{{ forum.name }}</a> 
+                <a href="{{ url_for('forums.feeds.feed',
+                forum_name=forum.name) }}"><img alt="Atom feed"
+                src="/static/images/feed-icon.svg" width=15px/></a></h4>
+		  </div>
+
+          {{ listview_small.render_topic_list(topics=forum.get_topics(10)) }}
+		</div>
+        {% endfor %}
+        {## end topic in forums #}
+		
+        {## start photo #}
+        <h4><a href="{{ url_for('photos.photo_albums.index') }}">Photo Albums</a></h4>
+		  
+		  	<div class="row">
+            {% for photo_album in photo_albums[:8] %}
+			  <div class="col s6 m3 l3">
+                  <div class="card">
+                      <div class="card-image">
+                  <a class="thumbnail" href="{{
+                  url_for('photos.photo_albums.view',
+                  photo_album_id=photo_album.id) }}">
+                    <img src="{{ url_for('photos.thumbnail',
+                    photo_album_id=photo_album.id,
+                    photo_id=photo_album.photos[0].image.filename) }}" alt="{{ photo_album.name }}">
+			    </a>
+                      </div>
+                  </div>
+			  </div>
+            {% endfor %}
+			</div>
+
+        {## end photo #}
+		</section>
+	</div>
+	<div class="col l6">
+		
+        {% if events | count > 0 %}
+		<div class="panel panel-info">
+		  <div class="panel-heading">
+		    <h4 class="panel-title"><a
+                    href="${request.route_path('calendars.calendars.index')}">Agenda</a></h4>
+		  </div>
+		  <div class="panel-body" style="padding: 0;">
+		  	<div class="list-group">
+                {% for event in events %}
+  				<a href="${request.route_path('calendars.events.view', event_id=event.id)}" class="list-group-item">
+                    <h4 class="list-group-item-heading">{{event.topic.title}}</h4>
+  					<p>
+                    <i>{{event.started_date}} - {{event.ended_date}}</i><br/>
+                        {{ event.topic.description[:150] }}<br/>
+                        {% if event.venue %}
+                        <b>where:</b> {{event.venue}}
+                        {% endif %}
+  					</p>
+  				</a>
+                {% endfor %}
+		  	</div>
+		  </div>
+		</div>
+        {% endif %}
+		<div class="panel panel-info">
+		  <div class="panel-heading">
+		    <h4 class="panel-title">Last Comments </h4>
+		  </div>
+		  <div class="panel-body">
+            {% set comments = [] %}
+            {% for topic in last_comments_topics %}
+                {# set comments.append(topic.comments[-1]) #}
+				<div class="well well-sm">
+					<div>
+                        <a href="{{url_for('forums.topics.view',
+                            title=topic.title,
+                            topic_id=topic.id)}}">
+                            {{ topic.title }}
+                        </a>
+					</div>
+                    <div id="{{ topic.comments[-1].id }}">
+                        {{ topic.comments[-1].message }}
+					</div>
+					<div>
+						<div class="pull-left">
+                            {{ '' if topic.comments[-1].author.get_profile_picture() == None else topic.comments[-1].author.get_profile_picture() }}
+						</div>
+						<div>
+                            <b>{{topic.comments[-1].author.get_display_name()}}</b>
+                            <br/>{{topic.comments[-1].published_date}}
+						</div>
+					</div>
+				</div>
+			
+                {% endfor %}
+		  </div>
+		</div>
+		
+		<script type="text/javascript">
+		var comments = ${json.dumps([{'id':"#%s"%comment.id, 'message':comment.message} if comment.status == 'publish' else {'id':"#%s"%comment.id, 'message':'ความเห็นนี้รอการพิจารณา'} for comment in comments]) | n};
+		$( document ).ready(function() {
+			comments.forEach(function(entry) {
+		    	$(entry.id).html(converter.makeHtml(entry.message));
+			});
+		});
+		</script>
+		
+	</div>
+</div>
+{% endblock content %}

@@ -1,7 +1,7 @@
 <%inherit file="/manager/base/base.mako"/>
 <%block name="where_am_i">
 	${parent.where_am_i()}
-	<li class="active">Topic</li>
+	<li><a href="${request.current_route_path()}">Topic</a></li>
 </%block>
 <%block name="panel_title">My Topics</%block>
 <ul class="list-inline">

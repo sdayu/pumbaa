@@ -2,11 +2,7 @@
 <%block name="title">Manager</%block>
 <%block name="where_am_i">
 	${parent.where_am_i()}
-	% if request.route_path('manager.index') == request.current_route_path():
-	<li class="active">Manager</li>
-	% else:
 	<li><a href="${request.route_path('manager.index')}">Manager</a></li>
-	% endif
 </%block>
 
 <div class="panel panel-info">

@@ -4,12 +4,14 @@ Created on Oct 11, 2013
 @author: boatkrap
 '''
 
+from flask_login import UserMixin
 import mongoengine as me
 
 import datetime
 
 class Profile(me.EmbeddedDocument):
-    domain = me.StringField(required=True, unique=True)
+    # domain = me.StringField(required=True, unique=True)
+    domain = me.StringField(required=True)
     user_id = me.StringField(required=True)
     email = me.EmailField(required=True)
     first_name = me.StringField()
@@ -26,7 +28,7 @@ class Approver(me.EmbeddedDocument):
     approved_date = me.DateTimeField(required=True, default=datetime.datetime.now)
     ip_address = me.StringField(max_length=100, required=True, default='0.0.0.0')
 
-class User(me.Document):
+class User(me.Document, UserMixin):
     """
     status  : 'wait for approval' -> wait member approve this profile
             : 'activate' -> this profile are approve
@@ -40,10 +42,6 @@ class User(me.Document):
     first_name = me.StringField(max_length=100, required=True)
     last_name = me.StringField(max_length=100, required=True)
     display_name = me.StringField(max_length=250, required=True)
-
-    # Feed Feature
-    feed_url = me.StringField(max_length=500, required=False)
-    feed_hash = me.StringField(required=False)
     
     default_profile = me.StringField(default='pumbaa.coe.psu.ac.th')
     online_profiles = me.ListField(me.EmbeddedDocumentField(Profile))
