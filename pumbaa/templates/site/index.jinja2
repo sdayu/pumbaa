@@ -161,12 +161,12 @@
 		</div>
 		
 		<script type="text/javascript">
-		var comments = ${json.dumps([{'id':"#%s"%comment.id, 'message':comment.message} if comment.status == 'publish' else {'id':"#%s"%comment.id, 'message':'ความเห็นนี้รอการพิจารณา'} for comment in comments]) | n};
-		$( document ).ready(function() {
-			comments.forEach(function(entry) {
-		    	$(entry.id).html(converter.makeHtml(entry.message));
-			});
-		});
+		/* var comments = ${json.dumps([{'id':"#%s"%comment.id, 'message':comment.message} if comment.status == 'publish' else {'id':"#%s"%comment.id, 'message':'ความเห็นนี้รอการพิจารณา'} for comment in comments]) | n};*/
+		/* $( document ).ready(function() {*/
+		/*   comments.forEach(function(entry) {*/
+		/*       $(entry.id).html(converter.makeHtml(entry.message));*/
+		/*   });*/
+		/* });*/
 		</script>
 		
 	</div>
