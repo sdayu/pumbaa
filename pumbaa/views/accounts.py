@@ -4,7 +4,8 @@ Created on Oct 13, 2013
 @author: boatkrap
 '''
 
-from flask import Blueprint, render_template, request, redirect, make_response, current_app, url_for
+from flask import (Blueprint, render_template, request, 
+        redirect, make_response, current_app, url_for, session)
 from authomatic.adapters import WerkzeugAdapter
 
 from flask_login import login_required, current_user, login_user, logout_user
