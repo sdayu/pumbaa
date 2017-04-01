@@ -1,4 +1,4 @@
-{% extends "/base/main.jinja2" %}
+{% extends "/base/base-layout.jinja2" %}
 {% block keywords %}CoE, PSU, Computer Engineering, Prince of Songkla
 University, Community{% endblock %}
 {% block description %}This site is for people in CoE{% endblock %}
@@ -9,7 +9,7 @@ System.import('css-framework').then(() => {
 });
 {% endblock %}
 
-{% block additional_header %}
+{% block additional_head %}
 <style>
   header, main, footer {
     padding-left: 300px;
@@ -27,12 +27,7 @@ System.import('css-framework').then(() => {
   {% include "/base/toolbar-dashboard.jinja2" %}
 {% endblock %}
 
-{% block body %}
-  <div class="container">
-    {% block content %}{% endblock content %}
-  </div> 
-{% endblock body %}
-
+{% block main %}
 <div class="container">
 	<div class="row">
 		<div class="col-xs-4 col-sm-4 col-md-3 col-lg-3">
@@ -68,8 +63,9 @@ System.import('css-framework').then(() => {
 				</div>
 			</nav>
 			
-			${next.body()}
+      {% block content %}{% endblock %}
 		</div>
 	</div>
 </div>
 
+{% endblock body %}

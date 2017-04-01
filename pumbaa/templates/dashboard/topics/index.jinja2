@@ -1,8 +1,11 @@
-<%inherit file="/manager/base/base.mako"/>
-<%block name="where_am_i">
+{% extends "/base/default-dashboard.jinja2" %}
+
+{% block where_am_i %}
 	${parent.where_am_i()}
 	<li><a href="${request.current_route_path()}">Topic</a></li>
-</%block>
+{% endblock %}
+
+{% block content %}
 <%block name="panel_title">My Topics</%block>
 <ul class="list-inline">
 	<li><a href="${request.route_path('forums.topics.compose')}">new topic</a></li>
@@ -14,3 +17,4 @@
     </li>
     % endfor
 </ul>
+{% endblock %}

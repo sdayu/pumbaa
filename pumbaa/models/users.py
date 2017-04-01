@@ -34,7 +34,7 @@ class User(me.Document, UserMixin):
             : 'activate' -> this profile are approve
     """
     
-    meta = {'collection' : 'users'}
+    meta = {'collection': 'users', 'strict': False}
     
     username = me.StringField(required=True, unique=True)
     password = me.StringField()
@@ -45,7 +45,7 @@ class User(me.Document, UserMixin):
     
     default_profile = me.StringField(default='pumbaa.coe.psu.ac.th')
     online_profiles = me.ListField(me.EmbeddedDocumentField(Profile))
-    
+
     status = me.StringField(max_length=100, required=True, default='wait for approval')
     
     registration_date = me.DateTimeField(required=True, default=datetime.datetime.now)
