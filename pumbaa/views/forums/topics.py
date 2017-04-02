@@ -38,6 +38,7 @@ def index():
 # @view_config(route_name='forums.topics.compose', 
 #              permission='member',
 #              renderer='/forums/topics/compose.mako')
+@module.route('/compose')
 def compose(request):
     form = forms.topics.Topic(request.POST)
     

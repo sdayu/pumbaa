@@ -15,18 +15,17 @@ from pumbaa import models
 
 module = Blueprint('forums.tags', __name__, url_prefix='/tags')
 
-# @view_config(route_name='forums.tags.index', renderer="/forums/tags/index.mako")
-def index(request):
+@module.route('/')
+def index():
     tags = models.Topic.objects.distinct('tags')
-    return dict(
+    return render_template('/forums/tags/index.jinja2',
                 tags=tags
             )
     
-# @view_config(route_name='forums.tags.list_contents', renderer="/forums/tags/list_contents.mako")
-def list_contents(request):
-    name = request.matchdict.get('name')
+@module.route('/<name>')
+def list_contents(name):
     topics = models.Topic.objects(tags=name, status='publish').all()
-    return dict(
+    return render_template('/forums/tags/list-contents.jinja2',
                 tag=name,
                 topics=topics
             )

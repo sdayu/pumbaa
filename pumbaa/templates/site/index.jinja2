@@ -5,10 +5,10 @@
 <div class="row">
     <div class="col m6">
         	<div>
-      			<a class="btn-floating red" title="Create new topic" href="${request.route_path('forums.topics.compose')}"><i class="material-icons">mode_edit</i></a>
-      			<a class="btn-floating yellow darken-1" title="All forums" href="${request.route_path('forums.index')}"><i class="material-icons">group_work</i></a>
-      		    <a class="btn-floating green" title="All topics" href="${request.route_path('forums.topics.index')}"><i class="material-icons">list</i></a>
-      		    <a class="btn-floating blue" title="All tags" href="${request.route_path('forums.tags.index')}"><i class="material-icons">label</i></a>
+            <a class="btn-floating red" title="Create new topic" href="{{ url_for('forums.topics.compose') }}"><i class="material-icons">mode_edit</i></a>
+            <a class="btn-floating yellow darken-1" title="All forums" href="{{ url_for('forums.index') }}"><i class="material-icons">group_work</i></a>
+            <a class="btn-floating green" title="All topics" href="{{ url_for('forums.topics.index') }}"><i class="material-icons">list</i></a>
+            <a class="btn-floating blue" title="All tags" href="{{ url_for('forums.tags.index') }}"><i class="material-icons">label</i></a>
   			</div>
 
     </div>

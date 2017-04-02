@@ -1,0 +1,17 @@
+{% extends "/base/topic-view.jinja2" %}
+{% block title %}List contents by tag: {{tag}}{% endblock %}
+<%block name="where_am_i">
+${parent.where_am_i()}
+<li><a href="${request.route_path('forums.tags.index')}">Tags</a></li>
+</%block>
+{% block topic_title %}Tag: {{ tag }}{% endblock %}
+
+{% block content %}
+		<ul class="collection">
+      {% for topic in topics %}
+		    <li class="collection-item">
+          <a href="{{ url_for('forums.topics.view', title=topic.title, topic_id=topic.id) }}">{{ topic.title }}</a>
+		    </li>
+      {% endfor %}
+    </ul>
+{% endblock %}
