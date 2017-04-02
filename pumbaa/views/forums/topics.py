@@ -17,8 +17,9 @@ module = Blueprint('forums.topics', __name__)
 
 # @view_config(route_name='forums.topics.index', 
 #              renderer='/forums/topics/index.mako')
-def index(request):
-    page = int(request.GET.get('page', 1))
+@module.route('/')
+def index():
+    page = int(request.args.get('page', 1))
     topics_per_page = 15
     
     topic_count = models.Topic.objects(status='publish').count()
@@ -28,7 +29,7 @@ def index(request):
     page = page if page <= pages else pages
     
     topics = models.Topic.objects(status='publish').order_by('-published_date').skip((page-1)*topics_per_page).limit(topics_per_page).all()
-    return dict(
+    return render_template('/forums/topics/index.jinja2',
                 topics=topics,
                 pages=pages,
                 page=page

@@ -1,11 +1,11 @@
-{% extends "/base/topic_view.jinja2" %}
+{% extends "/base/topic-view.jinja2" %}
  
 {% block title %}{{ topic.title }}{% endblock %}
 {% block keywords %}{{ ", ".join(topic.tags) }}{% endblock %}
 {% block description %}{{ topic.description[:200] }}{% endblock %}
 
 {% block breadcrumb %}
-	<a href="${request.route_path('forums.topics.index')}" class="breadcrumb">Topics</a>
+  <a href="{{ url_for('forums.topics.index') }}" class="breadcrumb">Topics</a>
 {% endblock %}
 
 {% block topic_title %}
@@ -27,7 +27,7 @@
     </article>
 	<div>
         {% for tag in topic.tags %}
-        <a class="waves-effect btn grey lighten-3 grey-text grey-text-darken-3"  href="${request.route_path('forums.tags.list_contents', name=tag)}">{{ tag }}</a></li>
+        <a class="waves-effect btn grey lighten-3 black-text"  href="${request.route_path('forums.tags.list_contents', name=tag)}">{{ tag }}</a></li>
         {% endfor %}
 	</div>
 </section>
@@ -38,7 +38,7 @@
     <b>{{ topic.author.get_display_name() }}</b> | {{ topic.published_date }} </p>
 {% endblock %}
 
-{% include "/base/social_integration.jinja2" %}
+{% include "/base/social-integration.jinja2" %}
 {% endblock %}
 
 {% block comments %}

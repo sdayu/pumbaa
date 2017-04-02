@@ -1,0 +1,23 @@
+{% extends "/base/topic-view.jinja2" %}
+
+{% block keywords %}Topics{% endblock %}
+{% block description %}There are many topics as follow: {{ topics[:10] | join(', ', attribute='title') }}{% endblock %}
+
+{% block title %}Topics Index{% endblock %}
+<%block name="where_am_i">
+	${parent.where_am_i()}
+	<li><a href="${request.route_path('forums.topics.index')}">Topics</a></li>
+</%block>
+{% block topic_title %}Topics{% endblock %}
+{% block content %}
+<ul class="collection">
+  {% for topic in topics %}
+    <li class="collection-item">
+      <a href="{{ url_for('forums.topics.view', title=topic.title, topic_id=topic.id) }}">{{ topic.title }}</a>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock content %}
+{% block topic_footer %}
+  <%include file="/base/pagination.mako" args="page=page,pages=pages"/>
+{% endblock %}

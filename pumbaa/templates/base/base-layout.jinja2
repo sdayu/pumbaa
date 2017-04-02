@@ -18,7 +18,7 @@
         System.import('css-framework').then(() => {
           System.import('main');
         });
-      {% endblock %}
+      {% endblock jsmodule%}
     </script>
 
     {% block additional_head %}{% endblock %}
@@ -29,17 +29,17 @@
       {% block header %}
         {% include "/base/toolbar.jinja2" %}
         {% include "/base/banner.jinja2" %}
-      {% endblock %}
+      {% endblock header %}
     </header>
 
     <main>
-      {% block main %}{% endblock %}
+      {% block main %}{% endblock main %}
     </main>
 
     <footer>
       {% block footer %}
         {% include "/base/footer.jinja2" %}
-      {% endblock %}
+      {% endblock footer %}
     </footer>
   </body>
 
