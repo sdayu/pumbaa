@@ -1,0 +1,37 @@
+{% extends "/base/base-layout.jinja2" %}
+
+{% block title %}Forums{% endblock %}
+{% block keywords %}CoE, PSU, Computer Engineering, Prince of Songkla University, Community{% endblock %}
+{% block description %}This site is for people in CoE{% endblock %}
+
+{% block main %}
+  <div class="container">
+    <div class="row">
+      <nav>
+        <div class="nav-wrapper light-blue darken-3">
+          <div class="col s12" style="padding-left:30px;">
+            <a href="{{ url_for('forums.index') }}" class="breadcrumb">Forums</a>
+            {% block breadcrumb %}{% endblock %}
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <h3>{%block topic_title %}Topic{% endblock %}</h3>
+      </div>
+    </div>
+
+    {%block topic_content %}
+    <div class="row">
+      <div class="col s12">
+        {%block content %}Content{% endblock %}
+      </div>
+    </div>
+    {% endblock topic_content %}
+
+    {% block topic_footer %}{% endblock %}
+    {% block comments %}{% endblock %}
+  </div>
+
+{% endblock main %}
