@@ -25,13 +25,13 @@ app.register_blueprint(tags.module, url_prefix=default_prefix+'/tags')
 app.register_blueprint(topics.module, url_prefix=default_prefix+'/topics')
 app.register_blueprint(feeds.module, url_prefix=default_prefix+'/feeds')
 
-# @view_config(route_name='forums.index', 
-#              renderer='/forums/forums/index.mako')
+from .. import topicutils
 @module.route('/')
 def index():
     forums = models.Forum.objects(status='publish').all()
-    return dict('/forums/forums/index.jinja2',
-                forums=forums
+    return render_template('/forums/forums/index.jinja2',
+                forums=forums,
+                topicutils=topicutils
                 )
     
 # @view_config(route_name='forums.view', 
@@ -58,6 +58,7 @@ def view(name):
     return render_template('/forums/forums/view.jinja2',
                 forum=forum,
                 topics=topics,
+                topicutils=topicutils,
                 page=page,
                 pages=pages
                 )

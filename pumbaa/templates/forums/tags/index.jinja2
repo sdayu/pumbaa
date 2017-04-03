@@ -1,18 +1,18 @@
 {% extends "/base/topic-view.jinja2" %}
 {% block title %}List all tags{% endblock %}
-<%block name="where_am_i">
-${parent.where_am_i()}
-<li><a href="${request.route_path('forums.tags.index')}">Tags</a></li>
-</%block>
-{% block panel_title %}All tags{% endblock %}
+
+{% block breadcrumb %}
+  <a href="{{ url_for('forums.tags.index') }}" class="breadcrumb">Tags</a>
+{% endblock breadcrumb %}
+
+{% block topic_title %}All tags{% endblock %}
+
 {% block content %}
-	  	<ul class="collection">
-        {% for tag in tags %}
-	   		<li class="collection-item">
-          <a href="{{ url_for('forums.tags.list_contents', name=tag) }}">
-            {{ tag }}
-				  </a>
-	   		</li>
-        {% endfor %}
-      </ul>
+  <ul class="collection">
+  {% for tag, no in tags.items() %}
+    <li class="collection-item"><a href="{{ url_for('forums.tags.list_contents', name=tag) }}">
+        {{ tag }} </a><span class="new badge" data-badge-caption="">{{ no }}</span></li>
+  {% endfor %}
+  </ul>
 {% endblock content %}
+

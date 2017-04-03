@@ -17,7 +17,11 @@ module = Blueprint('forums.tags', __name__, url_prefix='/tags')
 
 @module.route('/')
 def index():
-    tags = models.Topic.objects.distinct('tags')
+    tag_labels = models.Topic.objects.distinct('tags')
+    tags = dict()
+    for tag in tag_labels:
+        tags[tag] = models.Topic.objects(tags=tag, status='publish').count()
+
     return render_template('/forums/tags/index.jinja2',
                 tags=tags
             )

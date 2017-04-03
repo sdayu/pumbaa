@@ -1,14 +1,15 @@
-{#% extends "/forums/base/base.jinja2" %#}
-{% extends "/base/topic_view.jinja2" %}
+{% extends "/base/default-page.jinja2" %}
+{% import '/forums/topics/listview-small.jinja2' as listview_small with context %}
+
+
 
 {% block keywords %}{{ ", ".join(forum.tags) }}{% endblock %}
 {% block description %}{{ forum.description[:200] }}{% endblock %}
 {% block title %}{{ forum.name }}{% endblock %}
 
-<%block name="where_am_i">
-	${parent.where_am_i()}
-	<li><a href="${request.route_path('forums.view', name=forum.name)}">${forum.name}</a></li>
-</%block>
+{% block breadcrumb %}
+  <a href="{{ url_for('forums.view', name=forum.name) }}" class="breadcrumb">{{ forum.name }}</a>
+{% endblock %}
 
 {% block topic_title %}
     {{forum.name}}
@@ -25,13 +26,7 @@
     </div>
 </div>
 
-<ul class="collection">
-    {% for topic in topics %}
-    <li class="collection-item">
-        <a href="{{ url_for('forums.topics.view', title=topic.title,
-        topic_id=topic.id) }}">{{ topic.title }}</a>
-    </li>
-    {% endfor %}
-</ul>
+{{ listview_small.render_topic_list(topics=topics) }}
+
 {% include '/base/pagination.jinja2' with context %}
 {% endblock %}

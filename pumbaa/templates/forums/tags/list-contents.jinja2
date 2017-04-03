@@ -1,9 +1,11 @@
-{% extends "/base/topic-view.jinja2" %}
+{% extends "/base/default-page.jinja2" %}
 {% block title %}List contents by tag: {{tag}}{% endblock %}
-<%block name="where_am_i">
-${parent.where_am_i()}
-<li><a href="${request.route_path('forums.tags.index')}">Tags</a></li>
-</%block>
+
+{% block breadcrumb %}
+<a href="{{ url_for('forums.tags.index') }}" class="breadcrumb">Tags</a>
+<a href="{{ url_for('forums.tags.list_contents', name=tag) }}" class="breadcrumb">{{ tag }}</a>
+{% endblock %}
+
 {% block topic_title %}Tag: {{ tag }}{% endblock %}
 
 {% block content %}

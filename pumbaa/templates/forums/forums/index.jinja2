@@ -1,20 +1,25 @@
-{% extend '/forums/base/base.jinja2' %}
-<%block name="keywords">${", ".join(forum.name for forum in forums)}</%block>
-<%block name="description">${", ".join(forum.name for forum in forums)}</%block>
+{% extends "/base/default-page.jinja2" %}
+{% import '/forums/topics/listview-small.jinja2' as listview_small with context %}
 
-<%block name="title">Forum</%block>
 
-<%block name="panel_title">Forums</%block>
+{% block keywords %}{{ forums | join(', ', attribute='name') }}{% endblock %}
+{% block description %}{{ forums | join(', ', attribute='name') }}{% endblock %}
 
-% for forum in forums:
+{% block title %}Forum{% endblock %}
+
+{% block topic_title %}Forums{% endblock %}
+
+{% block content %}
+  {% for forum in forums %}
 	<div class="panel panel-info">
   		<div class="panel-heading">
-    		<h1 class="panel-title">
-    			<a href="${request.route_path('forums.view', name=forum.name)}">${forum.name}</a>
-    			<a href="${request.route_path('forums.feeds.forums', forum_name=forum.name)}"><img alt="Atom feed" src="/public/images/feed-icon.svg" width=15px/></a>
-    		</h1>
-  		</div>
-        <%include file="/forums/topics/listview-small.mako"
-                      args="topics=forum.get_topics(10)"/>
+    		<h3>
+          <a href="{{ url_for('forums.view', name=forum.name) }}">{{ forum.name }}</a>
+          <a href="{{ url_for('forums.feeds.feed', forum_name=forum.name) }}"><img alt="Atom feed" src="/static/images/feed-icon.svg" width=15px/></a>
+    		</h3>
+      </div>
+      {{ listview_small.render_topic_list(topics=forum.get_topics(10)) }}
 	</div>
-% endfor
+  {% endfor %}
+
+{% endblock %}
