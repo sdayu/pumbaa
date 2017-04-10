@@ -11,8 +11,11 @@ module = Blueprint('dashboard.topics', __name__)
 #              permission='member',
 #              renderer='/manager/topics/index.mako')
 @module.route('/')
+@login_required
 def index():
-    topics = models.Topic.objects(status__ne='delete', author=current_user).all()
+    user = current_user._get_current_object()
+    topics = models.Topic.objects(status__ne='delete',
+            author=user).all()
     return render_template('/dashboard/topics/index.jinja2',
             topics=topics
             )

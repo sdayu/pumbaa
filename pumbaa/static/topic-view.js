@@ -2,7 +2,7 @@ import showdown from "showdown";
 
 
 
-var converter = new showdown.Converter( { extensions: [ 'mathjax' ] } );
+var converter = new showdown.Converter();
 
 var text = document.getElementById('description').innerHTML;
 
