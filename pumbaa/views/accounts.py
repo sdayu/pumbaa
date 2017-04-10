@@ -86,7 +86,7 @@ def login():
 
             # headers = remember(request, str(user.id))
             if came_from == '/':
-                came_from = url_for('accounts.dashboard')
+                came_from = url_for('dashboard.index')
                 
             return redirect(came_from)
         else:
@@ -162,7 +162,7 @@ def online_login(provider_name):
             	    identity=Identity(str(user.id)))
 
         nextx = request.args.get('next')
-        return redirect(nextx or url_for('accounts.dashboard'))
+        return redirect(nextx or url_for('dashboard.index'))
         # The rest happens inside the template.
         # return render_template('/site/login-success.jinja2', result=result)
 
@@ -187,10 +187,10 @@ def logout():
 
 
 # @view_config(route_name='home', renderer='/accounts/home.mako', permission='login')
-@module.route('/dashboard')
-@login_required
-def dashboard():
-    return render_template('/accounts/dashboard.jinja2')
+# @module.route('/dashboard')
+# @login_required
+# def dashboard():
+#     return render_template('/accounts/dashboard.jinja2')
 
 # @view_config(route_name='accounts.add_online_account', renderer='/accounts/add_online_account.mako', permission='login')
 def add_online_account(request):

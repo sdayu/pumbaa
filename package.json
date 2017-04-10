@@ -9,6 +9,7 @@
       "jquery": "npm:jquery@^2.2.3",
       "materialicons": "github:jossef/material-design-icons-iconfont@^3.0.3",
       "materialize": "npm:materialize-css@^0.98.0",
+      "mathjax": "npm:mathjax@^2.7.0",
       "showdown": "github:showdownjs/showdown@^1.6.0"
     },
     "devDependencies": {

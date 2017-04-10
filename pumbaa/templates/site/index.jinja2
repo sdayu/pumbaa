@@ -45,9 +45,10 @@
                 </a>
             </h4>
 		  </div>
-
-           {{ listview_small.render_topic_list(topics=forum.get_topics(5)) }}
-		</div>
+      {% if forum %}
+        {{ listview_small.render_topic_list(topics=forum.get_topics(5)) }}
+      {% endif %}
+    </div>
         {# end forum #}
 		
 		<div>
@@ -70,8 +71,9 @@
                 forum_name=forum.name) }}"><img alt="Atom feed"
                 src="/static/images/feed-icon.svg" width=15px/></a></h4>
 		  </div>
-
-          {{ listview_small.render_topic_list(topics=forum.get_topics(10)) }}
+      {% if forum %}
+        {{ listview_small.render_topic_list(topics=forum.get_topics(10)) }}
+      {% endif %}
 		</div>
         {% endfor %}
         {## end topic in forums #}

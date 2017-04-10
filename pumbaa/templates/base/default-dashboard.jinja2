@@ -28,44 +28,23 @@ System.import('css-framework').then(() => {
 {% endblock header%}
 
 {% block main %}
-<div class="container">
-	<div class="row">
-		<div class="col-xs-4 col-sm-4 col-md-3 col-lg-3">
-			<nav>
-				<div class="list-group panel-primary">
-					<a class="list-group-item" class="active" href="${request.route_path('manager.users.approve')}">Approve users</a>
-					<a class="list-group-item" href="${request.route_path('manager.topics.index')}">Topic</a>
-					<a class="list-group-item" href="${request.route_path('manager.photo_albums.index')}">Photo Albums</a>
-					<a class="list-group-item" href="${request.route_path('manager.events.index')}">Events</a>
-					% if has_permission('topic', request.context, request):
-					<a class="list-group-item" href="${request.route_path('manager.topics.problem')}">Topic Problem</a>
-					% endif
-					% if has_permission('page', request.context, request):
-					<a class="list-group-item" href="${request.route_path('manager.pages.index')}">Pages</a>
-					% endif
-					% if has_permission('admin', request.context, request):
-					<a class="list-group-item" href="${request.route_path('admin.index')}">admin</a>
-					% endif
-				</div>
-			</nav>
-		</div>
-		<div class="col-xs-8 col-sm-8 col-md-9 col-lg-9">
-			## whare am i bar
-			<nav  class="navbar navbar-default" role="navigation">
-				<div class="container-fluid">
-					<div class="collapse navbar-collapse">
-						<ul class="nav navbar-nav">
-						  <%block name="where_am_i">
-						  <li style="margin-left:-25px;"><a href="${request.route_path('home')}"><i class="glyphicon glyphicon-home"></i></a></li>
-						  </%block>
-						</ul>
-					</div>
-				</div>
-			</nav>
-			
+    <div class="row">
+      <div class="col s12">
+        <nav>
+          <div class="nav-wrapper grey lighten-1">
+            <div class="col s12">
+              <a href="{{ url_for('dashboard.index') }}" class="breadcrumb">Dashboard</a>
+              {% block breadcrumb %}{% endblock breadcrumb %}
+            </div>
+          </div>
+        </nav> 
+      </div>
+    </div>
+    <div class="container">
       {% block content %}{% endblock %}
-		</div>
-	</div>
-</div>
+    </div>
+  {% endblock main %}
 
-{% endblock main %}
+  {% block footer %}
+    {% include "/base/footer.jinja2" %}
+  {% endblock %}

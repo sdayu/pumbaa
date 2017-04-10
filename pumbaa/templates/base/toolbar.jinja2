@@ -1,7 +1,7 @@
 
 {% macro navlink() -%}
   {% if current_user.is_authenticated %}
-    <li><a href="{{ url_for('accounts.dashboard') }}">Dashboard</a></li>
+    <li><a href="{{ url_for('dashboard.index') }}">Dashboard</a></li>
     <li><a href="{{ url_for('accounts.logout') }}">Logout</a></li>
   {% else %}
     <li><a href="{{ url_for('accounts.login') }}">Login</a></li>
