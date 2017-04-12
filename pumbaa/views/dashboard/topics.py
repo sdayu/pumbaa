@@ -7,11 +7,13 @@ from flask_login import login_required, current_user
 
 module = Blueprint('dashboard.topics', __name__)
 
+from . import dashboard_permission
+
 # @view_config(route_name='manager.topics.index', 
 #              permission='member',
 #              renderer='/manager/topics/index.mako')
 @module.route('/')
-@login_required
+@dashboard_permission.require()
 def index():
     user = current_user._get_current_object()
     topics = models.Topic.objects(status__ne='delete',

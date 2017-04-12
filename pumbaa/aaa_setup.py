@@ -23,4 +23,4 @@ def on_identity_loaded(sender, identity):
     # identity with the roles that the user provides
     if hasattr(current_user, 'roles'):
         for role in current_user.roles:
-            identity.provides.add(RoleNeed(role))
+            identity.provides.add(RoleNeed(role.name))

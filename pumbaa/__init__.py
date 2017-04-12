@@ -20,14 +20,14 @@ login_manager = LoginManager(app)
 
 # initial principal
 principals = Principal(app)
-admin_permission = Permission(RoleNeed('admin'))
-user_permission = Permission(RoleNeed('user'))
+# admin_permission = Permission(RoleNeed('admin'))
+# user_permission = Permission(RoleNeed('user'))
 
 from . import aaa_setup
 
 from authomatic import Authomatic
 from .authomatic_config import CONFIG
-authomatic = Authomatic(CONFIG, 'your secret string', report_errors=False)
+authomatic = Authomatic(CONFIG, app.secret_key, report_errors=False)
 from .views import *
 
 
