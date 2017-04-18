@@ -1,0 +1,71 @@
+{% extends '/base/default-dashboard.jinja2' %}
+
+<%block name="title">New Topic</%block>
+
+<%block name="where_am_i">
+	${parent.where_am_i()}
+	<li><a href="${request.route_path('forums.topics.index')}">Topics</a></li>
+</%block>
+
+{% block content %}
+  <form action="{{ request.path }}" method="post">
+  	<div class="row">
+      <div class="input-field col s12">
+      	{{ form.title(placeholder='Enter title') }}
+      	{{ form.title.label }}
+      </div>
+    </div>
+		<div class="row">
+      <div class="input-field col s12">
+      	{{ form.description(placeholder='Enter Description', class_="materialize-textarea", rows=10) }}
+      	{{ form.description.label }}
+      </div>
+    </div>
+		<div class="row">
+      <div class="input-field col s12">
+      {{ form.tags(placeholder='Enter tags: pumbaa, CoE, tag') }}
+      	{{ form.tags.label }}
+      </div>
+    </div>
+		<div class="row">
+      <div class="input-field col s12">
+        <button type="submit" class="btn btn-primary">Create topic</button>
+      </div>
+    </div>
+
+
+    <div class="form-group${' has-error' if form.title.errors else ''}">
+        <label for="title" class="control-label${' has-error' if form.title.errors else ''}">Title</label>
+        % if form.title.errors:
+        <span class="text-danger">: ${form.title.errors[0]}</span>
+      % endif
+      {{ form.title(class_='form-control', placeholder='Enter title') }}
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-lg-6">
+        <div id="wmd-button-bar"></div>
+        <div class="form-group${' has-error' if form.description.errors else ''}">
+            <label for="description" class="control-label${' has-error' if form.description.errors else ''}">Description</label>
+            {{ form.description(class_='form-control', placeholder='Enter description', rows='10', id="wmd-input") }}
+            <p style="margin-top: 10px;">
+             เขียน description ด้วย <a target="_blank" href="http://en.wikipedia.org/wiki/Markdown">MarkDown</a>
+            </p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-6">
+        <b>Preview</b>
+        <div id="wmd-preview" class="well well-sm"></div>
+      </div>
+    </div>
+    <div class="form-group${' has-error' if form.tags.errors else ''}">
+        <label for="tags" class="control-label${' has-error' if form.tags.errors else ''}">Tags</label> 
+        % if form.tags.errors:
+        <span class="text-danger">: ${form.tags.errors[0]}</span>
+      % endif
+      
+      {{ form.tags(class_='form-control', placeholder='Enter tags: pumbaa, CoE, tag') }}
+    </div>
+    <button type="submit" class="btn btn-primary">Create topic</button>
+  </form>
+{% endblock %}

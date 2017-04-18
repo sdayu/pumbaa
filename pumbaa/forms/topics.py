@@ -3,7 +3,8 @@ Created on Oct 18, 2013
 
 @author: boatkrap
 '''
-from wtforms import Form
+# from wtforms import Form
+from flask_wtf import Form
 from wtforms import fields
 from wtforms import validators
 

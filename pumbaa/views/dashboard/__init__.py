@@ -6,9 +6,6 @@ from flask import Blueprint, render_template
 from flask_login import login_required
 from flask_principal import Permission, RoleNeed
 
-dashboard_permission = Permission(RoleNeed('member'))
-admin_permission = Permission(RoleNeed('administrator'))
-
 
 from . import topics
 

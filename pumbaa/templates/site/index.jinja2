@@ -5,7 +5,7 @@
 <div class="row">
     <div class="col m6">
         	<div>
-            <a class="btn-floating red" title="Create new topic" href="{{ url_for('forums.topics.compose') }}"><i class="material-icons">mode_edit</i></a>
+            <a class="btn-floating red" title="Create new topic" href="{{ url_for('dashboard.topics.compose') }}"><i class="material-icons">mode_edit</i></a>
             <a class="btn-floating yellow darken-1" title="All forums" href="{{ url_for('forums.index') }}"><i class="material-icons">group_work</i></a>
             <a class="btn-floating green" title="All topics" href="{{ url_for('forums.topics.index') }}"><i class="material-icons">list</i></a>
             <a class="btn-floating blue" title="All tags" href="{{ url_for('forums.tags.index') }}"><i class="material-icons">label</i></a>
@@ -128,11 +128,11 @@
 		  </div>
 		</div>
         {% endif %}
-		<div class="panel panel-info">
+		<div class="panel panel-info" id="last-comments">
 		  <div class="panel-heading">
 		    <h4 class="panel-title">Last Comments </h4>
 		  </div>
-		  <div class="panel-body">
+		  <div class="panel-body" id="show-last-comments">
             {% set comments = [] %}
             {% for topic in last_comments_topics %}
                 {# set comments.append(topic.comments[-1]) #}
@@ -144,8 +144,8 @@
                             {{ topic.title }}
                         </a>
 					</div>
-                    <div id="{{ topic.comments[-1].id }}">
-                        {{ topic.comments[-1].message }}
+          <div id="comment-{{ topic.comments[-1].id }}">
+{{ topic.comments[-1].message }}
 					</div>
 					<div>
 						<div class="pull-left">
@@ -168,7 +168,11 @@
 		/*   comments.forEach(function(entry) {*/
 		/*       $(entry.id).html(converter.makeHtml(entry.message));*/
 		/*   });*/
-		/* });*/
+/* });*/
+/* var comments = document.getElementById("show-last-comments").querySelectorAll("div[id^=comment-]");*/
+/* comments.forEach(function(comment){*/
+/*   console.log(comment);*/
+/* });*/
 		</script>
 		
 	</div>

@@ -23,7 +23,7 @@ principals = Principal(app)
 # admin_permission = Permission(RoleNeed('admin'))
 # user_permission = Permission(RoleNeed('user'))
 
-from . import aaa_setup
+from . import acl
 
 from authomatic import Authomatic
 from .authomatic_config import CONFIG
