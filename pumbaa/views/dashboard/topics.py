@@ -10,13 +10,13 @@ from flask_login import login_required, current_user
 
 module = Blueprint('dashboard.topics', __name__)
 
-from pumbaa.acl import dashboard_permission
+# from pumbaa.acl import dashboard_permission
 
 # @view_config(route_name='manager.topics.index', 
 #              permission='member',
 #              renderer='/manager/topics/index.mako')
 @module.route('/')
-@dashboard_permission.require()
+# @dashboard_permission.require()
 def index():
     user = current_user._get_current_object()
     topics = models.Topic.objects(status__ne='delete',
@@ -60,7 +60,7 @@ def change_status():
 #              permission='member',
 #              renderer='/forums/topics/compose.mako')
 @module.route('/compose')
-@dashboard_permission.require()
+# @dashboard_permission.require()
 def compose():
     # form = forms.topics.Topic(request.form)
     

@@ -13,7 +13,7 @@ from pumbaa import models, forms
 import json
 import math
 
-module = Blueprint('forums.topics', __name__)
+module = Blueprint('forums.topics', __name__, url_prefix='/topics')
 
 # @view_config(route_name='forums.topics.index', 
 #              renderer='/forums/topics/index.mako')

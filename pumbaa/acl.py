@@ -1,36 +1,48 @@
-from flask_login import current_user
-from flask_principal import identity_loaded, RoleNeed, UserNeed, Permission
+from flask import redirect, url_for, session
+from flask_login import LoginManager, UserMixin
+from flask_principal import Principal, Permission, RoleNeed
 
-from . import app, login_manager
-from . import models
+class User(UserMixin):
+    def __init__(self, **kwargs):
+        self.data = kwargs
 
-admin_permission = Permission(RoleNeed('admin'))
-member_permission = Permission(RoleNeed('member'))
-staff_permission = Permission(RoleNeed('staff'))
-lecturer_permission = Permission(RoleNeed('lecturer'))
-moderator_permission = Permission(RoleNeed('moderator'))
-anonymous_permission = Permission(RoleNeed('anonymous'))
+    def __setattr__(self, name, value):
+        if name in ['data']:
+            self.__dict__[name] = value
+        else:
+            if '_' in name:
+                name = name.replace('_', '-')
+            self.data[name] = value
 
-dashboard_permission = Permission(RoleNeed('admin'), RoleNeed('member'))
+    def __getattr__(self, name):
+        nname = name.replace('_', '-')
+
+        if nname in self.data:
+            return self.data[nname]
+
+        if name in self.__dict__:
+            return self.__dict__[name]
+
+        raise AttributeError(name)
 
 
-@login_manager.user_loader
-def load_user(userid):
-    # Return an instance of the User model
-    user = models.User.objects.with_id(userid)
-    return user
+def init_acl(app):
+    # initial login manager
+    login_manager = LoginManager(app)
 
-@identity_loaded.connect_via(app)
-def on_identity_loaded(sender, identity):
-    # Set the identity user object
-    identity.user = current_user
+    # initial principal
+    principals = Principal(app)
+    admin_permission = Permission(RoleNeed('admin'))
+    user_permission = Permission(RoleNeed('user'))
 
-    # Add the UserNeed to the identity
-    if hasattr(current_user, 'id'):
-        identity.provides.add(UserNeed(current_user.id))
+    @login_manager.user_loader
+    def load_user(user_id):
+        if 'user' not in session:
+            return
+        user = User(**session['user'])
+        user.token = session.get('token', None)
+        return user
 
-    # Assuming the User model has a list of roles, update the
-    # identity with the roles that the user provides
-    if hasattr(current_user, 'roles'):
-        for role in current_user.roles:
-            identity.provides.add(RoleNeed(role.name))
+    @login_manager.unauthorized_handler
+    def unauthorized_callback():
+        return redirect(url_for('accounts.login'))

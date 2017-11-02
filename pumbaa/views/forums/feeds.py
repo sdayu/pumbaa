@@ -11,7 +11,7 @@ from pumbaa import models
 import datetime
 
 
-module = Blueprint('forums.feeds', __name__)
+module = Blueprint('forums.feeds', __name__, url_prefix='/feeds')
 
 @module.route('/')
 @module.route('/<forum_name>')

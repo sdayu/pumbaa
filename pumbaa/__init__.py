@@ -6,9 +6,8 @@ from flask_mongoengine import MongoEngine
 from flask_login import user_logged_in
 from flask_principal import Principal, Permission, RoleNeed
 from flask_login import LoginManager
-from flask_iniconfig import INIConfig
 
-app = Flask(__name__)
+# app = Flask(__name__)
 # app.config.from_pyfile('../development.cfg')
 # app.secret_key = 'super secret key'
 
@@ -16,19 +15,22 @@ app = Flask(__name__)
 # db = MongoEngine(app)
 
 # intial login
-login_manager = LoginManager(app)
+# login_manager = LoginManager(app)
 
 # initial principal
-principals = Principal(app)
+# principals = Principal(app)
 # admin_permission = Permission(RoleNeed('admin'))
 # user_permission = Permission(RoleNeed('user'))
 
-from . import acl
 
-from authomatic import Authomatic
-from .authomatic_config import CONFIG
-authomatic = Authomatic(CONFIG, app.secret_key, report_errors=False)
-from .views import *
+# from authomatic import Authomatic
+# from .authomatic_config import CONFIG
+# authomatic = Authomatic(CONFIG, app.secret_key, report_errors=False)
+
+from . import views
+from . import acl
+# from . import request_context
+
 
 
 # print(app.url_map)
@@ -49,6 +51,20 @@ from .views import *
 
 import optparse
 import os
+
+
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object('pumbaa.default_settings')
+    app.config.from_envvar('PUMBAA_SETTINGS', silent=True)
+
+    models.init_db(app)
+    views.register_blueprint(app)
+    acl.init_acl(app)
+    # request_context.init_request_context(app)
+    
+    return app
+
 
 def get_program_options(default_host='127.0.0.1',
         default_port='5000'):
@@ -104,4 +120,4 @@ def initial():
         app.config.from_inifile(config_file)
     db = MongoEngine(app)
 
-initial()
+# initial()

@@ -1,9 +1,12 @@
-from mongoengine import connect
+from flask_mongoengine import MongoEngine
 
 from .users import User, Role, Profile, Approver
 from .forums import Topic, Comment, Forum, TopicHistory
 from .photos import PhotoAlbum, Photo
 from .events import Event
 
-def initial(settings):
-    connect(settings.get('mongodb.db_name'), host=settings.get('mongodb.host'))
+
+db = MongoEngine()
+
+def init_db(app):
+    db.init_app(app)

@@ -47,7 +47,8 @@ setup(name='pumbaa',
       [paste.app_factory]
       main = pumbaa:main
       [console_scripts]
-      initialize_pumbaa_db = pumbaa.scripts.initializedb:main
+      initialize-pumbaadb = pumbaa.cmd.initializedb:main
+      pumbaa-web = pumbaa.cmd.web:main
 
       """,
       )

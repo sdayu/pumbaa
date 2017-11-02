@@ -7,7 +7,7 @@ from flask_principal import identity_changed, Identity, AnonymousIdentity
 import math
 import datetime
 
-from .. import authomatic
+# from .. import authomatic
 from pumbaa import models
 from pumbaa import forms
 

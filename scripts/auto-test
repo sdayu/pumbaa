@@ -1,0 +1,82 @@
+#!/usr/bin/env python
+
+import os
+import sys
+import time
+from watchdog.observers import Observer
+from watchdog.events import PatternMatchingEventHandler
+
+
+def when_file_changed(filename):
+    cls()
+    print(filename)
+    package = 'pumbaa'
+    basedir = os.path.dirname(filename).replace('./', '')
+    
+
+    basename = os.path.basename(filename)
+    # if basename.startswith('__') and basename.endswith('__.py'):
+    #     return # package file
+
+    if not basename.startswith('test_'):
+        test_filename = filename.replace(package, 'tests')\
+                .replace(basename, 'test_' + basename)
+
+        package = '{}.{}'.format(basedir.replace('/', '.'),
+                basename.replace('.py', ''))
+
+    else:
+        package = '{}.{}.{}'.format(package,
+                basedir.replace('tests/','').replace('/','.'),
+                basename.replace('test_','').replace('.py', ''))
+        test_filename=filename
+
+    nose = 'nosetests'
+    options = '--with-coverage --cover-erase --cover-package={package} ' \
+        '-v {test_filename}'.format(package=package,
+                test_filename=test_filename)
+    pep8 = 'flake8 {}'.format(filename)
+
+    cmd = nose + " " + options
+    print(pep8)
+    os.system(pep8)
+    print('-'*70)
+    
+    if not os.path.isfile(test_filename):
+        return
+
+    print(cmd)
+    os.system(cmd)
+
+
+def cls():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+
+class ModifiedHandler(PatternMatchingEventHandler):
+    patterns = ["*.py"]
+
+    def on_created(self, event):
+        when_file_changed(event.src_path)
+
+    def on_any_event(self, event):
+        pass
+
+    def on_modified(self, event):
+        pass
+
+if __name__ == '__main__':
+    args = sys.argv[1:]
+
+    event_handler = ModifiedHandler()
+    observer = Observer()
+    observer.schedule(event_handler,
+                      path=args[1] if args else '.', recursive=True)
+    observer.start()
+
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        observer.stop()
+    observer.join()

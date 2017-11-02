@@ -14,12 +14,14 @@ import tempfile
 
 from pumbaa import models
 
-from .. import app
 from . import photo_albums
 
-default_prefix = '/photo_album'
+url_prefix = '/photo_album'
 module = Blueprint('photos', __name__, url_prefix='/photos')
-app.register_blueprint(photo_albums.module, url_prefix=default_prefix)
+
+def register_blueprint(app):
+    app.register_blueprint(module)
+    app.register_blueprint(photo_albums.module, url_prefix=url_prefix)
 
  
 @module.route('/<photo_album_id>/<photo_id>')

@@ -13,17 +13,28 @@ from flask_principal import identity_changed, Identity, AnonymousIdentity
 from pumbaa import models
 import math
 
-
-from .. import app
 from . import tags
 from . import topics
 from . import feeds
 
-default_prefix = '/forums'
-module = Blueprint('forums', __name__, url_prefix=default_prefix)
-app.register_blueprint(tags.module, url_prefix=default_prefix+'/tags')
-app.register_blueprint(topics.module, url_prefix=default_prefix+'/topics')
-app.register_blueprint(feeds.module, url_prefix=default_prefix+'/feeds')
+url_prefix = '/forums'
+module = Blueprint('forums', __name__, url_prefix=url_prefix)
+
+def register_blueprint(app):
+    app.register_blueprint(module)
+
+    for view in [tags,
+                 topics,
+                 feeds]:
+
+        if 'register_blueprint' in dir(view):
+            view.register_blueprint(app, url_prefix)
+        else:
+            app.register_blueprint(
+                view.module,
+                url_prefix=url_prefix + view.module.url_prefix)
+
+
 
 from .. import topicutils
 @module.route('/')
