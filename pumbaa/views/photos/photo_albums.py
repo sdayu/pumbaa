@@ -37,7 +37,7 @@ def photo_view(photo_album_id, photo_id):
     
     photo_album = models.PhotoAlbum.objects.with_id(photo_album_id)
     photo, pprevious, pnext = photo_album.get_photo_index(photo_id)
-    return render_template('/photos/photo_albums/photo_view.jinja2',
+    return render_template('/photos/photo_albums/photo-view.jinja2',
                 photo_album=photo_album,
                 photo=photo,
                 pprevious=pprevious,

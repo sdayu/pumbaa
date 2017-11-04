@@ -1,4 +1,4 @@
-{% extends '/base/topic_view.jinja2' %}
+{% extends '/base/topic-view.jinja2' %}
 
 {% block title %}{{ photo_album.name + ": " + photo.image.filename }}{% endblock %}
 {% block description %}{{ photo.caption if photo.caption|count > 0 else
