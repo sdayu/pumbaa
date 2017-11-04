@@ -67,7 +67,8 @@ def login():
         username = form.data.get('username')
         password = form.data.get('password')
         came_from = form.data.get('came_from')
-        
+
+        print('current app: ', current_app.config) 
         from pumbaa import crypto
         sm = crypto.SecretManager(current_app.config.get('SECRET_KEY'))
 

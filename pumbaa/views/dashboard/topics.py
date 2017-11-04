@@ -8,7 +8,8 @@ from pumbaa import forms
 from flask import Blueprint, render_template, request
 from flask_login import login_required, current_user
 
-module = Blueprint('dashboard.topics', __name__)
+
+module = Blueprint('dashboard.topics', __name__, url_prefix="")
 
 # from pumbaa.acl import dashboard_permission
 
