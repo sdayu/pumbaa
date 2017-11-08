@@ -1,31 +1,31 @@
 {% extends "/base/default-page.jinja2" %}
 
 {% block title %}Photo Albums{% endblock %}
-{#% block description %}Photo Albums: {{ ", ".join([photo_album.name for photo_album in photo_albums]) }}{% endblock %#}
-{#
-<%block name="where_am_i">
-<li><a href="${request.route_path('photos.photo_albums.index')}">Photo Albums</a></li>
-</%block>
-<%block name="panel_title">Photo Albums</%block>
-#}
+{% block description %}Photo Albums: {{ photo_albums | join(", ", attribute='name') }}{% endblock %}
+
+{% block breadcrumb %}<a href="{{ url_for('photos.photo_albums.index') }}" class="breadcrumb">Photo Albums</a>{% endblock %}
 {% block topic_title %}Photo Albums{% endblock %}
 {% block content %}
 <div class="row">
   {% for photo_album in photo_albums %}
     {% if photo_album.photos | count > 0 %}
-  <div class="col s3">
-    <div class="thumbnail">
-      <a href="{{url_for('photos.photo_albums.view', photo_album_id=photo_album.id)}}">
-        <img src="{{url_for('photos.thumbnail', photo_album_id=photo_album.id, photo_id=photo_album.photos[0].image.filename)}}" alt="{{photo_album.name}}" width="100%">
-      </a>
-      <div class="caption">
-        <h3>{{photo_album.name}}</h3>
-        <p>{{photo_album.description}}</p>
-        <p><a href="{{url_for('photos.photo_albums.view', photo_album_id=photo_album.id)}}" class="btn btn-primary" role="button">ชมภาพ</a></p>
+      <div class="col s3" style="display: inline-flex;">
+        <div class="card">
+          <div class="card-image">
+            <a href="{{url_for('photos.photo_albums.view', photo_album_id=photo_album.id)}}">
+              <img src="{{url_for('photos.thumbnail', photo_album_id=photo_album.id, photo_id=photo_album.photos[0].image.filename)}}" alt="{{photo_album.name}}" width="100%">
+            </a>
+          </div>
+          <div class="card-content">
+            <span class="card-title">{{photo_album.name}}</span>
+            <p>{{photo_album.description}}</p>
+          </div>
+          <div class="card-action">
+            <a href="{{url_for('photos.photo_albums.view', photo_album_id=photo_album.id)}}">ชมภาพ</a>
+          </div>
+        </div>
       </div>
-     </div>
-  </div>
-{% endif %}
-{% endfor %}
+    {% endif %}
+  {% endfor %}
 </div>
 {% endblock %}

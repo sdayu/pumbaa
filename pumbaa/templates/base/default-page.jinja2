@@ -10,8 +10,9 @@
       <nav>
         <div class="nav-wrapper light-blue darken-3">
           <div class="col s12" style="padding-left:30px;">
+            {% block breadcrumb %}
             <a href="{{ url_for('forums.index') }}" class="breadcrumb">Forums</a>
-            {% block breadcrumb %}{% endblock %}
+            {% endblock %}
           </div>
         </div>
       </nav>

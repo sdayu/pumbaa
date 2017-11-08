@@ -5,6 +5,7 @@
 {% block description %}{{ topic.description[:200] }}{% endblock %}
 
 {% block breadcrumb %}
+  {{ super() }}
   <a href="{{ url_for('forums.topics.index') }}" class="breadcrumb">Topics</a>
   <a href="{{ url_for('forums.topics.view', topic_id=topic.id, title=topic.title) }}" class="breadcrumb">{{ topic.title }}</a>
 {% endblock %}

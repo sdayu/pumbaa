@@ -4,10 +4,12 @@
 {% block description %}There are many topics as follow: {{ topics[:10] | join(', ', attribute='title') }}{% endblock %}
 
 {% block title %}Topics Index{% endblock %}
-<%block name="where_am_i">
-	${parent.where_am_i()}
-	<li><a href="${request.route_path('forums.topics.index')}">Topics</a></li>
-</%block>
+
+{% block breadcrumb %}
+  {{ super() }}
+  <a href="{{ url_for('forums.topics.index') }}" class="breadcrumb">Topics</a>
+{% endblock %}
+
 {% block topic_title %}Topics{% endblock %}
 {% block content %}
 <ul class="collection">

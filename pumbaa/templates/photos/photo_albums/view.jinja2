@@ -12,11 +12,11 @@
 	<p class="text-primary">
     {{ photo_album.description }}
 	</p>
-	% if hasattr(photo_album, 'event_date') and photo_album.event_date is not None:
+  {% if photo_album.event_date is defined and photo_album.event_date is not none %}
 	<p class="text-primary">
-		เหตุการณ์นี้เกิดขึ้นเมื่อ ${photo_album.event_date.date()}
+  เหตุการณ์นี้เกิดขึ้นเมื่อ {{photo_album.event_date.date()}}
 	</p>
-	% endif
+{% endif %}
 </div>
 
 {% for photo in photo_album.photos %}
