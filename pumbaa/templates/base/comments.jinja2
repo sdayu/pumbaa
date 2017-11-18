@@ -76,9 +76,11 @@ document.addEventListener('DOMContentLoaded',function() {
 
 <section title="Share your opinion" class="well">
 {% if current_user %}
+  {#
     % if request.user.get_role('anonymous'):
         คุณยังไม่มีสิทธิ์ใช้งานส่วนแสดงความคิดเห็น กรุณาติดต่อสมาชิกที่รู้จักเพื่อยืนยันว่าคุณเป็นส่วนหนึ่งของ CoE
-    % else:
+        % else:
+  #}
     <form action="${comment_url}" method="post">
         <div class="row">
             <div class="col-md-1 col-lg-1">
