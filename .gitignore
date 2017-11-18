@@ -1,6 +1,7 @@
 *.ini
 *.pyc
 *.egg*
+*.cfg
 __pycache__
 pumbaa/static/jspm_packages
 pumbaa/static/config.js

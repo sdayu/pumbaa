@@ -26,10 +26,10 @@
 <section>
 	<article title="topic description" id="description" style="font-size: 18px;">
 {{ topic.description }}
-    </article>
+  </article>
 	<div>
         {% for tag in topic.tags %}
-        <a class="waves-effect btn grey lighten-3 black-text"  href="${request.route_path('forums.tags.list_contents', name=tag)}">{{ tag }}</a></li>
+          <a class="waves-effect btn grey lighten-3 black-text"  href="{{ url_for('forums.tags.list_contents', name=tag) }}">{{ tag }}</a></li>
         {% endfor %}
 	</div>
 </section>
