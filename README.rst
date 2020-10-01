@@ -1,4 +1,4 @@
-Pumbaa
+Pumbaa an amazing product
 ======
 Welcome to *Pummba*, the awesome CoE family. 
 We're going to bring our community back. 
